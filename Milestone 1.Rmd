@@ -5,26 +5,27 @@ date: "01/03/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+# Task 1: Choosing a dataset
 
-## R Markdown
+We chose the ____ data set to analyze for the group project.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Task 2. Project Proposal and EDA
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## 2.1 Introduce and describe your dataset
 
-```{r cars}
-summary(cars)
-```
+Who: Which company/agency/organization provided this data?
+What: What is in your data?
+When: When was your data collected (for example, for which years)?
+Why: What is the purpose of your dataset? Is it for transparency/accountability, public interest, fun, learning, etc…
+How: How was your data collected? Was it a human collecting the data? Historical records digitized? Server logs?
 
-## Including Plots
+Additional Guidance: Your audience is fellow data scientists. You probably will not need more than 150 words to describe your dataset. All the questions above do not need to be answered, it’s more to guide your exploration and think a little bit about the context of your data. It is also possible you will not know the answers to some of the questions above, that is FINE - data scientists are often faced with the challenge of analyzing data from unknown sources. Do your best, acknowledge the limitations of your data as well as your understanding of it. Also, make it clear what you’re speculating about. For example, “I speculate that the {…column_name…} column must be related to {….} because {….}.”
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Task 2.2: Load your dataset (from a file or URL).
+Remember that others will be running your analysis notebook so it’s important that the data is accessible to them.
+If your dataset isn’t accessible as a URL, make sure to commit it directly into your repo.
+Task 2.3: Explore your dataset
+Perform some exploratory data analysis (EDA) to understand your dataset better. Some questions to consider:
+How many variables are present?
+What is the range of values for each variable?
+Make some plots (3-5) of the relationships between cretain variables of interest.
