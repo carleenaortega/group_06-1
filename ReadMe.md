@@ -6,7 +6,7 @@ You will find our milestone activitities in this repo as follows:
 
 |Milestone|Status|Link|
 | ----------- | ----------- | ----------- |
-|1|In Progress| |
+|1|In Progress||
 
 # Acknowledgement
 
