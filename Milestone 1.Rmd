@@ -44,12 +44,20 @@ How: The census data was collected by humans.
 
 ## Task 2.2: Load your dataset (from a file or URL).
 ```{r}
-adult_income <- read_csv('adult.data.csv')
+adult_income <- read_csv('adult_data.csv')
 ```
 
 ## Task 2.3: Explore your dataset
 Perform some exploratory data analysis (EDA) to understand your dataset better. Some questions to consider:
+
 How many variables are present?
+To determine how many variables are present, we use the `ncol()` function:
+```{r}
+ncol(adult_income)
+```
+It shows that there are 15 columns, which means that there are 15 variables.
+
+
 What is the range of values for each variable?
 Make some plots (3-5) of the relationships between cretain variables of interest.
 
