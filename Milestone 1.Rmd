@@ -8,6 +8,7 @@ output:
     toc: true
     keep_md: yes
 ---
+
 ```{r, include=FALSE}
 library(ggplot2)
 library(here)
@@ -23,8 +24,6 @@ data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
                         "country"=X14,"income"=X15) %>%    #give appropriate column names
   mutate(income=recode(income, ">50K"="over_50K", "<=50K"="under_50K")) %>%
   mutate_at(c("workclass","education","marital_status","occupation","relationship","race","sex","country"), funs(recode(., "?" = "NA")))   #replace "?" with NAs in categorical variables
-
-```
 
 # Task 1: Choosing a dataset
 
@@ -59,8 +58,8 @@ How: The census data was collected by humans.
 
 
 ## Task 2.2: Load your dataset (from a file or URL).
-```{r}
-adult_income <- read_csv('adult.data.csv')
+```{r, warning=FALSE, message=FALSE}
+adult_income <- read_csv("adult_data.csv", col_names=FALSE)
 ```
 
 ## Task 2.3: Explore your dataset
@@ -78,8 +77,19 @@ What is the range of values for each variable?
 Make some plots (3-5) of the relationships between cretain variables of interest.
 =======
 
+```{r, include=FALSE}
+data <- adult_income %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
+                        "education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,
+                        "race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,
+                        "country"=X14,"income"=X15) %>%    #give appropriate column names
+  mutate(income=recode(income, ">50K"="over_50K", "<=50K"="under_50K")) %>%
+  mutate_at(c("workclass","education","marital_status","occupation","relationship","race","sex","country"), funs(recode(., "?" = "NA")))   #replace "?" with NAs in categorical variables
+```
+
+
+
 Distribution of age for men and women:
-```{r}
+```{r, warning=FALSE, message=FALSE}
 df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))
 
 
@@ -95,7 +105,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
 
 
 Proportion of people making >50K a year for men and women, by race:
-```{r}
+```{r, warning=FALSE, message=FALSE}
 df <- data %>% select(sex,education_num,income,race)
 df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
 df$educ[df$education_num >= 10] <- "HS"  #for High School

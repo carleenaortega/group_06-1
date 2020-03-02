@@ -9,8 +9,6 @@ output:
     keep_md: yes
 ---
 
-
-
 ```r
 data <- read_csv("adult.data.csv", col_names=FALSE)
 ```
@@ -62,7 +60,9 @@ data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
 
 # Task 1: Choosing a dataset
 
-We chose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
+
+We chose [the Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
+
 
 # Task 2. Project Proposal and EDA
 
@@ -95,6 +95,7 @@ How: The census data was collected by humans.
 ## Task 2.2: Load your dataset (from a file or URL).
 
 ```r
+
 adult_income <- read_csv('adult.data.csv')
 ```
 
@@ -138,6 +139,11 @@ It shows that there are 15 columns, which means that there are 15 variables.
 What is the range of values for each variable?
 Make some plots (3-5) of the relationships between cretain variables of interest.
 =======
+=======
+adult_income <- read_csv("adult_data.csv", col_names=FALSE)
+```
+
+## Task 2.3: Explore your dataset
 
 Distribution of age for men and women:
 
@@ -155,6 +161,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
+
 ```
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
@@ -167,6 +174,7 @@ Proportion of people making >50K a year for men and women, by race:
 ```r
 df <- data %>% select(sex,education_num,income,race)
 df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
+
 ```
 
 ```
@@ -174,6 +182,7 @@ df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
 ```
 
 ```r
+=======
 df$educ[df$education_num >= 10] <- "HS"  #for High School
 
 df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,educ,sex) %>% tally() %>%
@@ -185,6 +194,7 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   facet_wrap(~race) +
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
+
 
 ![](Milestone-1_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
