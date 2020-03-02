@@ -11,6 +11,57 @@ output:
 
 
 
+
+```r
+data <- read_csv("adult.data.csv", col_names=FALSE)
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   X1 = col_double(),
+##   X2 = col_character(),
+##   X3 = col_double(),
+##   X4 = col_character(),
+##   X5 = col_double(),
+##   X6 = col_character(),
+##   X7 = col_character(),
+##   X8 = col_character(),
+##   X9 = col_character(),
+##   X10 = col_character(),
+##   X11 = col_double(),
+##   X12 = col_double(),
+##   X13 = col_double(),
+##   X14 = col_character(),
+##   X15 = col_character()
+## )
+```
+
+```r
+data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
+                        "education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,
+                        "race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,
+                        "country"=X14,"income"=X15) %>%    #give appropriate column names
+  mutate(income=recode(income, ">50K"="over_50K", "<=50K"="under_50K")) %>%
+  mutate_at(c("workclass","education","marital_status","occupation","relationship","race","sex","country"), funs(recode(., "?" = "NA")))   #replace "?" with NAs in categorical variables
+```
+
+```
+## Warning: funs() is soft deprecated as of dplyr 0.8.0
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once per session.
+```
+=======
+>>>>>>> upstream/master
 # Task 1: Choosing a dataset
 We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
 
@@ -25,11 +76,11 @@ How: The census data was collected by humans.
 
 |Variable|Type|Description|
 |--------|-------|------|
-|age|||
-|workclass|||
-|education|||
-|educationnum|||
-|marital_status|||
+|age|int||
+|workclass|string||
+|educationnum|string||
+|education|int||
+|marital_status|int||
 |occupation|||
 |relationship|||
 |race|||
@@ -89,6 +140,25 @@ nrow(data)
 ```
 ## [1] 32561
 ```
+
+It shows that there are 15 columns, but only 14 variables. And these variables are as follows (education and education_num are similar):
+
+```r
+colnames(data)
+```
+
+```
+##  [1] "age"            "workclass"      "fnlwgt"         "education"     
+##  [5] "education_num"  "marital_status" "occupation"     "relationship"  
+##  [9] "race"           "sex"            "capital_gain"   "capital_loss"  
+## [13] "hours_per_week" "country"        "income"
+```
+
+What is the range of values for each variable?
+
+
+Make some plots (3-5) of the relationships between certain variables of interest.
+
 There are 15 variables, and 32461 observations (people)
 
 What is the range of values for each numerical variable?
@@ -118,8 +188,7 @@ sum_df
 ## Standard Deviation 13.64      2.57 12.35        13.64         2.57
 ## Number NAs          0.00      0.00  0.00         0.00         0.00
 ```
-
-
+s
 
 
 How many unqiue values and NAs in each categorical variable:
@@ -139,14 +208,16 @@ categorical_df
 ```
 
 ```
-##               Work_Class Marital_Status Occupation Relationship Race Country
-## Unqiue Values         73              7         14            6    5      41
-## Number NAs          1836              0       1843            0    0     583
+##               Work_Class Marital_Status Occupation Relationship Race
+## Unqiue Values         73              7         14            6    5
+## Number NAs          1836              0       1843            0    0
+##               Country
+## Unqiue Values      41
+## Number NAs        583
 ```
 
 
 Plotting Data
-=======
 
 Distribution of age for men and women:
 
@@ -164,7 +235,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](Milestone-1_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 
 Proportion of people making >50K a year for men and women, by race:
@@ -184,15 +255,37 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](Milestone-1_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
+The number of hours worked based on marital status grouped by race:
 
+```r
+data %>% 
+  select(hours_per_week,race,marital_status)%>%
+  mutate(marital_status = case_when( 
+    marital_status == c("Married-AF-spouse","Married-civ-spouse","Married-spouse-absent") ~ "Married",
+    TRUE ~ "Single")) %>%
+  ggplot()+
+  geom_boxplot(aes(marital_status,hours_per_week)) +
+  labs(x="Marital Status",y="Hours Worked per Week",
+    title="The Relationship between Marital Status and Work Hours")+
+  facet_wrap(~race)+
+  theme_bw()
+```
+
+```
+## Warning in marital_status == c("Married-AF-spouse", "Married-civ-spouse", :
+## longer object length is not a multiple of shorter object length
+```
+
+![](Milestone-1_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
-Below are some descriptions of descriptive or exploratory research questions, adapted by Dr. Timbers from the Art of Data Science by Roger Pengand Elizabeth Matsui. 
+
+In this analysis, we seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year.
 
 *Exploratory Research Questions* 
 
-2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?)
+2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?) # WE don't need this, right?
