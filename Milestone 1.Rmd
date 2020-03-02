@@ -33,7 +33,7 @@ How: The census data was collected by humans.
 
 ## Task 2.2: Load your dataset (from a file or URL).
 ```{r}
-read_csv(group_06/adult.data.csv)
+adult_income <-read_csv('https://github.com/STAT547-UBC-2019-20/group_06/blob/master/adult.data.csv')
 ```
 
 
