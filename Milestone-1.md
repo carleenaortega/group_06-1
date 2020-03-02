@@ -279,8 +279,6 @@ data %>%
 
 
 ## Task 2.4: Research question & plan of action
-_With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory._ 
-
 
 In this analysis, we seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year.
 
@@ -288,8 +286,10 @@ In this analysis, we seek to determine the difference in socioeconomic factors s
 1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? \
 2. Is marital status correlated wtih education level?
 
+**Plan**
+
 
 _Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?)_ 
 
-**INSERT PLAN HERE**
+
 
