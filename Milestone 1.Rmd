@@ -44,8 +44,9 @@ How: The census data was collected by humans.
 
 ## Task 2.2: Load your dataset (from a file or URL).
 ```{r}
-adult_income<-read_csv('https://github.com/STAT547-UBC-2019-20/group_06/blob/master/adult.data.csv')
+adult_income <- read_csv('https://github.com/STAT547-UBC-2019-20/group_06/blob/master/adult_data.csv')
 ```
+
 ## Task 2.3: Explore your dataset
 Perform some exploratory data analysis (EDA) to understand your dataset better. Some questions to consider:
 How many variables are present?
