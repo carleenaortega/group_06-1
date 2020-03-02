@@ -7,7 +7,7 @@ output: html_document
 
 # Task 1: Choosing a dataset
 
-We chose the ____ data set to analyze for the group project.
+We chose the Adult Income data set to analyze for the group project.
 
 # Task 2. Project Proposal and EDA
 
