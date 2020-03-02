@@ -12,7 +12,7 @@ output:
 
 
 # Task 1: Choosing a dataset
-We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
+We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project. 
 \
 \
 \
@@ -21,27 +21,30 @@ We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data
 ## 2.1 Introduce and describe your dataset
 
 Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics \
-What: The data set contains the predicted income of individuals from the census based on attributes including age, marital status, work class, education, sex, and race. \
+What: This is a multivariate dataset with categorical and integer variables. It contains the predicted income of individuals from the census with attributes including age, marital status, work class, education, sex, and race. \
 When: The data is from a 1994 census. \
-Why: The data set is found in the University of California Irvine Machine Learning Repository so it is primarily used for learning. \
-How: The census data was collected by humans.
+Why: The data set is found in the University of California Irvine Machine Learning Repository, and was used for ML prediction of whether a person makes over or under 50K a year based on their attributes. \
+How: The census data was collected by survey. \
 \
+
 
 |Variable|Type|Description|
 |--------|-------|------|
 |age|int|Age of individual|
-|workclass|string||
-|education|string|Highest education recieved|
-|educationnum|int|Numerical code for highest education recieved|
-|marital_status|int|married, never married, divorced, etc.|
-|occupation||Occupation of individual|
-|race|||
-|sex||Male or Female|
-|capital_gain|||
-|capital_loss|||
+|workclass|chr|e.g. private, self-emplowed, federal government, never worked, etc.|
+|fnlwgt|int|Final weights: weighted sums of the socio-economic characteristics of the individual. People with similar demographics have similar weights. |
+|education|chr|Highest education recieved|
+|educationnum|factor|Numerical code for highest education recieved|
+|marital_status|int|e.g. married, never married, divorced, etc.|
+|occupation|chr|Occupation of individual|
+|relationship|chr|Relation of individual in family. e.g. wife, child, husband, unmarried|
+|race|chr|Asian-Pacific Islander, Native American, White, Black, other|
+|sex|chr|Male or Female|
+|capital_gain|int|Profit from capital assets such as investments, real estate, etc.|
+|capital_loss|int|Loss from capital assets|
 |hours_per_week||Hours the individual works per week|
-|country||Country of origin|
-|income||over or under 50K|
+|country|chr|Country of origin|
+|income|chr|Whether individual is predicted to make over or under 50K|
 
 \
 \
@@ -279,10 +282,19 @@ data %>%
 
 
 ## Task 2.4: Research question & plan of action
-1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
+_With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory._ \
+\
 
 In this analysis, we seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year.
 
-*Exploratory Research Questions* 
+**Research Questions** \
+1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? \
+2. Is marital status correlated wtih education level?
+\
+\
+\
 
-2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?) # WE don't need this, right?
+_Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?)_ 
+
+**INSERT PLAN HERE**
+
