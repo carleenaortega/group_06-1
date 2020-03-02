@@ -24,17 +24,17 @@ Who: The data set was extracted by Barry Becker from the 1994 Census database an
 What: The data set contains the predicted income of individuals from the census based on attributes including age, marital status, work class, education, sex, and race. \
 When: The data is from a 1994 census. \
 Why: The data set is found in the University of California Irvine Machine Learning Repository so it is primarily used for learning. \
-How: The census data was collected by humans.\
+How: The census data was collected by humans.
+\
 
 |Variable|Type|Description|
 |--------|-------|------|
-|age||Age of individual|
-|workclass|||
-|education||Highest education recieved|
-|educationnum||Numerical code for highest education recieved|
-|marital_status||married, never married, divorced, etc.|
+|age|int|Age of individual|
+|workclass|string||
+|education|string|Highest education recieved|
+|educationnum|int|Numerical code for highest education recieved|
+|marital_status|int|married, never married, divorced, etc.|
 |occupation||Occupation of individual|
-|relationship|||
 |race|||
 |sex||Male or Female|
 |capital_gain|||
@@ -54,15 +54,21 @@ adult_income <- read_csv("adult.data.csv", col_names=FALSE)
 ```
 
 
+```r
+#To add appropriate column names and change "?" to "NA", and change eduction number to factor
+
+data <- adult_income %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
+                        "education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,
+                        "race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,
+                        "country"=X14,"income"=X15) %>%    #give appropriate column names
+  mutate(income=recode(income, ">50K"="over_50K", "<=50K"="under_50K")) %>%
+  mutate_at(vars("workclass","education","marital_status","occupation","relationship","race","sex","country"), na_if, "?")  
+data$education_num <-as.factor(data$education_num)
+```
 
 
 ```r
 head(as.tibble(data))
-```
-
-```
-## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
-## This warning is displayed once per session.
 ```
 
 ```
@@ -84,7 +90,8 @@ head(as.tibble(data))
 
 
 ## Task 2.3: Explore your dataset
-Perform some exploratory data analysis (EDA) to understand your dataset better. \
+Perform some exploratory data analysis (EDA) to understand your dataset better. 
+\
 \
 
 
@@ -109,9 +116,25 @@ There are 15 variables, and 32461 observations (people) \
 \
 \
 
+
+It shows that there are 15 columns, but only 14 variables. And these variables are as follows (education and education_num are similar):
+
+```r
+colnames(data)
+```
+
+```
+##  [1] "age"            "workclass"      "fnlwgt"         "education"     
+##  [5] "education_num"  "marital_status" "occupation"     "relationship"  
+##  [9] "race"           "sex"            "capital_gain"   "capital_loss"  
+## [13] "hours_per_week" "country"        "income"
+```
+
+
+There are 15 variables, and 32461 observations (people)
+
 **What is the range of values for each numerical variable?** \
 _Note: Education_Number is a factor, as it is a numerical code for education. But here will change to integer first and treat as integer_
-
 
 ```r
 sum_df <-data.frame(Age=integer(),Education=integer(),Hours=integer(),Capital_Gain=integer(),Capital_Loss=integer())
@@ -138,6 +161,7 @@ sum_df
 ## Standard Deviation 13.64      2.57 12.35        13.64         2.57
 ## Number NAs          0.00      0.00  0.00         0.00         0.00
 ```
+
 \
 \
 
@@ -167,8 +191,7 @@ categorical_df
 \
 
 Plotting Data
-=======
-
+============
 
 **Distribution of age for men and women:**
 
@@ -235,11 +258,31 @@ data_3 %>% mutate(Age_level =fct_relevel(Age_level,"Under 20")) %>%
 \
 \
 
+**The number of hours worked based on marital status grouped by race:**
+
+```r
+data %>% 
+  select(hours_per_week,race,marital_status)%>%
+  mutate(marital_status = case_when( 
+    marital_status == c("Married-AF-spouse","Married-civ-spouse","Married-spouse-absent") ~ "Married",
+    TRUE ~ "Single")) %>%
+  ggplot()+
+  geom_boxplot(aes(marital_status,hours_per_week), outlier.size=0.2) +
+  labs(x="Marital Status",y="Hours Worked per Week",
+    title="The Relationship between Marital Status and Work Hours")+
+  facet_wrap(~race)+ 
+  theme_bw()
+```
+
+![](Milestone-1_files/figure-html/Plot4-1.png)<!-- -->
+
+
 
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
-Below are some descriptions of descriptive or exploratory research questions, adapted by Dr. Timbers from the Art of Data Science by Roger Pengand Elizabeth Matsui. 
+
+In this analysis, we seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year.
 
 *Exploratory Research Questions* 
 
-2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?)
+2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?) # WE don't need this, right?
