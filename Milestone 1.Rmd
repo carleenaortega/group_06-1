@@ -11,7 +11,10 @@ output:
 
 ```{r setup, include=FALSE}
 getwd()
-library(knitr)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(here))
+suppressPackageStartupMessages(library(knitr))
+
 ```
 
 # Task 1: Choosing a dataset
@@ -29,7 +32,9 @@ Why: The data set is found in the University of California Irvine Machine Learni
 How: The census data was collected by humans.
 
 ## Task 2.2: Load your dataset (from a file or URL).
-read
+```{r}
+read_csv(group_06/adult.data.csv)
+```
 
 
 ## Task 2.3: Explore your dataset
