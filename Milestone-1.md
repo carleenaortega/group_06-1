@@ -13,33 +13,39 @@ output:
 
 # Task 1: Choosing a dataset
 We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
+\
+\
+\
 
 # Task 2. Project Proposal and EDA
 ## 2.1 Introduce and describe your dataset
 
-Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics 
-What: The data set contains the predicted income of individuals from the census based on attributes including age, marital status, work class, education, sex, and race.
-When: The data is from a 1994 census.
-Why: The data set is found in the University of California Irvine Machine Learning Repository so it is primarily used for learning.
-How: The census data was collected by humans.
+Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics \
+What: The data set contains the predicted income of individuals from the census based on attributes including age, marital status, work class, education, sex, and race. \
+When: The data is from a 1994 census. \
+Why: The data set is found in the University of California Irvine Machine Learning Repository so it is primarily used for learning. \
+How: The census data was collected by humans.\
 
 |Variable|Type|Description|
 |--------|-------|------|
-|age|||
+|age||Age of individual|
 |workclass|||
-|education|||
-|educationnum|||
-|marital_status|||
-|occupation|||
+|education||Highest education recieved|
+|educationnum||Numerical code for highest education recieved|
+|marital_status||married, never married, divorced, etc.|
+|occupation||Occupation of individual|
 |relationship|||
 |race|||
-|sex|||
+|sex||Male or Female|
 |capital_gain|||
 |capital_loss|||
-|hours_per_week|||
-|country|||
-|income|||
+|hours_per_week||Hours the individual works per week|
+|country||Country of origin|
+|income||over or under 50K|
 
+\
+\
+\
 
 ## Task 2.2: Load your dataset (from a file or URL).
 
@@ -51,28 +57,38 @@ adult_income <- read_csv("adult.data.csv", col_names=FALSE)
 
 
 ```r
-head(data)
+head(as.tibble(data))
+```
+
+```
+## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+## This warning is displayed once per session.
 ```
 
 ```
 ## # A tibble: 6 x 15
 ##     age workclass fnlwgt education education_num marital_status occupation
-##   <dbl> <chr>      <dbl> <chr>             <dbl> <chr>          <chr>     
-## 1    39 State-gov  77516 Bachelors            13 Never-married  Adm-cleri…
-## 2    50 Self-emp…  83311 Bachelors            13 Married-civ-s… Exec-mana…
-## 3    38 Private   215646 HS-grad               9 Divorced       Handlers-…
-## 4    53 Private   234721 11th                  7 Married-civ-s… Handlers-…
-## 5    28 Private   338409 Bachelors            13 Married-civ-s… Prof-spec…
-## 6    37 Private   284582 Masters              14 Married-civ-s… Exec-mana…
+##   <dbl> <chr>      <dbl> <chr>     <fct>         <chr>          <chr>     
+## 1    39 State-gov  77516 Bachelors 13            Never-married  Adm-cleri…
+## 2    50 Self-emp…  83311 Bachelors 13            Married-civ-s… Exec-mana…
+## 3    38 Private   215646 HS-grad   9             Divorced       Handlers-…
+## 4    53 Private   234721 11th      7             Married-civ-s… Handlers-…
+## 5    28 Private   338409 Bachelors 13            Married-civ-s… Prof-spec…
+## 6    37 Private   284582 Masters   14            Married-civ-s… Exec-mana…
 ## # … with 8 more variables: relationship <chr>, race <chr>, sex <chr>,
 ## #   capital_gain <dbl>, capital_loss <dbl>, hours_per_week <dbl>,
 ## #   country <chr>, income <chr>
 ```
+\
+\
+
 
 ## Task 2.3: Explore your dataset
-Perform some exploratory data analysis (EDA) to understand your dataset better. Some questions to consider:
+Perform some exploratory data analysis (EDA) to understand your dataset better. \
+\
 
-How many variables are present?
+
+**How many variables are present?**
 
 ```r
 ncol(data)
@@ -89,16 +105,20 @@ nrow(data)
 ```
 ## [1] 32561
 ```
-There are 15 variables, and 32461 observations (people)
+There are 15 variables, and 32461 observations (people) \
+\
+\
 
-What is the range of values for each numerical variable?
+**What is the range of values for each numerical variable?** \
+_Note: Education_Number is a factor, as it is a numerical code for education. But here will change to integer first and treat as integer_
+
 
 ```r
 sum_df <-data.frame(Age=integer(),Education=integer(),Hours=integer(),Capital_Gain=integer(),Capital_Loss=integer())
-means <-summarise(data, mean_age=mean(age), mean_education_level = mean(education_num), mean_hoursPerWeek = mean(hours_per_week)) %>% round(2)
-max <- summarise(data, max_age=max(age), max_education_level = max(education_num), max_hoursPerWeek = max(hours_per_week))  %>% round(2)
-min <- summarise(data, min_age=min(age), min_education_level = min(education_num), min_hoursPerWeek = min(hours_per_week))  %>% round(2)
-std_dev <- summarise(data, sd_age=sd(age), sd_education_level = sd(education_num), sd_hoursPerWeek = sd(hours_per_week))  %>% round(2)
+means <-summarise(data, mean_age=mean(age), mean_education_level = mean(as.integer(education_num)), mean_hoursPerWeek = mean(hours_per_week)) %>% round(2)
+max <- summarise(data, max_age=max(age), max_education_level = max(as.integer(education_num)), max_hoursPerWeek = max(hours_per_week))  %>% round(2)
+min <- summarise(data, min_age=min(age), min_education_level = min(as.integer(education_num)), min_hoursPerWeek = min(hours_per_week))  %>% round(2)
+std_dev <- summarise(data, sd_age=sd(age), sd_education_level = sd(as.integer(education_num)), sd_hoursPerWeek = sd(hours_per_week))  %>% round(2)
 NAs <- data %>% select(age, education_num,hours_per_week,capital_gain,capital_loss) %>% sapply(function(x) sum(length(which(is.na(x)))))
 sum_df[1,] <- means[1,]
 sum_df[2,] <- max[1,]
@@ -118,11 +138,10 @@ sum_df
 ## Standard Deviation 13.64      2.57 12.35        13.64         2.57
 ## Number NAs          0.00      0.00  0.00         0.00         0.00
 ```
+\
+\
 
-
-
-
-How many unqiue values and NAs in each categorical variable:
+**How many unqiue values and NAs in each categorical variable?**
 
 ```r
 categorical_df <-data.frame(Work_Class=integer(),Marital_Status=integer(),Occupation=integer(),Relationship=integer(),Race=integer(),Country=integer())
@@ -144,11 +163,14 @@ categorical_df
 ## Number NAs          1836              0       1843            0    0     583
 ```
 
+\
+\
 
 Plotting Data
 =======
 
-Distribution of age for men and women:
+
+**Distribution of age for men and women:**
 
 ```r
 df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))
@@ -164,15 +186,17 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
-
-
-Proportion of people making >50K a year for men and women, by race:
+![](Milestone-1_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+\
+\
+**Proportion of people making >50K a year for men and women, by race:**
 
 ```r
-df <- data %>% select(sex,education_num,income,race)
+data_2 <- data
+data_2$education_num <- as.integer(data_2$education_num)
+df <- data_2 %>% select(sex, education_num,income,race)
 df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
-df$educ[df$education_num >= 10] <- "HS"  #for High School
+df$educ[df$education_num >= 10] <- "HS"  #for High School, all values lower than or equal to 10
 
 df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,educ,sex) %>% tally() %>%
   ggplot(aes(sex, n, fill=educ)) +
@@ -184,9 +208,32 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
 
+![](Milestone-1_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+\
+\
+**Hours worked per week by age groups:**
+
+```r
+data_3 <- select(data, age, hours_per_week) %>% mutate(Age_level= case_when(age <20 ~ "Under 20",
+                                                                       age <30 ~"30s",
+                                                                       age <40 ~"40s",
+                                                                       age <50 ~"50s",
+                                                                       age <60 ~"60s",
+                                                                       age <70 ~"70s",
+                                                                       age <80 ~"80s",
+                                                                       TRUE ~ "90+")) 
+data_3 %>% mutate(Age_level =fct_relevel(Age_level,"Under 20")) %>%
+  ggplot(aes(Age_level, hours_per_week,fill=Age_level)) +
+  geom_boxplot(outlier.size=0.2) +
+  labs(title="Hours worked per week by age", x="Age", y="Hours per Week") +
+  theme_bw() +
+  theme(legend.position="none")
+```
+
 ![](Milestone-1_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
-
-
+\
+\
+\
 
 
 ## Task 2.4: Research question & plan of action
