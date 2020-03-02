@@ -186,7 +186,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](Milestone-1_files/figure-html/Plot1-1.png)<!-- -->
 \
 \
 **Proportion of people making >50K a year for men and women, by race:**
@@ -208,7 +208,7 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](Milestone-1_files/figure-html/Plot2-1.png)<!-- -->
 \
 \
 **Hours worked per week by age groups:**
@@ -230,7 +230,7 @@ data_3 %>% mutate(Age_level =fct_relevel(Age_level,"Under 20")) %>%
   theme(legend.position="none")
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](Milestone-1_files/figure-html/Plot3-1.png)<!-- -->
 \
 \
 \

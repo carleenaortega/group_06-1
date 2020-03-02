@@ -136,7 +136,7 @@ Plotting Data
 
 
 **Distribution of age for men and women:**
-```{r, warning=FALSE, message=FALSE}
+```{r Plot1, warning=FALSE, message=FALSE}
 df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))
 
 
@@ -152,7 +152,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
 \
 \
 **Proportion of people making >50K a year for men and women, by race:**
-```{r, warning=FALSE, message=FALSE}
+```{r Plot2, warning=FALSE, message=FALSE}
 data_2 <- data
 data_2$education_num <- as.integer(data_2$education_num)
 df <- data_2 %>% select(sex, education_num,income,race)
@@ -171,7 +171,7 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
 \
 \
 **Hours worked per week by age groups:**
-```{r, warning=FALSE, message=FALSE}
+```{r Plot3, warning=FALSE, message=FALSE}
 data_3 <- select(data, age, hours_per_week) %>% mutate(Age_level= case_when(age <20 ~ "Under 20",
                                                                        age <30 ~"30s",
                                                                        age <40 ~"40s",
