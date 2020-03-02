@@ -4,6 +4,17 @@ author: "Carleena Ortega and Saelin Bjornson"
 date: "01/03/2020"
 output: html_document
 ---
+```{r, include=FALSE}
+library(ggplot2)
+library(here)
+library(tidyverse)
+```
+
+```{r}
+data <- read_csv("adult.data.csv", col_names=FALSE)
+data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,"education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,"race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,"country"=X14,"income"=X15)
+```
+
 
 # Task 1: Choosing a dataset
 
