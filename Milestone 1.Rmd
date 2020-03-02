@@ -51,13 +51,13 @@ How: The census data was collected by humans.
 
 
 ## Task 2.2: Load your dataset (from a file or URL).
-```{r}
+```{r, warning=FALSE, message=FALSE}
 adult_income <- read_csv("adult_data.csv", col_names=FALSE)
 ```
 
 ## Task 2.3: Explore your dataset
 
-```{r}
+```{r, include=FALSE}
 data <- adult_income %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
                         "education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,
                         "race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,
@@ -69,7 +69,7 @@ data <- adult_income %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=
 
 
 Distribution of age for men and women:
-```{r}
+```{r, warning=FALSE, message=FALSE}
 df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))
 
 
@@ -85,7 +85,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
 
 
 Proportion of people making >50K a year for men and women, by race:
-```{r}
+```{r, warning=FALSE, message=FALSE}
 df <- data %>% select(sex,education_num,income,race)
 df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
 df$educ[df$education_num >= 10] <- "HS"  #for High School

@@ -50,53 +50,9 @@ How: The census data was collected by humans.
 adult_income <- read_csv("adult_data.csv", col_names=FALSE)
 ```
 
-```
-## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   X2 = col_character(),
-##   X3 = col_double(),
-##   X4 = col_character(),
-##   X5 = col_double(),
-##   X6 = col_character(),
-##   X7 = col_character(),
-##   X8 = col_character(),
-##   X9 = col_character(),
-##   X10 = col_character(),
-##   X11 = col_double(),
-##   X12 = col_double(),
-##   X13 = col_double(),
-##   X14 = col_character(),
-##   X15 = col_character()
-## )
-```
-
 ## Task 2.3: Explore your dataset
 
 
-```r
-data <- adult_income %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
-                        "education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,
-                        "race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,
-                        "country"=X14,"income"=X15) %>%    #give appropriate column names
-  mutate(income=recode(income, ">50K"="over_50K", "<=50K"="under_50K")) %>%
-  mutate_at(c("workclass","education","marital_status","occupation","relationship","race","sex","country"), funs(recode(., "?" = "NA")))   #replace "?" with NAs in categorical variables
-```
-
-```
-## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.
-```
 
 
 
@@ -116,10 +72,6 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
 ![](Milestone-1_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 
@@ -128,13 +80,6 @@ Proportion of people making >50K a year for men and women, by race:
 ```r
 df <- data %>% select(sex,education_num,income,race)
 df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
-```
-
-```
-## Warning: Unknown or uninitialised column: 'educ'.
-```
-
-```r
 df$educ[df$education_num >= 10] <- "HS"  #for High School
 
 df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,educ,sex) %>% tally() %>%
