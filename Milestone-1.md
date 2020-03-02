@@ -9,63 +9,12 @@ output:
     keep_md: yes
 ---
 
-```r
-data <- read_csv("adult.data.csv", col_names=FALSE)
-```
 
-```
-## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   X2 = col_character(),
-##   X3 = col_double(),
-##   X4 = col_character(),
-##   X5 = col_double(),
-##   X6 = col_character(),
-##   X7 = col_character(),
-##   X8 = col_character(),
-##   X9 = col_character(),
-##   X10 = col_character(),
-##   X11 = col_double(),
-##   X12 = col_double(),
-##   X13 = col_double(),
-##   X14 = col_character(),
-##   X15 = col_character()
-## )
-```
-
-```r
-data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
-                        "education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,
-                        "race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,
-                        "country"=X14,"income"=X15) %>%    #give appropriate column names
-  mutate(income=recode(income, ">50K"="over_50K", "<=50K"="under_50K")) %>%
-  mutate_at(c("workclass","education","marital_status","occupation","relationship","race","sex","country"), funs(recode(., "?" = "NA")))   #replace "?" with NAs in categorical variables
-```
-
-```
-## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.
-```
 
 # Task 1: Choosing a dataset
-
-
-We chose [the Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
-
+We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
 
 # Task 2. Project Proposal and EDA
-
 ## 2.1 Introduce and describe your dataset
 
 Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics 
@@ -95,55 +44,109 @@ How: The census data was collected by humans.
 ## Task 2.2: Load your dataset (from a file or URL).
 
 ```r
+adult_income <- read_csv("adult.data.csv", col_names=FALSE)
+```
 
-adult_income <- read_csv('adult.data.csv')
+
+
+
+```r
+head(data)
 ```
 
 ```
-## Parsed with column specification:
-## cols(
-##   `39` = col_double(),
-##   `State-gov` = col_character(),
-##   `77516` = col_double(),
-##   Bachelors = col_character(),
-##   `13` = col_double(),
-##   `Never-married` = col_character(),
-##   `Adm-clerical` = col_character(),
-##   `Not-in-family` = col_character(),
-##   White = col_character(),
-##   Male = col_character(),
-##   `2174` = col_double(),
-##   `0` = col_double(),
-##   `40` = col_double(),
-##   `United-States` = col_character(),
-##   `<=50K` = col_character()
-## )
+## # A tibble: 6 x 15
+##     age workclass fnlwgt education education_num marital_status occupation
+##   <dbl> <chr>      <dbl> <chr>             <dbl> <chr>          <chr>     
+## 1    39 State-gov  77516 Bachelors            13 Never-married  Adm-cleri…
+## 2    50 Self-emp…  83311 Bachelors            13 Married-civ-s… Exec-mana…
+## 3    38 Private   215646 HS-grad               9 Divorced       Handlers-…
+## 4    53 Private   234721 11th                  7 Married-civ-s… Handlers-…
+## 5    28 Private   338409 Bachelors            13 Married-civ-s… Prof-spec…
+## 6    37 Private   284582 Masters              14 Married-civ-s… Exec-mana…
+## # … with 8 more variables: relationship <chr>, race <chr>, sex <chr>,
+## #   capital_gain <dbl>, capital_loss <dbl>, hours_per_week <dbl>,
+## #   country <chr>, income <chr>
 ```
 
 ## Task 2.3: Explore your dataset
 Perform some exploratory data analysis (EDA) to understand your dataset better. Some questions to consider:
 
 How many variables are present?
-To determine how many variables are present, we use the `ncol()` function:
 
 ```r
-ncol(adult_income)
+ncol(data)
 ```
 
 ```
 ## [1] 15
 ```
-It shows that there are 15 columns, which means that there are 15 variables.
 
-
-What is the range of values for each variable?
-Make some plots (3-5) of the relationships between cretain variables of interest.
-=======
-=======
-adult_income <- read_csv("adult_data.csv", col_names=FALSE)
+```r
+nrow(data)
 ```
 
-## Task 2.3: Explore your dataset
+```
+## [1] 32561
+```
+There are 15 variables, and 32461 observations (people)
+
+What is the range of values for each numerical variable?
+
+```r
+sum_df <-data.frame(Age=integer(),Education=integer(),Hours=integer(),Capital_Gain=integer(),Capital_Loss=integer())
+means <-summarise(data, mean_age=mean(age), mean_education_level = mean(education_num), mean_hoursPerWeek = mean(hours_per_week)) %>% round(2)
+max <- summarise(data, max_age=max(age), max_education_level = max(education_num), max_hoursPerWeek = max(hours_per_week))  %>% round(2)
+min <- summarise(data, min_age=min(age), min_education_level = min(education_num), min_hoursPerWeek = min(hours_per_week))  %>% round(2)
+std_dev <- summarise(data, sd_age=sd(age), sd_education_level = sd(education_num), sd_hoursPerWeek = sd(hours_per_week))  %>% round(2)
+NAs <- data %>% select(age, education_num,hours_per_week,capital_gain,capital_loss) %>% sapply(function(x) sum(length(which(is.na(x)))))
+sum_df[1,] <- means[1,]
+sum_df[2,] <- max[1,]
+sum_df[3,] <- min[1,]
+sum_df[4,] <- std_dev[1,]
+sum_df[5,] <-NAs
+rownames(sum_df) <- c("Mean","Max", "Min", "Standard Deviation", "Number NAs")
+
+sum_df
+```
+
+```
+##                      Age Education Hours Capital_Gain Capital_Loss
+## Mean               38.58     10.08 40.44        38.58        10.08
+## Max                90.00     16.00 99.00        90.00        16.00
+## Min                17.00      1.00  1.00        17.00         1.00
+## Standard Deviation 13.64      2.57 12.35        13.64         2.57
+## Number NAs          0.00      0.00  0.00         0.00         0.00
+```
+
+
+
+
+How many unqiue values and NAs in each categorical variable:
+
+```r
+categorical_df <-data.frame(Work_Class=integer(),Marital_Status=integer(),Occupation=integer(),Relationship=integer(),Race=integer(),Country=integer())
+
+Unique <-summarise(data, unique_work=length(unique(na.omit(age))), unique_MS=length(unique(na.omit(marital_status))), unique_occupation=length(unique(na.omit(occupation))), unique_relationships=length(unique(na.omit(relationship))), unique_race=length(unique(na.omit(race))), unique_country=length(unique(na.omit(country)))) %>% as.data.frame()
+
+NAs <- data %>% select(workclass, marital_status, occupation, relationship, race, country) %>% sapply(function(x) sum(length(which(is.na(x)))))
+
+categorical_df[1,] <- Unique[1,]
+categorical_df[2,] <- NAs
+rownames(categorical_df) <- c("Unqiue Values", "Number NAs")
+
+categorical_df
+```
+
+```
+##               Work_Class Marital_Status Occupation Relationship Race Country
+## Unqiue Values         73              7         14            6    5      41
+## Number NAs          1836              0       1843            0    0     583
+```
+
+
+Plotting Data
+=======
 
 Distribution of age for men and women:
 
@@ -161,12 +164,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-![](Milestone-1_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](Milestone-1_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 
 Proportion of people making >50K a year for men and women, by race:
@@ -174,15 +172,6 @@ Proportion of people making >50K a year for men and women, by race:
 ```r
 df <- data %>% select(sex,education_num,income,race)
 df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
-
-```
-
-```
-## Warning: Unknown or uninitialised column: 'educ'.
-```
-
-```r
-=======
 df$educ[df$education_num >= 10] <- "HS"  #for High School
 
 df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,educ,sex) %>% tally() %>%
@@ -195,8 +184,10 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
 
+![](Milestone-1_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
-![](Milestone-1_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+
 
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
