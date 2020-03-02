@@ -12,7 +12,7 @@ output:
 
 
 # Task 1: Choosing a dataset
-We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project. \
+We choose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project. 
 
 # Task 2. Project Proposal and EDA
 ## 2.1 Introduce and describe your dataset
@@ -21,7 +21,7 @@ Who: The data set was extracted by Barry Becker from the 1994 Census database an
 What: This is a multivariate dataset with categorical and integer variables. It contains the predicted income of individuals from the census with attributes including age, marital status, work class, education, sex, and race. \
 When: The data is from a 1994 census. \
 Why: The data set is found in the University of California Irvine Machine Learning Repository, and was used for ML prediction of whether a person makes over or under 50K a year based on their attributes. \
-How: The census data was collected by survey. \
+How: The census data was collected by survey. 
 
 
 
@@ -43,8 +43,8 @@ How: The census data was collected by survey. \
 |country|chr|Country of origin|
 |income|chr|Whether individual is predicted to make over or under 50K|
 
-\
-\
+
+
 
 
 ## Task 2.2: Load your dataset (from a file or URL).
@@ -85,14 +85,10 @@ head(as.tibble(data))
 ## #   capital_gain <dbl>, capital_loss <dbl>, hours_per_week <dbl>,
 ## #   country <chr>, income <chr>
 ```
-\
-\
 
 
 ## Task 2.3: Explore your dataset
 Perform some exploratory data analysis (EDA) to understand your dataset better. 
-\
-\
 
 
 **How many variables are present?**
@@ -112,7 +108,7 @@ nrow(data)
 ```
 ## [1] 32561
 ```
-There are 15 variables, and 32461 observations (people) \
+There are 15 variables, and 32461 observations (people) 
 
 
 
@@ -130,9 +126,15 @@ colnames(data)
 ```
 
 
-There are 15 variables, and 32461 observations (people) \
+There are 15 variables, and 32461 observations (people) 
 
-**What is the range of values for each numerical variable?** \
+
+
+
+
+
+
+**What is the range of values for each numerical variable?** 
 _Note: Education_Number is a factor, as it is a numerical code for education. But here will change to integer first and treat as integer_
 
 ```r
@@ -161,7 +163,7 @@ sum_df
 ## Number NAs          0.00      0.00  0.00         0.00         0.00
 ```
 
-\
+
 
 **How many unqiue values and NAs in each categorical variable?**
 
@@ -185,8 +187,7 @@ categorical_df
 ## Number NAs          1836              0       1843            0    0     583
 ```
 
-\
-\
+
 
 Plotting Data
 ============
@@ -209,7 +210,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
 
 ![](Milestone-1_files/figure-html/Plot1-1.png)<!-- -->
 
-\ **Proportion of people making >50K a year for men and women, by race:**
+**Proportion of people making >50K a year for men and women, by race:**
 
 ```r
 data_2 <- data
@@ -229,7 +230,10 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
 ```
 
 ![](Milestone-1_files/figure-html/Plot2-1.png)<!-- -->
-\ **Hours worked per week by age groups:**
+
+
+
+**Hours worked per week by age groups:**
 
 ```r
 data_3 <- select(data, age, hours_per_week) %>% mutate(Age_level= case_when(age <20 ~ "Under 20",
@@ -249,9 +253,10 @@ data_3 %>% mutate(Age_level =fct_relevel(Age_level,"Under 20")) %>%
 ```
 
 ![](Milestone-1_files/figure-html/Plot3-1.png)<!-- -->
-\
-\
-\
+
+
+
+
 
 **The number of hours worked based on marital status grouped by race:**
 
@@ -274,17 +279,15 @@ data %>%
 
 
 ## Task 2.4: Research question & plan of action
-_With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory._ \
-\
+_With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory._ 
+
 
 In this analysis, we seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year.
 
-**Research Questions** \
+**Research Questions** 
 1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? \
 2. Is marital status correlated wtih education level?
-\
-\
-\
+
 
 _Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?)_ 
 
