@@ -8,25 +8,8 @@ output:
     toc: true
     keep_md: yes
 ---
-```{r, include=FALSE}
-library(ggplot2)
-library(here)
-library(tidyverse)
-```
-
-```{r}
-data <- read_csv("adult.data.csv", col_names=FALSE)
-data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,"education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,"race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,"country"=X14,"income"=X15)
-```
 
 
-```{r setup, include=FALSE}
-getwd()
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(here))
-suppressPackageStartupMessages(library(knitr))
-
-```
 
 # Task 1: Choosing a dataset
 
@@ -43,10 +26,7 @@ Why: The data set is found in the University of California Irvine Machine Learni
 How: The census data was collected by humans.
 
 ## Task 2.2: Load your dataset (from a file or URL).
-```{r}
-read_csv(group_06/adult.data.csv)
-```
-
+read_csv()
 
 ## Task 2.3: Explore your dataset
 Perform some exploratory data analysis (EDA) to understand your dataset better. Some questions to consider:
