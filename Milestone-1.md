@@ -9,10 +9,6 @@ output:
     keep_md: yes
 ---
 
-```{r setup, include=FALSE}
-getwd()
-library(knitr)
-```
 
 # Task 1: Choosing a dataset
 
@@ -25,7 +21,7 @@ We chose the Adult Income data set to analyze for the group project.
 Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics 
 What: The data set contains the predicted income of individuals from the census based on attributes including age, marital status, work class, education, sex, and race.
 When: The data is from a 1994 census.
-Why: The data set is found in the University of California Irvine Machine Learning Repository so it is primarily used for learning.
+Why: The data set is found in the UCI Machine Learning Repository so it is primarily used for learning.
 How: The census data was collected by humans.
 
 ## Task 2.2: Load your dataset (from a file or URL).
