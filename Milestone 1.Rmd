@@ -18,7 +18,7 @@ data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,"educ
 
 # Task 1: Choosing a dataset
 
-We chose the ____ data set to analyze for the group project.
+We chose [this](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
 
 # Task 2. Project Proposal and EDA
 
@@ -32,16 +32,31 @@ How: How was your data collected? Was it a human collecting the data? Historical
 
 Additional Guidance: Your audience is fellow data scientists. You probably will not need more than 150 words to describe your dataset. All the questions above do not need to be answered, it’s more to guide your exploration and think a little bit about the context of your data. It is also possible you will not know the answers to some of the questions above, that is FINE - data scientists are often faced with the challenge of analyzing data from unknown sources. Do your best, acknowledge the limitations of your data as well as your understanding of it. Also, make it clear what you’re speculating about. For example, “I speculate that the {…column_name…} column must be related to {….} because {….}.”
 
+|Variable|Type|Description|
+|--------|-------|------|
+|age|||
+|workclass|||
+|education|||
+|educationnum|||
+|marital_status|||
+|occupation|||
+|relationship|||
+|race|||
+|sex|||
+|capital_gain|||
+|capital_loss|||
+|hours_per_week|||
+|country|||
+|income|||
+
+
+
 ## Task 2.2: Load your dataset (from a file or URL).
 Remember that others will be running your analysis notebook so it’s important that the data is accessible to them.
 If your dataset isn’t accessible as a URL, make sure to commit it directly into your repo.
 
 ## Task 2.3: Explore your dataset
-Perform some exploratory data analysis (EDA) to understand your dataset better. Some questions to consider:
-How many variables are present?
-What is the range of values for each variable?
-Make some plots (3-5) of the relationships between cretain variables of interest.
-
+]
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
 Below are some descriptions of descriptive or exploratory research questions, adapted by Dr. Timbers from the Art of Data Science by Roger Pengand Elizabeth Matsui. 
