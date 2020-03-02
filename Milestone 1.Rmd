@@ -44,7 +44,7 @@ How: The census data was collected by humans.
 |--------|-------|------|
 |age|int||
 |workclass|string||
-|education|string||
+|educationnum|string||
 |education|int||
 |marital_status|int||
 |occupation|||
@@ -71,12 +71,14 @@ To determine how many variables are present, we use the `ncol()` function:
 ```{r}
 ncol(adult_income)
 ```
-It shows that there are 15 columns, which means that there are 15 variables. And these variables are as follows:
+It shows that there are 15 columns, but only 14 variables. And these variables are as follows (education and education_num are similar):
 ```{r}
 colnames(data)
 ```
 
 What is the range of values for each variable?
+
+
 Make some plots (3-5) of the relationships between certain variables of interest.
 
 ```{r, include=FALSE}
@@ -122,6 +124,20 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
 
+The number of hours worked based on marital status grouped by race:
+```{r}
+data %>% 
+  select(hours_per_week,race,marital_status)%>%
+  mutate(marital_status = case_when( 
+    marital_status == c("Married-AF-spouse","Married-civ-spouse","Married-spouse-absent") ~ "Married",
+    TRUE ~ "Single")) %>%
+  ggplot()+
+  geom_boxplot(aes(marital_status,hours_per_week)) +
+  labs(x="Marital Status",y="Hours Worked per Week",
+    title="The Relationship between Marital Status and Work Hours")+
+  facet_wrap(~race)+
+  theme_bw()
+```
 
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
@@ -130,4 +146,4 @@ In this analysis, we seek to determine the difference in socioeconomic factors s
 
 *Exploratory Research Questions* 
 
-2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?)
+2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?) # WE don't need this, right?

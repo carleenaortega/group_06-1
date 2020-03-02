@@ -78,7 +78,7 @@ How: The census data was collected by humans.
 |--------|-------|------|
 |age|int||
 |workclass|string||
-|education|string||
+|educationnum|string||
 |education|int||
 |marital_status|int||
 |occupation|||
@@ -111,10 +111,22 @@ ncol(adult_income)
 ```
 ## [1] 15
 ```
-It shows that there are 15 columns, which means that there are 15 variables.
+It shows that there are 15 columns, but only 14 variables. And these variables are as follows (education and education_num are similar):
 
+```r
+colnames(data)
+```
+
+```
+##  [1] "age"            "workclass"      "fnlwgt"         "education"     
+##  [5] "education_num"  "marital_status" "occupation"     "relationship"  
+##  [9] "race"           "sex"            "capital_gain"   "capital_loss"  
+## [13] "hours_per_week" "country"        "income"
+```
 
 What is the range of values for each variable?
+
+
 Make some plots (3-5) of the relationships between certain variables of interest.
 
 
@@ -137,7 +149,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](Milestone-1_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 
 Proportion of people making >50K a year for men and women, by race:
@@ -157,12 +169,36 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
 
-![](Milestone-1_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](Milestone-1_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+
+The number of hours worked based on marital status grouped by race:
+
+```r
+data %>% 
+  select(hours_per_week,race,marital_status)%>%
+  mutate(marital_status = case_when( 
+    marital_status == c("Married-AF-spouse","Married-civ-spouse","Married-spouse-absent") ~ "Married",
+    TRUE ~ "Single")) %>%
+  ggplot()+
+  geom_boxplot(aes(marital_status,hours_per_week)) +
+  labs(x="Marital Status",y="Hours Worked per Week",
+    title="The Relationship between Marital Status and Work Hours")+
+  facet_wrap(~race)+
+  theme_bw()
+```
+
+```
+## Warning in marital_status == c("Married-AF-spouse", "Married-civ-spouse", :
+## longer object length is not a multiple of shorter object length
+```
+
+![](Milestone-1_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
-Below are some descriptions of descriptive or exploratory research questions, adapted by Dr. Timbers from the Art of Data Science by Roger Pengand Elizabeth Matsui. 
+
+In this analysis, we seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year.
 
 *Exploratory Research Questions* 
 
-2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?)
+2. Propose a plan of how you will analyze the data (what will you plot, which variables will you do a linear regression on?) # WE don't need this, right?
