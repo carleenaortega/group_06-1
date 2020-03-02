@@ -9,6 +9,9 @@ output:
     keep_md: yes
 ---
 
+
+
+
 ```r
 data <- read_csv("adult.data.csv", col_names=FALSE)
 ```
@@ -57,12 +60,9 @@ data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
 ##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
 ## This warning is displayed once per session.
 ```
-
 # Task 1: Choosing a dataset
 
-
-We chose [the Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
-
+We chose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
 
 # Task 2. Project Proposal and EDA
 
@@ -76,11 +76,11 @@ How: The census data was collected by humans.
 
 |Variable|Type|Description|
 |--------|-------|------|
-|age|||
-|workclass|||
-|education|||
-|educationnum|||
-|marital_status|||
+|age|int||
+|workclass|string||
+|education|string||
+|education|int||
+|marital_status|int||
 |occupation|||
 |relationship|||
 |race|||
@@ -95,29 +95,7 @@ How: The census data was collected by humans.
 ## Task 2.2: Load your dataset (from a file or URL).
 
 ```r
-
-adult_income <- read_csv('adult.data.csv')
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   `39` = col_double(),
-##   `State-gov` = col_character(),
-##   `77516` = col_double(),
-##   Bachelors = col_character(),
-##   `13` = col_double(),
-##   `Never-married` = col_character(),
-##   `Adm-clerical` = col_character(),
-##   `Not-in-family` = col_character(),
-##   White = col_character(),
-##   Male = col_character(),
-##   `2174` = col_double(),
-##   `0` = col_double(),
-##   `40` = col_double(),
-##   `United-States` = col_character(),
-##   `<=50K` = col_character()
-## )
+adult_income <- read_csv("adult.data.csv", col_names=FALSE)
 ```
 
 ## Task 2.3: Explore your dataset
@@ -137,13 +115,11 @@ It shows that there are 15 columns, which means that there are 15 variables.
 
 
 What is the range of values for each variable?
-Make some plots (3-5) of the relationships between cretain variables of interest.
-=======
-=======
-adult_income <- read_csv("adult_data.csv", col_names=FALSE)
-```
+Make some plots (3-5) of the relationships between certain variables of interest.
 
-## Task 2.3: Explore your dataset
+
+
+
 
 Distribution of age for men and women:
 
@@ -161,12 +137,7 @@ data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   theme(legend.title=element_blank())
 ```
 
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-![](Milestone-1_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](Milestone-1_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 
 Proportion of people making >50K a year for men and women, by race:
@@ -174,15 +145,6 @@ Proportion of people making >50K a year for men and women, by race:
 ```r
 df <- data %>% select(sex,education_num,income,race)
 df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
-
-```
-
-```
-## Warning: Unknown or uninitialised column: 'educ'.
-```
-
-```r
-=======
 df$educ[df$education_num >= 10] <- "HS"  #for High School
 
 df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,educ,sex) %>% tally() %>%
@@ -195,8 +157,7 @@ df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,e
   labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
 ```
 
-
-![](Milestone-1_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](Milestone-1_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
