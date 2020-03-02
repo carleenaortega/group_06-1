@@ -12,25 +12,23 @@ output:
 library(ggplot2)
 library(here)
 library(tidyverse)
+library(reshape2)
 ```
 
 ```{r}
 data <- read_csv("adult.data.csv", col_names=FALSE)
-data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,"education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,"race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,"country"=X14,"income"=X15)
-```
-
-
-```{r setup, include=FALSE}
-getwd()
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(here))
-suppressPackageStartupMessages(library(knitr))
+data <- data %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,
+                        "education_num"=X5,"marital_status"=X6,"occupation"=X7,"relationship"=X8,
+                        "race"=X9,"sex"=X10,"capital_gain"=X11,"capital_loss"=X12,"hours_per_week"=X13,
+                        "country"=X14,"income"=X15) %>%    #give appropriate column names
+  mutate(income=recode(income, ">50K"="over_50K", "<=50K"="under_50K")) %>%
+  mutate_at(c("workclass","education","marital_status","occupation","relationship","race","sex","country"), funs(recode(., "?" = "NA")))   #replace "?" with NAs in categorical variables
 
 ```
 
 # Task 1: Choosing a dataset
 
-We chose the Adult Income data set to analyze for the group project.
+We chose the [Adult Income](https://archive.ics.uci.edu/ml/datasets/adult) data set to analyze for the group project.
 
 # Task 2. Project Proposal and EDA
 
@@ -42,9 +40,27 @@ When: The data is from a 1994 census.
 Why: The data set is found in the University of California Irvine Machine Learning Repository so it is primarily used for learning.
 How: The census data was collected by humans.
 
+|Variable|Type|Description|
+|--------|-------|------|
+|age|||
+|workclass|||
+|education|||
+|educationnum|||
+|marital_status|||
+|occupation|||
+|relationship|||
+|race|||
+|sex|||
+|capital_gain|||
+|capital_loss|||
+|hours_per_week|||
+|country|||
+|income|||
+
+
 ## Task 2.2: Load your dataset (from a file or URL).
 ```{r}
-adult_income <- read_csv('adult_data.csv')
+adult_income <- read_csv('adult.data.csv')
 ```
 
 ## Task 2.3: Explore your dataset
@@ -60,6 +76,39 @@ It shows that there are 15 columns, which means that there are 15 variables.
 
 What is the range of values for each variable?
 Make some plots (3-5) of the relationships between cretain variables of interest.
+=======
+
+Distribution of age for men and women:
+```{r}
+df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))
+
+
+data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
+  ggplot(aes(x=age,fill=sex)) + 
+  geom_histogram(alpha=0.8,position="identity") +
+  #geom_vline(data=df,aes(xintercept=mean,color=sex,linetype="dashed"))+
+  scale_fill_manual(values=c("skyblue2","deeppink4")) + 
+  labs(title="Distribution of Age by Sex",x="Age",y="Count") +
+  theme_bw() +
+  theme(legend.title=element_blank())
+```
+
+
+Proportion of people making >50K a year for men and women, by race:
+```{r}
+df <- data %>% select(sex,education_num,income,race)
+df$educ[df$education_num < 10] <- "PS"  #for Post-secondary
+df$educ[df$education_num >= 10] <- "HS"  #for High School
+
+df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,educ,sex) %>% tally() %>%
+  ggplot(aes(sex, n, fill=educ)) +
+  geom_bar(position="fill", stat="identity") +
+ # scale_y_continuous(labels=percent()) +
+  theme_bw() +
+  scale_fill_manual(values=c("skyblue2","deeppink4"),labels=c("High School","Post-Secondary")) + 
+  facet_wrap(~race) +
+  labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex")
+```
 
 ## Task 2.4: Research question & plan of action
 1. With your data set and your EDA, identify at least one research question that you will attempt to answer with analyses and visualizations. Clearly state the research question and any natural sub-questions you need to address, and their type. The main research question should be either descriptive or exploratory.
