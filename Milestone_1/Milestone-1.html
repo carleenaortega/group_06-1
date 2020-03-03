@@ -572,7 +572,6 @@ categorical_df</code></pre>
 data %&gt;% mutate(sex = factor(sex, levels=c(&quot;Male&quot;, &quot;Female&quot;))) %&gt;%
   ggplot(aes(x=age,fill=sex)) + 
   geom_histogram(alpha=0.8,position=&quot;identity&quot;) +
-  #geom_vline(data=df,aes(xintercept=mean,color=sex,linetype=&quot;dashed&quot;))+
   scale_fill_manual(values=c(&quot;skyblue2&quot;,&quot;deeppink4&quot;)) + 
   labs(title=&quot;Distribution of Age by Sex&quot;,x=&quot;Age&quot;,y=&quot;Count&quot;) +
   theme_bw() +
@@ -588,7 +587,6 @@ df$educ[df$education_num &gt;= 10] &lt;- &quot;HS&quot;  #for High School, all v
 df %&gt;% filter(income ==&quot;over_50K&quot;) %&gt;% select(race,educ,sex) %&gt;% group_by(race,educ,sex) %&gt;% tally() %&gt;%
   ggplot(aes(sex, n, fill=educ)) +
   geom_bar(position=&quot;fill&quot;, stat=&quot;identity&quot;) +
- # scale_y_continuous(labels=percent()) +
   theme_bw() +
   scale_fill_manual(values=c(&quot;skyblue2&quot;,&quot;deeppink4&quot;),labels=c(&quot;High School&quot;,&quot;Post-Secondary&quot;)) + 
   facet_wrap(~race) +

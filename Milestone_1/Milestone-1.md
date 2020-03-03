@@ -193,7 +193,6 @@ df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Femal
 data %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>%
   ggplot(aes(x=age,fill=sex)) + 
   geom_histogram(alpha=0.8,position="identity") +
-  #geom_vline(data=df,aes(xintercept=mean,color=sex,linetype="dashed"))+
   scale_fill_manual(values=c("skyblue2","deeppink4")) + 
   labs(title="Distribution of Age by Sex",x="Age",y="Count") +
   theme_bw() +
@@ -214,7 +213,6 @@ df$educ[df$education_num >= 10] <- "HS"  #for High School, all values lower than
 df %>% filter(income =="over_50K") %>% select(race,educ,sex) %>% group_by(race,educ,sex) %>% tally() %>%
   ggplot(aes(sex, n, fill=educ)) +
   geom_bar(position="fill", stat="identity") +
- # scale_y_continuous(labels=percent()) +
   theme_bw() +
   scale_fill_manual(values=c("skyblue2","deeppink4"),labels=c("High School","Post-Secondary")) + 
   facet_wrap(~race) +
