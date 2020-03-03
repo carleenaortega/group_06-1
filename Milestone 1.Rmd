@@ -70,7 +70,7 @@ data <- adult_income %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=
 data$education_num <-as.factor(data$education_num)
 ```
 
-```{r,  warning=FALSE, message=FALSE}
+```{r data tibble,  warning=FALSE, message=FALSE}
 head(as.tibble(data))
 ```
 
@@ -97,7 +97,7 @@ There are 15 variables, and 32461 observations (people)
 
 **What is the range of values for each numerical variable?** 
 _Note: Education_Number is a factor, as it is a numerical code for education. But here will change to integer first and treat as integer_
-```{r,  warnings=FALSE}
+```{r continuous summary,  warnings=FALSE}
 sum_df <-data.frame(Age=integer(),Education=integer(),Hours=integer(),Capital_Gain=integer(),Capital_Loss=integer())
 means <-summarise(data, mean_age=mean(age), mean_education_level = mean(as.integer(education_num)), mean_hoursPerWeek = mean(hours_per_week)) %>% round(2)
 max <- summarise(data, max_age=max(age), max_education_level = max(as.integer(education_num)), max_hoursPerWeek = max(hours_per_week))  %>% round(2)
@@ -117,7 +117,7 @@ sum_df
 
 
 **How many unqiue values and NAs in each categorical variable?**
-```{r}
+```{r categorical summary}
 categorical_df <-data.frame(Work_Class=integer(),Marital_Status=integer(),Occupation=integer(),Relationship=integer(),Race=integer(),Country=integer())
 
 Unique <-summarise(data, unique_work=length(unique(na.omit(age))), unique_MS=length(unique(na.omit(marital_status))), unique_occupation=length(unique(na.omit(occupation))), unique_relationships=length(unique(na.omit(relationship))), unique_race=length(unique(na.omit(race))), unique_country=length(unique(na.omit(country)))) %>% as.data.frame()
@@ -218,14 +218,14 @@ In this analysis, we seek to determine the difference in socioeconomic factors s
 
 1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? 
 
-* Logistic regression using categorical and continuous explanatory variables. 
+* Logistic regression using all the above categorical and continuous explanatory variables. 
 
 * Plots showing the relationship between income and each variable separately. For example, we will perform a logistic regression to show the the difference between individuals earning more than 50,000 a year and those who don't using the educational level as the independent variable.
 
 
 2. Is hours worked per week correlated with age, relationship, education level, or sex?
 
-* Linear regression using categorical and continuous explanatory variables.
+* Linear regression using all the above categorical and continuous explanatory variables.
 
 * Plots showing the relationship between hours worked and each variable separately. For example, we will use the linear regression model to explore how hours at work is related to variables such as age, relationship, education level, and sex.
 

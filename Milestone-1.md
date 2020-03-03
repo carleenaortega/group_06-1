@@ -175,12 +175,9 @@ categorical_df
 ```
 
 ```
-##               Work_Class Marital_Status Occupation Relationship Race
-## Unqiue Values         73              7         14            6    5
-## Number NAs          1836              0       1843            0    0
-##               Country
-## Unqiue Values      41
-## Number NAs        583
+##               Work_Class Marital_Status Occupation Relationship Race Country
+## Unqiue Values         73              7         14            6    5      41
+## Number NAs          1836              0       1843            0    0     583
 ```
 
 
@@ -281,14 +278,14 @@ In this analysis, we seek to determine the difference in socioeconomic factors s
 
 1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? 
 
-* Logistic regression using categorical and continuous explanatory variables. 
+* Logistic regression using all the above categorical and continuous explanatory variables. 
 
 * Plots showing the relationship between income and each variable separately. For example, we will perform a logistic regression to show the the difference between individuals earning more than 50,000 a year and those who don't using the educational level as the independent variable.
 
 
 2. Is hours worked per week correlated with age, relationship, education level, or sex?
 
-* Linear regression using categorical and continuous explanatory variables.
+* Linear regression using all the above categorical and continuous explanatory variables.
 
 * Plots showing the relationship between hours worked and each variable separately. For example, we will use the linear regression model to explore how hours at work is related to variables such as age, relationship, education level, and sex.
 
