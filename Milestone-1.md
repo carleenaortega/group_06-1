@@ -283,17 +283,23 @@ data %>%
 In this analysis, we seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year.
 
 **Research Questions** 
-1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? \
+
+1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? 
+
 2. Is hours worked oer week correlated with age, relationship, education level, or sex?
 
 **Plan**
 
 Question 1: 
-* Logistic regression using categorical and continuous explanatory variables
+
+* Logistic regression using categorical and continuous explanatory variables 
+
 * Plots showing the relationship between income and each variable separately (should explain more..)
 
 Question 2:
-* Linear regression using categorical and continuous explanatory variables
+
+* Linear regression using categorical and continuous explanatory variables 
+
 * Plots showing the relationship between hours worked and each variable separately  (should explain more..)
 
 
