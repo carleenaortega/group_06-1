@@ -10,6 +10,7 @@
 "This is a script to process the raw adult_data.csv and save in /Data directory
 
 Usage: process_data.R --raw_data=<path_to_raw> --processed=<file_name>"
+#Path to raw = Milestone_2/Data/adult_data.csv and processed = adult_data_clean.csv
 
 library(tidyverse)
 library(glue)
