@@ -9,16 +9,19 @@
 "This is a script to load the raw data froman URL and save it in the /Data directory
 
 Usage: load_data.R --URL=<data_URL>"
+#Data URL to use: https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
+
 
 #Load libraries and packages 
+
 library(tidyverse)
 library(glue)
 
-main <- function(URL="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data") {
+main <- function(URL) {
   
-  name <- read_csv(url(URL), col_names=FALSE)
+  data <- read_csv(url(URL), col_names=FALSE)
   
-  write.csv(name, 'Milestone_2/Data/adult_data.csv' )  
+  write.csv(data, 'Milestone_2/Data/adult_data.csv' )  
   
   print(glue("the file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
   
