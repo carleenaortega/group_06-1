@@ -18,7 +18,7 @@ main <- function(URL="https://archive.ics.uci.edu/ml/machine-learning-databases/
   
   name <- read_csv(url(URL), col_names=FALSE)
   
-  write.csv(name, 'Milestone_2/Data/adult_data.csv' )  #not sure if this is how to save it in /Data
+  write.csv(name, 'Milestone_2/Data/adult_data.csv' )  
   
   print(glue("the file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
   
