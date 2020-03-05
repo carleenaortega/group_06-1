@@ -19,7 +19,7 @@ _Instructions for how to completely reproduce this analysis_
 3. Run the following scripts (in order) with the appropriate arguments specified
 
  **Download data with load_data.R** \
-  Rscript src/script_name.r --data_url=<url_to_raw_data_file>
+  Rscript src/load_data.r --name="adult_data.csv" --URL=<"https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"> 
   
   **Wrangle/clean/process the data with process_data.R** \
   Rscript src/script_name.r --argument_name=<argument> ... (etc)
