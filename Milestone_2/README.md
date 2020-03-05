@@ -12,6 +12,7 @@ _Instructions for how to completely reproduce this analysis_
 
   - ggplot2
   - tidyverse
+  - glue
   - docopt
 
 
