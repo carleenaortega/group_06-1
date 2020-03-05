@@ -9,11 +9,14 @@
 
 "This is a script to process the raw adult_data.csv and save in /Data directory
 
-Usage: process_data.R --raw_data=<path_to_raw> --processed=<file_name>"
+Usage: process_data.R --raw_data=<path_to_raw> --processed=<file_name>" -> doc
 #Path to raw = Milestone_2/Data/adult_data.csv and processed = adult_data_clean.csv
 
 library(tidyverse)
 library(glue)
+library(docopt)
+
+opt <- docopt(doc)
 
 main <- function(raw_data, processed) {
   raw <- read_csv(raw_data, col_names=FALSE)
@@ -30,10 +33,10 @@ main <- function(raw_data, processed) {
   
   adult_data$education_num <-as.factor(adult_data$education_num) #change education level to factor 
   
-  write.csv(processed, 'Milestone_2/Data/') 
+  write.csv(adult_data, glue('Milestone_2/Data/', processed))
   
   print(glue("the raw data", raw_data, "has been processed and saved as", processed, "in Milestone_2/Data"))  
 
 }
 
-main()
+main(opt$raw_data, opt$processed)

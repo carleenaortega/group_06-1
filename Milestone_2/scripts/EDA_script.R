@@ -7,12 +7,15 @@
 
 "This is a script to do exploratory data analysis on /Data/adult_data_clean.csv and save images to /images
 
-Usage: EDA_script.R --path=<path_to_save>"
+Usage: EDA_script.R --path=<path_to_save>" -> doc
 #Path to save images = Milestone_2/images
 
 
 library(tidyverse)
 library(ggplot2)
+library(docopt)
+
+opt <- docopt(doc)
 
 main <- function(path) {
   data <- read_csv("Milestone_2/Data/adult_data_clean.csv")
@@ -89,7 +92,7 @@ main <- function(path) {
   print(glue("Plots 1-4 have been saved in", path))
 }
 
-main()
+main(opt$path)
 
 
 
