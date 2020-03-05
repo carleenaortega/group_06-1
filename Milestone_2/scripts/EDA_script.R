@@ -86,6 +86,7 @@ main <- function(path) {
   ggsave("Plot_4.png", Plot4, path=path) #save as Plot 4 in path (Milestone_2/images)
   
  
+  print(glue("Plots 1-4 have been saved in", path))
 }
 
 main()
