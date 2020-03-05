@@ -1,6 +1,3 @@
-#This is a script to load the raw data
-
-
 #Have at least ONE command-line argument (at minimum, you may have more as well)
 #Take in the raw data URL as a command-line argument.
 #If you cannot get a URL to your dataset, you can store your dataset in this public repository and then get the URL for this script
@@ -9,12 +6,30 @@
 #  Download and save the data in the data directory
 #Print a helpful message to the terminal informing the user that the script completed successfully
 
+"This is a script to load the raw data froman URL and save it in the /Data directory
+
+Usage: load_data.R --URL=<data_URL>"
+#Data URL to use: https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
+
+
+#Load libraries and packages 
+
 library(tidyverse)
+library(glue)
+
+main <- function(URL) {
+  
+  data <- read_csv(url(URL), col_names=FALSE)
+  
+  write.csv(data, 'Milestone_2/Data/adult_data.csv' )  
+  
+  print(glue("the file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
+  
+}
+
+main()
 
 
 
 
 
-
-
-#save data to Milstone_2/Data repo
