@@ -8,7 +8,7 @@
 
 "This is a script to load the raw data froman URL and save it in the /Data directory
 
-Usage: load_data.R --URL=<data_URL>"
+Usage: load_data.R --URL=<data_URL>"  -> doc
 #Data URL to use: https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
 
 
@@ -16,18 +16,21 @@ Usage: load_data.R --URL=<data_URL>"
 
 library(tidyverse)
 library(glue)
+library(docopt)
+
+opt <- docopt(doc)
 
 main <- function(URL) {
   
   data <- read_csv(url(URL), col_names=FALSE)
   
-  write.csv(data, 'Milestone_2/Data/adult_data.csv' )  
+  write.csv(data, 'Milestone_2/Data/adult_data.csv')  
   
   print(glue("the file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
   
 }
 
-main()
+main(opt$URL)
 
 
 
