@@ -24,7 +24,7 @@ main <- function(URL) {
   
   data <- read_csv(url(URL), col_names=FALSE)
   
-  write.csv(data, 'Milestone_2/Data/adult_data.csv' )  
+  write.csv(data, 'Milestone_2/Data/adult_data.csv')  
   
   print(glue("the file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
   
