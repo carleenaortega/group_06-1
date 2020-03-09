@@ -16,9 +16,7 @@ _Instructions for how to completely reproduce this analysis_
   - docopt
 
 
-3. Run the following scripts (in order) with the appropriate arguments specified
-
-**In the Milestone_2 folder as working directory**
+3. Change the working directory to Milestone_2, and run the following scripts (in order) with the appropriate arguments specified
 
  **Download data with load_data.R** \
   Rscript scripts/load_data.R --URL="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
