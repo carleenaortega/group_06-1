@@ -5,10 +5,10 @@
 #Run without any intervention from the user after running the script from a terminal/command prompt
 #Print a helpful message to the terminal informing the user that the script completed successfully
 
-"This is a script to do exploratory data analysis on /Data/adult_data_clean.csv and save images to /images
+"This is a script to do exploratory data analysis on /Data/adult_data_clean.csv and to save images to /Images
 
 Usage: EDA_script.R --path=<path_to_save>" -> doc
-#Path to save images = Milestone_2/Images
+#Path to save images = Images
 
 
 library(tidyverse)
@@ -19,7 +19,7 @@ library(glue)
 opt <- docopt(doc)
 
 main <- function(path) {
-  data <- read.csv("Milestone_2/Data/adult_data_clean.csv",row.names=1)
+  data <- read.csv("Data/adult_data_clean.csv",row.names=1)
   
   #Plot 1
   df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))
@@ -33,7 +33,7 @@ main <- function(path) {
     theme_bw() +
     theme(legend.title=element_blank())
  
-    ggsave("Plot_1.png", Plot1, path=path)  #save as Plot 1 in path (Milestone_2/images)
+    ggsave("Plot_1.png", Plot1, path=path)  #save as Plot 1 in path (Images folder)
   
   
   #Plot 2
@@ -52,7 +52,7 @@ main <- function(path) {
     labs(title="Education level of people making over 50K",fill="Education",y="Percent",x="Sex") 
   
   
-    ggsave("Plot_2.png", Plot2, path=path)   #save as Plot 2 in path (Milestone_2/images)
+    ggsave("Plot_2.png", Plot2, path=path)   #save as Plot 2 in path (Images folder)
   
 
   #Plot 3
@@ -71,7 +71,7 @@ main <- function(path) {
     theme_bw() +
     theme(legend.position="none")
   
-    ggsave("Plot_3.png", Plot3, path=path)  #save as Plot 3 in path (Milestone_2/images)
+    ggsave("Plot_3.png", Plot3, path=path)  #save as Plot 3 in path (Images folder)
   
   #plot 4
   
@@ -87,14 +87,10 @@ main <- function(path) {
     facet_wrap(~race)+ 
     theme_bw() 
  
-  ggsave("Plot_4.png", Plot4, path=path) #save as Plot 4 in path (Milestone_2/images)
+  ggsave("Plot_4.png", Plot4, path=path) #save as Plot 4 in path (Images folder)
   
  
   print(glue("Plots 1-4 have been saved in ", path))
 }
 
 main(opt$path)
-
-
-
-
