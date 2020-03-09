@@ -24,7 +24,7 @@ _Instructions for how to completely reproduce this analysis_
   Rscript scripts/load_data.R --URL="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
   
   **Wrangle/clean/process the data with process_data.R** \
-  Rscript scripts/process_data.R --raw_data="/Data/adult_data.csv" --processed="adult_data_clean.csv"
+  Rscript scripts/process_data.R --raw_data="Data/adult_data.csv" --processed="adult_data_clean.csv"
   
   **EDA script to export images with EDA_script.R** \
   Rscript scripts/EDA_script.R --path="/Images"

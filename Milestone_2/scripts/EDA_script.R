@@ -5,7 +5,7 @@
 #Run without any intervention from the user after running the script from a terminal/command prompt
 #Print a helpful message to the terminal informing the user that the script completed successfully
 
-"This is a script to do exploratory data analysis on /Data/adult_data_clean.csv and save images to /images
+"This is a script to do exploratory data analysis on /Data/adult_data_clean.csv and to save images to /images
 
 Usage: EDA_script.R --path=<path_to_save>" -> doc
 #Path to save images = Milestone_2/Images
@@ -94,7 +94,3 @@ main <- function(path) {
 }
 
 main(opt$path)
-
-
-
-
