@@ -21,7 +21,6 @@ library(docopt)
 opt <- docopt(doc)
 
 main <- function(URL) {
-  URL='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
   data <- read_csv(url(URL), col_names=FALSE)
   
   write.csv(data, 'Milestone_2/Data/adult_data.csv')  
