@@ -27,7 +27,7 @@ _Instructions for how to completely reproduce this analysis_
   Rscript scripts/process_data.R --raw_data="Data/adult_data.csv" --processed="adult_data_clean.csv"
   
   **EDA script to export images with EDA_script.R** \
-  Rscript scripts/EDA_script.R --path="/Images"
+  Rscript scripts/EDA_script.R --path="Images"
   
   **Knit the draft final report (final_report.Rmd) with knit_final_report.R** \
   Rscript -e "rmarkdown::render('... (etc)
