@@ -6,7 +6,7 @@
 #  Download and save the data in the data directory
 #Print a helpful message to the terminal informing the user that the script completed successfully
 
-"This is a script to load the raw data froman URL and save it in the /Data directory
+"This is a script to load the raw data from a URL and save it in the /Data folder
 
 Usage: load_data.R --URL=<data_URL>"  -> doc
 #Data URL to use: https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
@@ -21,12 +21,12 @@ library(docopt)
 opt <- docopt(doc)
 
 main <- function(URL) {
-  
+  URL='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
   data <- read_csv(url(URL), col_names=FALSE)
   
   write.csv(data, 'Milestone_2/Data/adult_data.csv')  
   
-  print(glue("the file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
+  print(glue("The file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
   
 }
 
