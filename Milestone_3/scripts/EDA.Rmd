@@ -19,19 +19,10 @@ suppressPackageStartupMessages(library(tibble))
 ```
 
 
-We seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year. 
-
-To address this, we will answer the following research questions:
-
-1. Is earing more than 50K correlated with the education level, marital status, and hours worked per week? 
+# Analysis 1: The correlation of earning 50K or more a year with the education level, marital status, and hours worked per week?
 
 ```{r}
 
 ```
 
-2. Is hours worked per week correlated with age, relationship, education level, or sex?
-
-```{r}
-
-```
-
+  
