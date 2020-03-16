@@ -6,29 +6,20 @@
 #Have a section for your discussion/conclusion (placeholder for a linear regression to be done next week)
 #Be a new, different document than the EDA document you submitted for milestone1 (though you can liberally borrow from your report, particularly the introduction)
 
-"This is a script to knit the draft final_report.Rmd to an html and pdf file"
+"This script knits the final report together.
 
+Usage: scripts/knit_final_report.R --final_report=<final_report>" -> doc
 
-"This is a script to load the raw data from a URL and save it in the /data folder
-
-Usage: knit_final_report.R --final_report=<final_report_URL> --html=<path_of_html> -- pdf=<path_to_pdf>"  -> doc
-
-#Load libraries and packages 
-
-library(tidyverse)
-library(glue)
 library(docopt)
-library(knitr)
 
 opt <- docopt(doc)
 
-main <- function(final_report,html) {
-  final_report <- knit(url(URL), col_names=FALSE)
-  
-  write.csv(data, 'data/adult_data.csv')  
-  
-  print(glue("The file has been created as an html and pdf"))
+main <- function(final_report) {
+  rmarkdown::render(final_report, 
+    c("html_document", "pdf_document"))
+
+  print(glue("The html and pdf forms of the final report can be found in the docs folder"))  
   
 }
 
-main(opt$URL)
+main(opt$final_report)

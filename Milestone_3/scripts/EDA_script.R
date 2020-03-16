@@ -6,10 +6,12 @@ library(tidyverse)
 library(ggplot2)
 library(docopt)
 library(glue)
+library(purrr)
 
 opt <- docopt(doc)
 
 main <- function(path) {
+  #read the file
   data <- read.csv("data/adult_data_clean.csv",row.names=1)
   
   #Plot 1
@@ -24,7 +26,7 @@ main <- function(path) {
     theme_bw() +
     theme(legend.title=element_blank())
  
-    ggsave("Plot_1_Distribution_of_Age_by_Sex.png", Plot1, path=path)  #save as Plot 1 in path (Images folder)
+    ggsave("Plot_1_Distribution_of_Age_by_Sex.png", Plot1, path=path)  #save as Plot 1 in path (images folder)
   
   
   #Plot 2
@@ -79,9 +81,33 @@ main <- function(path) {
     theme_bw() 
  
   ggsave("Plot_4_Marital_Status_and_Work_Hours.png", Plot4, path=path) #save as Plot 4 in path (Images folder)
+
+  # 1. Is earning more than 50K correlated with the education level, marital status, and hours worked per week? 
   
- 
-  print(glue("Plots 1-4 have been saved in ", path))
-}
+  income_education<-lm(data$income ~ data$education,data=data) %>% 
+    saveRDS(income_education, file = "income_education.rds")
+  
+  income_marital_status<-lm(data$income ~ data$marital_status,data=data) %>% 
+    saveRDS(income_marital_status, file = "income_marital_status.rds")
+  
+  income_hours<-lm(data$income ~ data$hours,data=data) %>% 
+    saveRDS(income_hours, file = "income_hours.rds")
+  
+  # 2. Is hours worked per week correlated with age, relationship, education level, or sex?
+  hours_age<-lm(data$hours_per_week~data$age,data=data) %>% 
+    saveRDS(., file = "hours_age.rds")
+  
+  hours_relationship<-lm(data$hours_per_week~data$relationship,data=data) %>% 
+    saveRDS(., file = "hours_relationship.rds")
+  
+  hours_education<-lm(data$hours_per_week~data$education,data=data) %>% 
+    saveRDS(hours_education, file = "hours_education.rds")
+  
+  hours_sex<-lm(data$hours_per_week~data$sex,data=data) %>% 
+    saveRDS(hours_sex, file = "hours_sex.rds")
+    
+print(glue("Data analysis for research questions is completed and found in", path))
+
+  }
 
 main(opt$path)

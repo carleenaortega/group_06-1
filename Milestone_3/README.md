@@ -1,10 +1,8 @@
-
 This is the repo for Milestone 3
-
 
 **Usage**
 ==================
-_Instructions for how to completely reproduce this analysis_
+_Instructions for how to completely reproduce this analysis using individual scripts_
 
 1. Clone this repo.
 
@@ -30,8 +28,9 @@ _Instructions for how to completely reproduce this analysis_
   
   **EDA script to export images with EDA_script.R** \
   Rscript scripts/EDA_script.R --path="images"
-
+  
   **Knit the .Rmd final report into pdf and html documents** \
   Rscript scripts/knit_final_report.R --final_report="docs/final_report.Rmd"
   
-  
+_Instructions for how to completely reproduce this analysis using GNU MAKE_
+

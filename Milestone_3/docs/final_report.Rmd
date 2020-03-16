@@ -1,5 +1,5 @@
 ---
-title: "EDA"
+title: "Final Report"
 author: "Carleena Ortega and Saelin Bjornson"
 date: "15/03/2020"
 output:
@@ -18,13 +18,51 @@ suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(tibble))
 ```
 
-Load the processed data to use for analysis
+## Adult Income
 
+### Introduction
 
-# Analysis 1: The correlation of earning 50K or more a year with the education level, marital status, and hours worked per week?
+#### The Dataset
+Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics \
+What: This is a multivariate dataset with categorical and integer variables. It contains the predicted income of individuals from the census with attributes including age, marital status, work class, education, sex, and race. \
+When: The data is from a 1994 census. \
+Why: The data set is found in the University of California Irvine Machine Learning Repository, and was used for ML prediction of whether a person makes over or under 50K a year based on their attributes. \
+How: The census data was collected by survey. 
 
+#### The Research Questions 
+
+1. Is earning more than 50K correlated with the education level, marital status, and hours worked per week?
+
+Plots showing the relationship between income and each variable separately. For example, we will perform a logistic regression to show the the difference between individuals earning more than 50,000 a year and those who don't using the educational level as the independent variable.
+
+2. Is hours worked per week correlated with age, relationship, education level, or sex?
+
+Plots showing the relationship between hours worked and each variable separately. For example, we will use the linear regression model to explore how hours at work is related to variables such as age, relationship, education level, and sex.
+
+### Exploratory Data Analysis
+In this section, we will get to know our dataset better by exploring the relationship between certain factors.
+
+#### Age and Sex
+The plot below shows that there are more male employees than female employees and that the majority of working males are older than working females since the male (blue curve) have a peak shifted to the right with respect to female (red peak).
+![](../images/Plot_1_Distribution_of_Age_by_Sex.png)
+
+#### Educational Leve and Income
+We observe from the following graphs that a majority of individuals earning greater than $50,000 a year only accomplished high school irrespective of sex or ethnical background.
+
+![](../images/Plot_2_Education_Level_of_50K_or_more_Earners.png)
+  
+#### Number of Work Hours and Age
+We can deduce from the graph below that individuals work the most hours between their 40's and 60's (probably full time at 40 hours or more a week) and that employees under 20 and over 80 years of age work the same number of hours (probably part time at 25 hours)
+
+![](../images/Plot_3_Hours_worked_per_week_by_age.png)
+
+#### Marital Status and Number of Hours Worked
+The plot below shows that the working hours between married individuals and single employees are similar.
+
+![](../images/Plot_4_Marital_Status_and_Work_Hours.png)
+
+### Analysis
 ```{r}
-
+readRDS(file = "hours_age.rds")
 ```
 
-  

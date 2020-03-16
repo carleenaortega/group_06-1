@@ -18,6 +18,7 @@ suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(tibble))
 ```
 
+Load the cleaned data from 
 
 # Analysis 1: The correlation of earning 50K or more a year with the education level, marital status, and hours worked per week?
 
