@@ -30,3 +30,7 @@ _Instructions for how to completely reproduce this analysis_
   
   **EDA script to export images with EDA_script.R** \
   Rscript scripts/EDA_script.R --path="images"
+
+
+  **Knit the draft report to an HTML and PDF** \
+  Rscript scripts/EDA_script.R --path="docs"

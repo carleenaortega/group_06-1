@@ -1,4 +1,3 @@
-
 "This is a script to load the raw data from a URL and save it in the /data folder
 
 Usage: load_data.R --URL=<data_URL>"  -> doc
