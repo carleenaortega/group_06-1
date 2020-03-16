@@ -15,8 +15,6 @@ adult_data_clean.csv : scripts/process_data.R
 Plots.png : scripts/EDA_script.R
 	Rscript scripts/EDA_script.R --path="images"
 
-
-	
 #knit data
 final_report.html final_report.pdf : data/adult_data_clean.csv scripts/knit_final_report.R
 	Rscript scripts/knit_final_report.R --final_report="docs/final_report.Rmd"
