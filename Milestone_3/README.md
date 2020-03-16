@@ -27,7 +27,7 @@ _Instructions for how to completely reproduce this analysis using individual scr
   Rscript scripts/process_data.R --raw_data="data/adult_data.csv" --processed="adult_data_clean.csv"
   
   **EDA script to export images with EDA_script.R** \
-  Rscript scripts/EDA_script.R --path="images"
+  Rscript scripts/EDA_script.R --image_path="images/" --RDS_path="data/" 
   
   **Knit the .Rmd final report into pdf and html documents** \
   Rscript scripts/knit_final_report.R --final_report="docs/final_report.Rmd"
