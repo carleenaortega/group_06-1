@@ -15,7 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(tibble))
 ```
+
 
 We seek to determine the difference in socioeconomic factors such as age, education, sex, and marital status between individuals earning less than and those earning more than $50,000 a year. 
 
