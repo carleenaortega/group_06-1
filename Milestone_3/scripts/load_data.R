@@ -18,13 +18,8 @@ main <- function(URL) {
   
   write.csv(data, 'Data/adult_data.csv')  
   
-  print(glue("The file has been loaded and saved in Milestone_2/Data as adult_data.csv"))
+  print(glue("The file has been loaded and saved in Milestone_3/Data as adult_data.csv"))
   
 }
 
 main(opt$URL)
-
-
-
-
-
