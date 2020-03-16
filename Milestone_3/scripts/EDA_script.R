@@ -1,4 +1,4 @@
-"This is a script to do exploratory data analysis on /Data/adult_data_clean.csv and to save images to /Images
+"This is a script to do exploratory data analysis on /data/adult_data_clean.csv and to save images to /images
 
 Usage: EDA_script.R --path=<path_to_save>" -> doc
 
@@ -10,7 +10,7 @@ library(glue)
 opt <- docopt(doc)
 
 main <- function(path) {
-  data <- read.csv("Data/adult_data_clean.csv",row.names=1)
+  data <- read.csv("data/adult_data_clean.csv",row.names=1)
   
   #Plot 1
   df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))

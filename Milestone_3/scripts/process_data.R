@@ -24,9 +24,9 @@ main <- function(raw_data, processed) {
   
     adult_data$education_num <-as.factor(adult_data$education_num) #change education level to factor 
   
-    write.csv(adult_data, glue('Data/', processed))
+    write.csv(adult_data, glue('data/', processed))
   
-    print(glue("the raw data has been processed and saved as ", processed, " in Milestone_2/Data"))  
+    print(glue("the raw data has been processed and saved as ", processed, " in Milestone_3/data"))  
 }
 
 main(opt$raw, opt$processed)
