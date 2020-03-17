@@ -91,6 +91,7 @@ The plot below shows that the working hours between married individuals and sing
 
 Plots showing the relationship between income and each variable separately. For example, we will perform a logistic regression to show the the difference between individuals earning more than 50,000 a year and those who don't using the educational level as the independent variable.
 
+<<<<<<< HEAD
 
 #```{r}
 tidy(readRDS("../data/income_education.rds"))
@@ -98,6 +99,8 @@ augment(readRDS("../data/income_education.rds"))
 glance(readRDS("../data/income_education.rds"))
 ```
 
+=======
+>>>>>>> upstream/master
 #```{r, readRDS for analysis#2}
 readRDS("../data/hours_age.rds")
   
