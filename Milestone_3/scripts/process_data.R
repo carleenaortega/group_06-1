@@ -2,9 +2,9 @@
 
 Usage: process_data.R --raw_data=<path_to_raw> --processed=<file_name>" -> doc
 
-library(tidyverse)
-library(glue)
-library(docopt)
+suppressPackageStartupMessages(library(tidyverse)) 
+suppressPackageStartupMessages(library(glue)) 
+suppressPackageStartupMessages(library(docopt)) 
 
 opt <- docopt(doc)
 
