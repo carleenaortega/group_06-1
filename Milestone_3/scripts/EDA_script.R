@@ -3,11 +3,11 @@
 Usage: EDA_script.R --image_path=<path_to_save> --RDS_path=<RDS_path_to_save>" -> doc
 ##Exact usage from Milestone_3: Rscript scripts/EDA_script.R --image_path="images/" --RDS_path="data/"
 
-library(tidyverse)
-library(ggplot2)
-library(docopt)
-library(glue)
-library(purrr)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(docopt))
+suppressPackageStartupMessages(library(glue))
+suppressPackageStartupMessages(library(purrr))
 
 opt <- docopt(doc)
 
