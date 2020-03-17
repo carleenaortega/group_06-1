@@ -5,10 +5,10 @@
 
 #load data
 adult_data.csv : scripts/load_data.R
-	Rscript scripts/load_data.R --filepath="data/adult_data.csv" --url_to_read="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
+  Rscript scripts/load_data.R --filepath="data/adult_data.csv" --url_to_read="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
 	
 # process data
-adult_data_clean.csv : scripts/process_data.R
+adult_data_clean.csv : scripts/process_data.R	
 	Rscript scripts/process_data.R --raw_data="data/adult_data.csv" --processed="adult_data_clean.csv"
 
 # explore data
