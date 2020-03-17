@@ -30,13 +30,31 @@ When: The data is from a 1994 census. \
 Why: The data set is found in the University of California Irvine Machine Learning Repository, and was used for ML prediction of whether a person makes over or under 50K a year based on their attributes. \
 How: The census data was collected by survey. 
 
+#### The Variables
+
+|Variable|Type|Description|
+|--------|-------|------|
+|age|int|Age of individual|
+|workclass|chr|e.g. private, self-emplowed, federal government, never worked, etc.|
+|fnlwgt|int|Final weights: weighted sums of the socio-economic characteristics of the individual. People with similar demographics have similar weights. |
+|education|chr|Highest education recieved|
+|educationnum|factor|Numerical code for highest education recieved|
+|marital_status|int|e.g. married, never married, divorced, etc.|
+|occupation|chr|Occupation of individual|
+|relationship|chr|Relation of individual in family. e.g. wife, child, husband, unmarried|
+|race|chr|Asian-Pacific Islander, Native American, White, Black, other|
+|sex|chr|Male or Female|
+|capital_gain|int|Profit from capital assets such as investments, real estate, etc.|
+|capital_loss|int|Loss from capital assets|
+|hours_per_week||The number of hours that the individual works per week|
+|country|chr|Country of origin|
+|income|chr|Whether individual is predicted to make over or under 50K|
+
+mentioned the renamed/ grouped factors here
+
 #### The Research Questions 
 
-1. Is earning more than 50K correlated with the education level, marital status, and hours worked per week?
-
-Plots showing the relationship between income and each variable separately. For example, we will perform a logistic regression to show the the difference between individuals earning more than 50,000 a year and those who don't using the educational level as the independent variable.
-
-2. Is hours worked per week correlated with age, relationship, education level, or sex?
+1. Is hours worked per week correlated with age, relationship, education level, or sex?
 
 Plots showing the relationship between hours worked and each variable separately. For example, we will use the linear regression model to explore how hours at work is related to variables such as age, relationship, education level, and sex.
 
@@ -80,16 +98,6 @@ augment(readRDS("../data/income_education.rds"))
 glance(readRDS("../data/income_education.rds"))
 ```
 
-#```{r, readRDS for analysis#1}
-tidy(readRDS("../data/income_education.rds"))
-
-readRDS("../data/income_marital_status.rds")
-
-readRDS("../data/income_hours.rds")
-  
-readRDS("../data/income_all.rds")
-  
-```
 #```{r, readRDS for analysis#2}
 readRDS("../data/hours_age.rds")
   
