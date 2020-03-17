@@ -91,11 +91,12 @@ tidy(sex)
 ```
 From this output, we can see that the average hours worked per week for women is 36.1, and men work 6 more hours per week on average. 
 
+
 #### Hours vs. Age
 ```{r,echo=FALSE}
 tidy(age)
 ```
-
+Age 
 
 #### Hours vs. Education
 ```{r,echo=FALSE}
@@ -118,3 +119,5 @@ Overall we believe a there is a more informative way to analyze our research que
 Our data is quite biased in that there are much more men (21790) than women (10771) in data set. This is especially apparent at older ages, for instance there are 742 women over 60 and 1590 men over 60. 
 
 ## Conclusion
+
+More appropriate linear regression analysis need to be done
