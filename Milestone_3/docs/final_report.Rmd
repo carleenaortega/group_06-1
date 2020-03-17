@@ -21,7 +21,7 @@ suppressPackageStartupMessages(library(tibble))
 
 ## Adult Income
 
-### Introduction
+## Introduction
 
 #### The Dataset
 Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics \
@@ -33,7 +33,7 @@ How: The census data was collected by survey.
 #### The Research Questions 
 Are the number of hours someone works per week correlated with their age, relationship, education level or sex?
 
-### Exploratory Data Analysis
+## Exploratory Data Analysis
 In this section, we will get to know our dataset better by exploring the relationship between certain factors.
 
 #### Age and Sex
@@ -60,11 +60,13 @@ The plot below shows that the working hours between married individuals and sing
 
 ![](../images/Plot_4_Marital_Status_and_Work_Hours.png)
 
-### Analysis
-
+## Analysis
 We have performed linear regression of hours per week vs. each variable separately, as well as linear regression using all these variables together. 
 
 This was done using the lm function of the purr package. For example: lm(hours_per_week~education,data) 
+
+For categorical variables sex, education and relationship, the intercept is the defaul reference group, where the "estimate" is the mean of that group, and the "estimates" of all other variables are the differences in means between that group and the reference. The statistic is the t-statistic comparing these means, with a given p-value reporting the significance of this difference. 
+
 
 ```{r, readRDS,include=FALSE}
 age <- readRDS("../data/hours_age.rds")
@@ -74,37 +76,45 @@ sex <- readRDS("../data/hours_sex.rds")
 all <-readRDS("../data/hours_all.rds")
 ```
 
+## Results
 
-Effect of age on hours per week:
-```{r, echo=FALSE}
+#### Hours vs. Relationship
+
+```{r,echo=FALSE}
+tidy(relationship)
+```
+In this case, we are comparing the mean hours worked per week of husbands (intercept) to each other relationship category. It appears that husbands work more than any other age group, (as seen by the negative estimates), with significant p-values in each case. 
+
+#### Hours vs. Sex
+```{r,echo=FALSE}
+tidy(sex)
+```
+From this output, we can see that the average hours worked per week for women is 36.1, and men work 6 more hours per week on average. 
+
+#### Hours vs. Age
+```{r,echo=FALSE}
 tidy(age)
 ```
 
 
-Effect of relationship on hours per week:
-```{r, echo=FALSE}
-tidy(relationship)
-```
-
-Effect of education on hours per week:
-```{r, echo=FALSE}
+#### Hours vs. Education
+```{r,echo=FALSE}
 tidy(education)
 ```
+In this analysis, the default reference group (intercept) is a 10th grade education. It appears that those with an 11th grade education work 3 hours less (significant p-value), whereas all other with no more than a high school education work the same amount (no significant p-values). 
+
+Every other education level higher than highschool worked significantly more hours, as seen by positive estimates of each group and low p-values. 
 
 
-Effect of sex on hours per week:
-```{r,echo=FALSE}
-tidy(sex)
-```
-
-
-Looking at the effect of all these variables on hours per week:
+#### All Variables 
 ```{r,echo=FALSE}
 head(tidy(all))
 ```
 
-### Results
 
-### Discussion
+## Discussion
+Overall we believe a there is a more informative way to analyze our research question than the default lm() parameters. 
 
-### Conclusion
+Our data is quite biased in that there are much more men (21790) than women (10771) in data set. This is especially apparent at older ages, for instance there are 742 women over 60 and 1590 men over 60. 
+
+## Conclusion
