@@ -89,7 +89,7 @@ main <- function(image_path, RDS_path) {
   hours_age<-lm(hours_per_week~age,data) 
   saveRDS(hours_age, file = glue(RDS_path,"hours_age.rds"))
   
-  hours_relationship <-lm(hours_per_week~relationship,data) 
+  hours_relationship<-lm(hours_per_week~relationship,data) 
   saveRDS(hours_relationship, file = glue(RDS_path,"hours_relationship.rds"))
   
   hours_education<-lm(hours_per_week~education,data) 
