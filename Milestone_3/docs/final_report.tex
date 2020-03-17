@@ -1,6 +1,3 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
-\PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -9,32 +6,30 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \usepackage{unicode-math}
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
+\usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
+\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
-\hypersetup{
+\hypersetup{unicode=true,
             pdftitle={Final Report},
             pdfauthor={Carleena Ortega and Saelin Bjornson},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -44,6 +39,12 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -58,15 +59,32 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
 
+%%% Change title format to be more compact
+\usepackage{titling}
 
-\title{Final Report}
-\author{Carleena Ortega and Saelin Bjornson}
-\date{15/03/2020}
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Final Report}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Carleena Ortega and Saelin Bjornson}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{15/03/2020}
+
 
 \begin{document}
 \maketitle
@@ -96,26 +114,139 @@ Machine Learning Repository, and was used for ML prediction of whether a
 person makes over or under 50K a year based on their attributes.\\
 How: The census data was collected by survey.
 
+\hypertarget{the-variables}{%
+\paragraph{The Variables}\label{the-variables}}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.35\columnwidth}\raggedright
+Variable\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Type\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+age\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Age of individual\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+workclass\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+e.g.~private, self-emplowed, federal government, never worked,
+etc.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+fnlwgt\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Final weights: weighted sums of the socio-economic characteristics of
+the individual. People with similar demographics have similar
+weights.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+education\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Highest education recieved\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+educationnum\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+factor\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Numerical code for highest education recieved\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+marital\_status\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+e.g.~married, never married, divorced, etc.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+occupation\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Occupation of individual\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+relationship\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Relation of individual in family. e.g.~wife, child, husband,
+unmarried\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+race\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Asian-Pacific Islander, Native American, White, Black, other\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+sex\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Male or Female\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+capital\_gain\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Profit from capital assets such as investments, real estate, etc.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+capital\_loss\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Loss from capital assets\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+hours\_per\_week\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+The number of hours that the individual works per week\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+country\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Country of origin\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+income\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Whether individual is predicted to make over or under 50K\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+mentioned the renamed/ grouped factors here
+
 \hypertarget{the-research-questions}{%
 \paragraph{The Research Questions}\label{the-research-questions}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Is earning more than 50K correlated with the education level, marital
-  status, and hours worked per week?
-\end{enumerate}
-
-Plots showing the relationship between income and each variable
-separately. For example, we will perform a logistic regression to show
-the the difference between individuals earning more than 50,000 a year
-and those who don't using the educational level as the independent
-variable.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
 \tightlist
 \item
   Is hours worked per week correlated with age, relationship, education
@@ -191,7 +322,14 @@ the the difference between individuals earning more than 50,000 a year
 and those who don't using the educational level as the independent
 variable.
 
-\#```\{r, readRDS for analysis\#2\} readRDS(``../data/hours\_age.rds'')
+\textless\textless\textless\textless\textless\textless\textless{} HEAD
+
+\#\texttt{\{r\}\ tidy(readRDS("../data/income\_education.rds"))\ augment(readRDS("../data/income\_education.rds"))\ glance(readRDS("../data/income\_education.rds"))}
+
+=======
+\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater{}
+upstream/master \#```\{r, readRDS for analysis\#2\}
+readRDS(``../data/hours\_age.rds'')
 
 readRDS(``../data/hours\_relationship.rds'')
 
@@ -212,5 +350,6 @@ readRDS(``../data/hours\_all.rds'')
 
 \hypertarget{conclusion}{%
 \subsubsection{Conclusion}\label{conclusion}}
+
 
 \end{document}
