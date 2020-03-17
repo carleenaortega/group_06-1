@@ -86,6 +86,7 @@ main <- function(image_path, RDS_path) {
   # Research question: Is hours worked per week correlated with age, relationship, education level, or sex?
 
   #The relationship of each separately:
+  
   hours_age<-lm(hours_per_week~age,data) 
   saveRDS(hours_age, file = glue(RDS_path,"hours_age.rds"))
   
@@ -97,10 +98,11 @@ main <- function(image_path, RDS_path) {
   
   hours_sex<-lm(hours_per_week~sex,data) 
   saveRDS(hours_sex, file = glue(RDS_path, "hours_sex.rds"))
+
   
   #Relationship of all variables together:
   
-  hours_age_relationship_educ_sex<-lm(hours_per_week~sex + hours_per_week + education + relationship + age, data) 
+  hours_age_relationship_educ_sex<-lm(hours_per_week~sex + education + relationship + age, data) 
   saveRDS(hours_age_relationship_educ_sex, file = glue(RDS_path,"hours_all.rds"))
     
 print(glue("Data analysis for research questions is completed. Images are found in ", image_path, " and RDS files are found in ", RDS_path))

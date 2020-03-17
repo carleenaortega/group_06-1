@@ -19,10 +19,29 @@ main <- function(image_path, RDS_path) {
   # Research question: Is hours worked per week correlated with age, relationship, education level, or sex?
   
   #The relationship of each separately:
- data<-as.tibble(data)
+ data4<-as.tibble(read.csv("data/adult_data_clean.csv", row.names=1))
+ 
+ factors<-c(data4$age, data4$relationship, data4$education, data4$sex)
   
-  factors<-vector(data$age, data$relationship, data$education, data$sex)
+ fnc<-
+   lm(data4$hours_per_week~factors,data4)
+  saveRDS(hours_".x",file=glue(RDS_path,"hours_",factors,".rds"))
+ 
+  map(factors,fnc)
   
+  OR 
+  
+  data<-as.tibble(read.csv("data/adult_data_clean.csv", row.names=1))
+  
+  factors<-1:seq_along(data %>%  select(age,relationship,education, sex))
+  
+  fnc<-
+    lm(data$hours_per_week~factors,data4)
+  saveRDS(hours_(factors),file=glue(RDS_path,"hours_",(factors),".rds"))
+  
+  map(factors,fnc)
+  
+  OR 
   
   hours_age<-lm(hours_per_week~age,data) 
   saveRDS(hours_age, file = glue(RDS_path,"hours_age.rds"))
@@ -35,6 +54,7 @@ main <- function(image_path, RDS_path) {
   
   hours_sex<-lm(hours_per_week~sex,data) 
   saveRDS(hours_sex, file = glue(RDS_path, "hours_sex.rds"))
+  
   
   #Relationship of all variables together:
   
