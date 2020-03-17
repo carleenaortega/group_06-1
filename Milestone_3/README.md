@@ -21,7 +21,7 @@ _Instructions for how to completely reproduce this analysis using individual scr
 **In the Milestone_3 folder as working directory**
 
  **Download data with load_data.R** \
-  Rscript scripts/load_data.R --URL="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data" --filepath=docs/adult_data.csv
+  Rscript scripts/load_data.R --URL="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data" --filepath="data/adult_data.csv"
   
   **Wrangle/clean/process the data with process_data.R** \
   Rscript scripts/process_data.R --raw_data="data/adult_data.csv" --processed="adult_data_clean.csv"
