@@ -3,10 +3,9 @@
 Usage: load_data.R --URL=<data_URL> --filepath=<filepath>"  -> doc
 
 #Load libraries and packages 
-
-library(tidyverse)
-library(glue)
-library(docopt)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(glue)) 
+suppressPackageStartupMessages(library(docopt))
 
 opt <- docopt(doc)
 
