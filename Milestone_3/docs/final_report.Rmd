@@ -3,12 +3,12 @@ title: "Final Report"
 author: "Carleena Ortega and Saelin Bjornson"
 date: "15/03/2020"
 output:
-  pdf_document: 
-    toc: true
-    toc_depth: 4
   html_document:
     theme: cerulean
     toc: yes
+  pdf_document: 
+    toc: true
+    toc_depth: 4
 ---
 
 ```{r setup, include=FALSE}
@@ -31,14 +31,7 @@ Why: The data set is found in the University of California Irvine Machine Learni
 How: The census data was collected by survey. 
 
 #### The Research Questions 
-
-1. Is earning more than 50K correlated with the education level, marital status, and hours worked per week?
-
-Plots showing the relationship between income and each variable separately. For example, we will perform a logistic regression to show the the difference between individuals earning more than 50,000 a year and those who don't using the educational level as the independent variable.
-
-2. Is hours worked per week correlated with age, relationship, education level, or sex?
-
-Plots showing the relationship between hours worked and each variable separately. For example, we will use the linear regression model to explore how hours at work is related to variables such as age, relationship, education level, and sex.
+Are the number of hours someone works per week correlated with their age, relationship, education level or sex?
 
 ### Exploratory Data Analysis
 In this section, we will get to know our dataset better by exploring the relationship between certain factors.
@@ -69,24 +62,46 @@ The plot below shows that the working hours between married individuals and sing
 
 ### Analysis
 
-1. Is earning more than 50K correlated with the education level, marital status, and hours worked per week?
+We have performed linear regression of hours per week vs. each variable separately, as well as linear regression using all these variables together. 
 
-Plots showing the relationship between income and each variable separately. For example, we will perform a logistic regression to show the the difference between individuals earning more than 50,000 a year and those who don't using the educational level as the independent variable.
+This was done using the lm function of the purr package. For example: lm(hours_per_week~education,data) 
 
-#```{r, readRDS for analysis#2}
-readRDS("../data/hours_age.rds")
-  
-readRDS("../data/hours_relationship.rds")
-  
-readRDS("../data/hours_education.rds")
-  
-readRDS("../data/hours_sex.rds")
-  
-  #Relationship of all variables together:
-readRDS("../data/hours_all.rds")
-    
+```{r, readRDS,include=FALSE}
+age <- readRDS("../data/hours_age.rds")
+relationship <- readRDS("../data/hours_relationship.rds")
+education <- readRDS("../data/hours_education.rds")
+sex <- readRDS("../data/hours_sex.rds")
+all <-readRDS("../data/hours_all.rds")
 ```
 
+
+Effect of age on hours per week:
+```{r, echo=FALSE}
+tidy(age)
+```
+
+
+Effect of relationship on hours per week:
+```{r, echo=FALSE}
+tidy(relationship)
+```
+
+Effect of education on hours per week:
+```{r, echo=FALSE}
+tidy(education)
+```
+
+
+Effect of sex on hours per week:
+```{r,echo=FALSE}
+tidy(sex)
+```
+
+
+Looking at the effect of all these variables on hours per week:
+```{r,echo=FALSE}
+head(tidy(all))
+```
 
 ### Results
 
