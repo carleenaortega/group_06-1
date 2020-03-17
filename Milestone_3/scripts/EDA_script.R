@@ -119,8 +119,8 @@ main <- function(image_path, RDS_path) {
   
   #Relationship of all variables together:
   
-  hours_age_relationship_educ_sex<-lm(hours_per_week~sex,data) 
-  saveRDS(hours_sex, file = glue(RDS_path,"hours_sex.rds"))
+  hours_age_relationship_educ_sex<-lm(hours_per_week~sex + hours_per_week + education + relationship + age, data) 
+  saveRDS(hours_age_relationship_educ_sex, file = glue(RDS_path,"hours_all.rds"))
     
 print(glue("Data analysis for research questions is completed. Images are found in ", image_path, " and RDS files are found in ", RDS_path))
 

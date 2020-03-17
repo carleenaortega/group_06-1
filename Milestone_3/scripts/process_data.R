@@ -10,7 +10,7 @@ opt <- docopt(doc)
 
 main <- function(raw_data, processed) {
   
-  raw <- read.csv(raw_data,row.names=1)
+  raw <- read.csv(raw_data)
   
   #fix the data
   adult_data <-raw %>% rename("age"=X1,"workclass"=X2,"fnlwgt"=X3,"education"=X4,

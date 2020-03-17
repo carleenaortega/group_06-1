@@ -100,7 +100,7 @@ readRDS("../data/hours_education.rds")
 readRDS("../data/hours_sex.rds")
   
   #Relationship of all variables together:
-readRDS("../data/hours_sex.rds")
+readRDS("../data/hours_all.rds")
     
 ```
 
