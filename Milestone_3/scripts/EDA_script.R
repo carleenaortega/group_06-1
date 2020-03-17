@@ -83,26 +83,7 @@ main <- function(image_path, RDS_path) {
  
   ggsave("Plot_4_Marital_Status_and_Work_Hours.png", Plot4, path=image_path) #save as Plot 4 in path (Images folder)
   
-  # 1. Is earning more than 50K correlated with the education level, marital status, and hours worked per week? 
-  # This is a binary response variable, so need to use general linear model (glm) with family "binomial" for logistic regression
-  
-  #The relationship of each separately:
-  
-  income_education<-glm(income ~ education, data, family="binomial")
-  saveRDS(income_education, file = glue(RDS_path, "income_education.rds"))
-  
-  income_marital_status<-glm(income ~ marital_status, data, family="binomial") 
-  saveRDS(income_marital_status, file = glue(RDS_path,"income_marital_status.rds"))
-  
-  income_hours<-glm(income ~ hours_per_week, data,family="binomial")
-  saveRDS(income_hours, file = glue(RDS_path,"income_hours.rds"))
-  
-  #Relationship of all variables together:
-  
-  income_educ_marital_hours <- glm(income ~ education + marital_status + hours_per_week, data, family ="binomial")
-  saveRDS(income_educ_marital_hours, file = glue(RDS_path,"income_all.rds"))
-  
-  # 2. Is hours worked per week correlated with age, relationship, education level, or sex?
+  # Research question: Is hours worked per week correlated with age, relationship, education level, or sex?
 
   #The relationship of each separately:
   hours_age<-lm(hours_per_week~age,data) 
