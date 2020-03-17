@@ -5,15 +5,15 @@
 
 #load data
 adult_data.csv : scripts/load_data.R
-	Rscript scripts/load_data.R --filepath="data/adult_data.csv" --url_to_read="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
+  Rscript scripts/load_data.R --filepath="data/adult_data.csv" --url_to_read="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
 	
 # process data
-adult_data_clean.csv : scripts/process_data.R
+adult_data_clean.csv : scripts/process_data.R	
 	Rscript scripts/process_data.R --raw_data="data/adult_data.csv" --processed="adult_data_clean.csv"
 
 # explore data
 Plots.png : scripts/EDA_script.R
-	Rscript scripts/EDA_script.R --path="images"
+	Rscript scripts/EDA_script.R --image_path="images/" --RDS_path="data/"
 
 #knit data
 final_report.html final_report.pdf : data/adult_data_clean.csv scripts/knit_final_report.R

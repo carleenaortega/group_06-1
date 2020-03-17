@@ -1,6 +1,7 @@
 "This is a script to do exploratory data analysis on /data/adult_data_clean.csv and to save images to /images
 
-Usage: EDA_script.R --path=<path_to_save>" -> doc
+Usage: EDA_script.R --image_path=<path_to_save> --RDS_path=<RDS_path_to_save>" -> doc
+##Exact usage from Milestone_3: Rscript scripts/EDA_script.R --image_path="images/" --RDS_path="data/"
 
 library(tidyverse)
 library(ggplot2)
@@ -10,9 +11,9 @@ library(purrr)
 
 opt <- docopt(doc)
 
-main <- function(path) {
+main <- function(image_path, RDS_path) {
   #read the file
-  data <- read.csv("data/adult_data_clean.csv",row.names=1)
+  data <- read.csv("data/adult_data_clean.csv", row.names=1)
   
   #Plot 1
   df <-select(data, sex, age) %>% mutate(sex = factor(sex, levels=c("Male", "Female"))) %>% group_by(sex)  %>% summarize(mean=mean(age))
@@ -26,7 +27,7 @@ main <- function(path) {
     theme_bw() +
     theme(legend.title=element_blank())
  
-    ggsave("Plot_1_Distribution_of_Age_by_Sex.png", Plot1, path=path)  #save as Plot 1 in path (images folder)
+    ggsave("Plot_1_Distribution_of_Age_by_Sex.png", Plot1, path=image_path)  #save as Plot 1 in path (images folder)
   
   
   #Plot 2
@@ -45,7 +46,7 @@ main <- function(path) {
     labs(title="Education level of 50K or more Earners",fill="Education",y="Percent",x="Sex") 
   
   
-    ggsave("Plot_2_Education_Level_of_50K_or_more_Earners.png", Plot2, path=path)   #save as Plot 2 in path (Images folder)
+    ggsave("Plot_2_Education_Level_of_50K_or_more_Earners.png", Plot2, path=image_path)   #save as Plot 2 in path (Images folder)
   
 
   #Plot 3
@@ -64,7 +65,7 @@ main <- function(path) {
     theme_bw() +
     theme(legend.position="none")
   
-    ggsave("Plot_3_Hours_worked_per_week_by_age.png", Plot3, path=path)  #save as Plot 3 in path (Images folder)
+    ggsave("Plot_3_Hours_worked_per_week_by_age.png", Plot3, path=image_path)  #save as Plot 3 in path (Images folder)
   
   #plot 4
   
@@ -80,34 +81,49 @@ main <- function(path) {
     facet_wrap(~race)+ 
     theme_bw() 
  
-  ggsave("Plot_4_Marital_Status_and_Work_Hours.png", Plot4, path=path) #save as Plot 4 in path (Images folder)
-
+  ggsave("Plot_4_Marital_Status_and_Work_Hours.png", Plot4, path=image_path) #save as Plot 4 in path (Images folder)
+  
   # 1. Is earning more than 50K correlated with the education level, marital status, and hours worked per week? 
+  # This is a binary response variable, so need to use general linear model (glm) with family "binomial" for logistic regression
   
-  income_education<-lm(data$income ~ data$education,data=data) %>% 
-    saveRDS(income_education, file = "income_education.rds")
+  #The relationship of each separately:
   
-  income_marital_status<-lm(data$income ~ data$marital_status,data=data) %>% 
-    saveRDS(income_marital_status, file = "income_marital_status.rds")
+  income_education<-glm(income ~ education, data, family="binomial")
+  saveRDS(income_education, file = glue(RDS_path, "income_education.rds"))
   
-  income_hours<-lm(data$income ~ data$hours,data=data) %>% 
-    saveRDS(income_hours, file = "income_hours.rds")
+  income_marital_status<-glm(income ~ marital_status, data, family="binomial") 
+  saveRDS(income_marital_status, file = glue(RDS_path,"income_marital_status.rds"))
+  
+  income_hours<-glm(income ~ hours_per_week, data,family="binomial")
+  saveRDS(income_hours, file = glue(RDS_path,"income_hours.rds"))
+  
+  #Relationship of all variables together:
+  
+  income_educ_marital_hours <- glm(income ~ education + marital_status + hours_per_week, data, family ="binomial")
+  saveRDS(income_educ_marital_hours, file = glue(RDS_path,"income_all.rds"))
   
   # 2. Is hours worked per week correlated with age, relationship, education level, or sex?
-  hours_age<-lm(data$hours_per_week~data$age,data=data) %>% 
-    saveRDS(., file = "hours_age.rds")
+
+  #The relationship of each separately:
+  hours_age<-lm(hours_per_week~age,data) 
+  saveRDS(hours_age, file = glue(RDS_path,"hours_age.rds"))
   
-  hours_relationship<-lm(data$hours_per_week~data$relationship,data=data) %>% 
-    saveRDS(., file = "hours_relationship.rds")
+  hours_relationship <-lm(hours_per_week~relationship,data) 
+  saveRDS(hours_relationship, file = glue(RDS_path,"hours_relationship.rds"))
   
-  hours_education<-lm(data$hours_per_week~data$education,data=data) %>% 
-    saveRDS(hours_education, file = "hours_education.rds")
+  hours_education<-lm(hours_per_week~education,data) 
+  saveRDS(hours_education, file = glue(RDS_path,"hours_education.rds"))
   
-  hours_sex<-lm(data$hours_per_week~data$sex,data=data) %>% 
-    saveRDS(hours_sex, file = "hours_sex.rds")
+  hours_sex<-lm(hours_per_week~sex,data) 
+  saveRDS(hours_sex, file = glue(RDS_path, "hours_sex.rds"))
+  
+  #Relationship of all variables together:
+  
+  hours_age_relationship_educ_sex<-lm(hours_per_week~sex,data) 
+  saveRDS(hours_sex, file = glue(RDS_path,"hours_sex.rds"))
     
-print(glue("Data analysis for research questions is completed and found in", path))
+print(glue("Data analysis for research questions is completed. Images are found in ", image_path, " and RDS files are found in ", RDS_path))
 
   }
 
-main(opt$path)
+main(opt$image_path, opt$RDS_path)
