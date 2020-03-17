@@ -9,8 +9,7 @@ suppressPackageStartupMessages(library(docopt))
 
 opt <- docopt(doc)
 
-main <- function(URL = "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data", 
-  filepath = "data/adult_data.csv") {
+main <- function(URL, filepath) {
   #Read the file
   data <- read_csv(url(URL), col_names=FALSE)
   #Save the raw data as a .csv file
