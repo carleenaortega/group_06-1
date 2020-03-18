@@ -127,6 +127,7 @@ m_hours<-tidy(sex)[["estimate"]][2]
 **Result:** 
 From this output, we can see that the average hours worked per week for women is `r round(w_hours,0)`, and men work `r round(m_hours,0)` more hours per week on average. 
 
+
 #### Hours vs. Age
 
 **Hypothesis:** Individuals start to increase work hours in their 20s as they begin a career and keep increasing or plateauing depending on their marital status until it declines at retirement (around 60 years old).
@@ -135,7 +136,7 @@ From this output, we can see that the average hours worked per week for women is
 ```{r,echo=FALSE}
 tidy(age)
 ```
-
+Age 
 
 
 #### Hours vs. Education
@@ -163,3 +164,7 @@ head(tidy(all))
 Overall we believe a there is a more informative way to analyze our research question than the default lm() parameters. 
 
 Our data is quite biased in that there are much more men (21790) than women (10771) in data set. This is especially apparent at older ages, for instance there are 742 women over 60 and 1590 men over 60. 
+
+## Conclusion
+
+More appropriate linear regression analysis need to be done
