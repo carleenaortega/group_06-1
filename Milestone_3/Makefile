@@ -6,13 +6,8 @@
 
 #clean data
 clean :
-<<<<<<< HEAD
 	rm -f data/*.rds
 	rm -f data/*.csv
-=======
-	rm -f data/*.csv
-	rm -f data/*.rds
->>>>>>> upstream/master
 	rm -f images/*.png
 	rm -f docs/*.pdf
 	rm -f docs/*.html
@@ -20,7 +15,7 @@ clean :
 	
 
 #make all
-all: final_report.html final_report.pdf
+all : final_report.html final_report.pdf
 
 #load data
 adult_data.csv : scripts/load_data.R
