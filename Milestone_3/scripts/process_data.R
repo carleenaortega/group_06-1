@@ -26,7 +26,7 @@ main <- function(raw_data, processed) {
   
     write.csv(adult_data, glue('data/', processed))
   
-    print(glue("the raw data has been processed and saved as ", processed, " in Milestone_3/data"))  
+    print(glue("The raw data has been processed and saved as ", processed, " in Milestone_3/data"))  
 }
 
 main(opt$raw, opt$processed)
