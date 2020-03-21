@@ -2,12 +2,12 @@
 # date: Mar 15, 2020
 
 # This is a Makefile
-# too run make all, folders need to be empty with 'make clean' first
+# To run make all, folders need to be empty with 'make clean' first
 
 #clean data
 clean :
-	rm -f data/*.csv
 	rm -f data/*.rds
+	rm -f data/*.csv
 	rm -f images/*.png
 	rm -f docs/*.pdf
 	rm -f docs/*.html
