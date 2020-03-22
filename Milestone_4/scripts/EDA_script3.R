@@ -132,13 +132,6 @@ main <- function(image_path, RDS_path) {
   saveRDS(test_race,file=glue(RDS_path,"sex_race.rds"))
   
 
-  
-  
-  
-  
-  
-  
-  
   print(glue("Data analysis for research questions is completed. Images are found in ", image_path, " and RDS files are found in ", RDS_path))
   
 }
