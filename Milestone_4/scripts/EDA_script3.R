@@ -97,39 +97,39 @@ main <- function(image_path, RDS_path) {
   saveRDS(hours_sex, file = glue(RDS_path,"hours_full_NoSex.rds"))
   
   test_sex <-anova(hours_full, hours_sex)
-  saveRDS(test_sex, file=glue(RDS_path,"sex_test.rds"))
+  saveRDS(test_sex, file=glue(RDS_path,"test_sex.rds"))
   
   #testing education
   
   hours_education<-lm(hours_per_week~sex + relationship + age + race, data) 
-  saveRDS(hours_education, file = glue(RDS_path,"hours_full_NoEducation_test.rds"))
+  saveRDS(hours_education, file = glue(RDS_path,"hours_full_NoEducation.rds"))
   
   test_education <- anova(hours_full,hours_education)
-  saveRDS(test_education, file=glue(RDS_path,"sex_education.rds"))
+  saveRDS(test_education, file=glue(RDS_path,"test_education.rds"))
     
   #testing relationship
   
   hours_relationship<-lm(hours_per_week~sex + education + age + race, data) 
-  saveRDS(hours_relationship, file = glue(RDS_path,"hours_full_NoRelationship_test.rds"))
+  saveRDS(hours_relationship, file = glue(RDS_path,"hours_full_NoRelationship.rds"))
   
   test_relationship <- anova(hours_full,hours_relationship)
-  saveRDS(test_relationship, file=glue(RDS_path,"sex_relationship.rds"))
+  saveRDS(test_relationship, file=glue(RDS_path,"test_relationship.rds"))
   
   #testing age
   
   hours_age <-lm(hours_per_week~sex + education + relationship + race, data) 
-  saveRDS(hours_age, file = glue(RDS_path,"hours_full_NoAge_test.rds"))
+  saveRDS(hours_age, file = glue(RDS_path,"hours_full_NoAge.rds"))
   
   test_age <- anova(hours_full, hours_age)
-  saveRDS(test_age,file=glue(RDS_path,"sex_age.rds"))
+  saveRDS(test_age,file=glue(RDS_path,"test_age.rds"))
   
   #testing race
   
   hours_race <-lm(hours_per_week~sex + education + relationship + age, data) 
-  saveRDS(hours_race, file = glue(RDS_path,"hours_full_NoRace_test.rds"))
+  saveRDS(hours_race, file = glue(RDS_path,"hours_full_NoRace.rds"))
   
   test_race <- anova(hours_full,hours_race)
-  saveRDS(test_race,file=glue(RDS_path,"sex_race.rds"))
+  saveRDS(test_race,file=glue(RDS_path,"test_race.rds"))
   
 
   print(glue("Data analysis for research questions is completed. Images are found in ", image_path, " and RDS files are found in ", RDS_path))
