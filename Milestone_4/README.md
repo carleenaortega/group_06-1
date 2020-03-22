@@ -17,6 +17,7 @@ Changes made from Milestone 3 based on feedback:
 * unit tests were added to scripts (_To Do if we have time_) (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/37))
 * in EDA_images_script.R, create a function for each plot that is then called on by main() (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35)) (_To Do if we have time_)
 * Changes to analyses were done for more informative results (not based on feedback)
+* Fix makefile to not run scripts multiple times with 'make all' (_To Do_) (not based on feedback)
 
 
 
