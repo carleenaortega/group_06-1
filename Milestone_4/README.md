@@ -72,4 +72,4 @@ b. `make all` runs through all the scripts from loading the raw data to knitting
 1. In Milestone_4 in your terminal: \
 `Rscript app.R`
 
-2.Copy the numbers after "fire started at" and paste into address bar
+2. Copy the numbers after "fire started at" and paste into address bar
