@@ -1,0 +1,30 @@
+---
+title: "tests"
+author: "Carleena Ortega"
+date: "Mar 17, 2020"
+output:
+  html_document:
+    theme: cerulean
+    toc: yes
+  pdf_document:
+---
+
+```{r setup, include=FALSE}
+suppressPackageStartupMessages((library(testthat)))
+```
+
+```{r}
+test1<-test_that("Testing that the saved adult_data.csv exists in the data folder", {
+  expect_true(file.exists('../data/adult_data.csv'))
+})
+
+print(test1)
+```
+
+```{r}
+test2<-test_that("Testing that the pdf file was knitted successfully", {
+  expect_true(file.exists('../docs/final_report.pdf'))
+})
+
+print(test2)
+```

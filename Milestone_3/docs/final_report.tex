@@ -1,3 +1,6 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -6,30 +9,32 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
+  \usepackage{unicode-math}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
+\usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
 \usepackage{hyperref}
-\hypersetup{unicode=true,
+\hypersetup{
             pdftitle={Final Report},
             pdfauthor={Carleena Ortega and Saelin Bjornson},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{longtable,booktabs}
+\usepackage[margin=1in]{geometry}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -39,12 +44,6 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -59,32 +58,15 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
 
-%%% Change title format to be more compact
-\usepackage{titling}
 
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{Final Report}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{Carleena Ortega and Saelin Bjornson}
-    \preauthor{\centering\large\emph}
-  \postauthor{\par}
-      \predate{\centering\large\emph}
-  \postdate{\par}
-    \date{15/03/2020}
-
+\title{Final Report}
+\author{Carleena Ortega and Saelin Bjornson}
+\date{15/03/2020}
 
 \begin{document}
 \maketitle
@@ -100,7 +82,7 @@
 \subsection{Introduction}\label{introduction}}
 
 \hypertarget{the-dataset}{%
-\subsubsection{The Dataset}\label{the-dataset}}
+\paragraph{The Dataset}\label{the-dataset}}
 
 Who: The data set was extracted by Barry Becker from the 1994 Census
 database and is donated by Silicon Graphics\\
@@ -114,147 +96,11 @@ Machine Learning Repository, and was used for ML prediction of whether a
 person makes over or under 50K a year based on their attributes.\\
 How: The census data was collected by survey.
 
-\hypertarget{the-variables}{%
-\subsubsection{The Variables}\label{the-variables}}
+\hypertarget{the-research-questions}{%
+\paragraph{The Research Questions}\label{the-research-questions}}
 
-\begin{longtable}[]{@{}lll@{}}
-\toprule
-\begin{minipage}[b]{0.35\columnwidth}\raggedright
-Variable\strut
-\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
-Type\strut
-\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
-Description\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-age\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-int\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Age of individual\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-workclass\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-e.g.~private, self-emplowed, federal government, never worked,
-etc.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-fnlwgt\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-int\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Final weights: weighted sums of the socio-economic characteristics of
-the individual. People with similar demographics have similar
-weights.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-education\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Highest education recieved\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-educationnum\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-factor\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Numerical code for highest education recieved\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-marital\_status\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-int\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-e.g.~married, never married, divorced, etc.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-occupation\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Occupation of individual\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-relationship\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Relation of individual in family. e.g.~wife, child, husband,
-unmarried\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-race\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Asian-Pacific Islander, Native American, White, Black, other\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-sex\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Male or Female\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-capital\_gain\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-int\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Profit from capital assets such as investments, real estate, etc.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-capital\_loss\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-int\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Loss from capital assets\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-hours\_per\_week\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-The number of hours that the individual works per week\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-country\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Country of origin\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.35\columnwidth}\raggedright
-income\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-chr\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Whether individual is predicted to make over or under 50K\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-The single group used in the following analysis includes divorced,
-widowed, and never married individuals while the married group includes
-individials currently married (whether separated, together, or etc.)
-
-\hypertarget{the-research-question-and-method}{%
-\subsubsection{The Research Question and
-Method}\label{the-research-question-and-method}}
-
-\textbf{Are the number of hours someone works per week correlated with
-their age, relationship, education level or sex?}
-
-Plots showing the relationship between hours worked and each variable
-separately. For example, we will use the linear regression model to
-explore how hours at work is related to variables such as age,
-relationship, education level, and sex.
+Are the number of hours someone works per week correlated with their
+age, relationship, education level or sex?
 
 \hypertarget{exploratory-data-analysis}{%
 \subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}}
@@ -263,7 +109,7 @@ In this section, we will get to know our dataset better by exploring the
 relationship between certain factors.
 
 \hypertarget{age-and-sex}{%
-\subsubsection{Age and Sex}\label{age-and-sex}}
+\paragraph{Age and Sex}\label{age-and-sex}}
 
 The plot below shows that there are more male employees than female
 employees and that the majority of working males are older than working
@@ -272,9 +118,9 @@ with respect to female (red peak).
 
 \includegraphics{../images/Plot_1_Distribution_of_Age_by_Sex.png}
 
-\hypertarget{educational-level-and-income}{%
-\subsubsection{Educational Level and
-Income}\label{educational-level-and-income}}
+\hypertarget{educational-leve-and-income}{%
+\paragraph{Educational Leve and
+Income}\label{educational-leve-and-income}}
 
 We observe from the following graphs that a majority of individuals
 earning greater than \$50,000 a year only accomplished high school
@@ -283,7 +129,7 @@ irrespective of sex or ethnical background.
 \includegraphics{../images/Plot_2_Education_Level_of_50K_or_more_Earners.png}
 
 \hypertarget{number-of-work-hours-and-age}{%
-\subsubsection{Number of Work Hours and
+\paragraph{Number of Work Hours and
 Age}\label{number-of-work-hours-and-age}}
 
 We can deduce from the graph below that individuals work the most hours
@@ -294,7 +140,7 @@ number of hours (probably part time at 25 hours)
 \includegraphics{../images/Plot_3_Hours_worked_per_week_by_age.png}
 
 \hypertarget{marital-status-and-number-of-hours-worked}{%
-\subsubsection{Marital Status and Number of Hours
+\paragraph{Marital Status and Number of Hours
 Worked}\label{marital-status-and-number-of-hours-worked}}
 
 The plot below shows that the working hours between married individuals
@@ -302,15 +148,15 @@ and single employees are similar.
 
 \includegraphics{../images/Plot_4_Marital_Status_and_Work_Hours.png}
 
-\hypertarget{linear-regression}{%
-\subsection{Linear Regression}\label{linear-regression}}
+\hypertarget{analysis}{%
+\subsection{Analysis}\label{analysis}}
 
 We have performed linear regression of hours per week vs.~each variable
 separately, as well as linear regression using all these variables
 together.
 
 This was done using the lm function of the purr package. For example:
-lm(hours\_per\_week\textasciitilde education,data)
+lm(hours\_per\_week\textasciitilde{}education,data)
 
 For categorical variables sex, education and relationship, the intercept
 is the defaul reference group, where the ``estimate'' is the mean of
@@ -319,16 +165,11 @@ differences in means between that group and the reference. The statistic
 is the t-statistic comparing these means, with a given p-value reporting
 the significance of this difference.
 
-\hypertarget{hypothesis-and-results}{%
-\subsection{Hypothesis and Results}\label{hypothesis-and-results}}
+\hypertarget{results}{%
+\subsection{Results}\label{results}}
 
-\hypertarget{hours-vs.-relationship}{%
-\paragraph{Hours vs.~Relationship}\label{hours-vs.-relationship}}
-
-\textbf{Hypotheses:} Husbands work more than wives since wives are the
-primary care takers of the household. Unmarried and individuals not in a
-family work more than husbands or wives since they have more flexible
-schedules and more time.
+\hypertarget{hours-vs.relationship}{%
+\paragraph{Hours vs.~Relationship}\label{hours-vs.relationship}}
 
 \begin{verbatim}
 ## # A tibble: 6 x 5
@@ -342,16 +183,13 @@ schedules and more time.
 ## 6 relationshipWife              -7.26     0.314     -23.1 1.42e-117
 \end{verbatim}
 
-\textbf{Result:} In this case, we are comparing the mean hours worked
-per week of husbands (intercept) to each other relationship category. It
-appears that husbands work more than any other age group, (as seen by
-the negative estimates), with significant p-values in each case.
+In this case, we are comparing the mean hours worked per week of
+husbands (intercept) to each other relationship category. It appears
+that husbands work more than any other age group, (as seen by the
+negative estimates), with significant p-values in each case.
 
-\hypertarget{hours-vs.-sex}{%
-\paragraph{Hours vs.~Sex}\label{hours-vs.-sex}}
-
-\textbf{Hypothesis:} Males work more hours than women given that women
-tend to be the care takers of the household.
+\hypertarget{hours-vs.sex}{%
+\paragraph{Hours vs.~Sex}\label{hours-vs.sex}}
 
 \begin{verbatim}
 ## # A tibble: 2 x 5
@@ -361,19 +199,11 @@ tend to be the care takers of the household.
 ## 2 sexMale         6.02     0.142      42.5       0
 \end{verbatim}
 
-\textbf{Result:} From this output, we can see that the average hours
-worked per week for women is 36, and men work 6 more hours per week on
-average.
+From this output, we can see that the average hours worked per week for
+women is 36.1, and men work 6 more hours per week on average.
 
-\hypertarget{hours-vs.-age}{%
-\paragraph{Hours vs.~Age}\label{hours-vs.-age}}
-
-\textbf{Hypothesis:} Individuals start to increase work hours in their
-20s as they begin a career and keep increasing or plateauing depending
-on their marital status until it declines at retirement (around 60 years
-old).
-
-\textbf{Result:}
+\hypertarget{hours-vs.age}{%
+\paragraph{Hours vs.~Age}\label{hours-vs.age}}
 
 \begin{verbatim}
 ## # A tibble: 2 x 5
@@ -383,12 +213,10 @@ old).
 ## 2 age           0.0622   0.00500      12.4 2.01e-35
 \end{verbatim}
 
-\hypertarget{hours-vs.-education}{%
-\paragraph{Hours vs.~Education}\label{hours-vs.-education}}
+Age
 
-\textbf{Hypothesis:} Higher educational attainment provides job security
-and stability leading to more work hours for higher educated
-individuals.
+\hypertarget{hours-vs.education}{%
+\paragraph{Hours vs.~Education}\label{hours-vs.education}}
 
 \begin{verbatim}
 ## # A tibble: 16 x 5
@@ -412,11 +240,10 @@ individuals.
 ## 16 educationSome-college    1.80      0.421     4.27  1.94e- 5
 \end{verbatim}
 
-\textbf{Results:} In this analysis, the default reference group
-(intercept) is a 10th grade education. It appears that those with an
-11th grade education work 3 hours less (significant p-value), whereas
-all other with no more than a high school education work the same amount
-(no significant p-values).
+In this analysis, the default reference group (intercept) is a 10th
+grade education. It appears that those with an 11th grade education work
+3 hours less (significant p-value), whereas all other with no more than
+a high school education work the same amount (no significant p-values).
 
 Every other education level higher than highschool worked significantly
 more hours, as seen by positive estimates of each group and low
@@ -447,5 +274,9 @@ Our data is quite biased in that there are much more men (21790) than
 women (10771) in data set. This is especially apparent at older ages,
 for instance there are 742 women over 60 and 1590 men over 60.
 
+\hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+More appropriate linear regression analysis need to be done
 
 \end{document}
