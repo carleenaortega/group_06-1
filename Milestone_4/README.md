@@ -1,10 +1,22 @@
+#### STILL TO DO:
+In the issue where the feedback was posted, you should :
+
+Thank the student and/or TA for the feedback
+Acknowledge the feedback that you will have time to address
+Indicate which feedback you will relegate to “Future Work”
+Create a new issue (link back to the old one) for each item you will not have time to fix and label it with “future work”
+Close the issue once items are appropriately addressed \
+**_Delete this when finished_**
+
 STAT547 Milestone 4 Repo
 ===================
 Changes made from Milestone 3 based on feedback:
-* EDA_script.R was split into EDA_images_script.R and EDA_LM_script.R for images and linear regression
-* Warnings and messages of scripts were suppressed 
-* Scripts have proper documentation based on [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) style 
-* unit tests were added to scripts (_To Do if we have time_)
+* EDA_script.R was split into EDA_images_script.R and EDA_LM_script.R for images and linear regression (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/52))
+* make all creates final_report outputs in docs folder (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/52))
+* Warnings of scripts were suppressed (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/36))
+* Scripts have proper documentation based on [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) style (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35))
+* unit tests were added to scripts (_To Do if we have time_) (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/37))
+* in EDA_images_script.R, create a function for each plot that is then called on by main() (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35)) _To Do if we have time_
 * Changes to analyses were done for more informative results (not based on feedback)
 
 
