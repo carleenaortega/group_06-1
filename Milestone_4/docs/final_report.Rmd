@@ -1,0 +1,123 @@
+---
+title: "Final Report"
+author: "Carleena Ortega and Saelin Bjornson"
+date: "15/03/2020"
+output:
+  html_document:
+    theme: cerulean
+    toc: yes
+  pdf_document: 
+    toc: true
+    toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+suppressPackageStartupMessages(library(broom))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(tibble))
+```
+
+## Adult Income
+
+## Introduction
+
+#### The Dataset
+Who: The data set was extracted by Barry Becker from the 1994 Census database and is donated by Silicon Graphics \
+What: This is a multivariate dataset with categorical and integer variables. It contains the predicted income of individuals from the census with attributes including age, marital status, work class, education, sex, and race. \
+When: The data is from a 1994 census. \
+Why: The data set is found in the University of California Irvine Machine Learning Repository, and was used for ML prediction of whether a person makes over or under 50K a year based on their attributes. \
+How: The census data was collected by survey. 
+
+#### The Research Questions 
+Are the number of hours someone works per week correlated with their age, relationship, education level or sex?
+
+## Exploratory Data Analysis
+In this section, we will get to know our dataset better by exploring the relationship between certain factors.
+
+#### Age and Sex
+
+The plot below shows that there are more male employees than female employees and that the majority of working males are older than working females since the male (blue curve) have a peak shifted to the right with respect to female (red peak).
+
+![](../images/Plot_1_Distribution_of_Age_by_Sex.png)
+
+#### Educational Leve and Income
+
+We observe from the following graphs that a majority of individuals earning greater than $50,000 a year only accomplished high school irrespective of sex or ethnical background.
+
+![](../images/Plot_2_Education_Level_of_50K_or_more_Earners.png)
+  
+#### Number of Work Hours and Age
+
+We can deduce from the graph below that individuals work the most hours between their 40's and 60's (probably full time at 40 hours or more a week) and that employees under 20 and over 80 years of age work the same number of hours (probably part time at 25 hours)
+
+![](../images/Plot_3_Hours_worked_per_week_by_age.png)
+
+#### Marital Status and Number of Hours Worked
+
+The plot below shows that the working hours between married individuals and single employees are similar.
+
+![](../images/Plot_4_Marital_Status_and_Work_Hours.png)
+
+## Analysis
+We have performed linear regression of hours per week vs. each variable separately, as well as linear regression using all these variables together. 
+
+This was done using the lm function of the purr package. For example: lm(hours_per_week~education,data) 
+
+For categorical variables sex, education and relationship, the intercept is the defaul reference group, where the "estimate" is the mean of that group, and the "estimates" of all other variables are the differences in means between that group and the reference. The statistic is the t-statistic comparing these means, with a given p-value reporting the significance of this difference. 
+
+
+```{r, readRDS,include=FALSE}
+age <- readRDS("../data/hours_age.rds")
+relationship <- readRDS("../data/hours_relationship.rds")
+education <- readRDS("../data/hours_education.rds")
+sex <- readRDS("../data/hours_sex.rds")
+all <-readRDS("../data/hours_all.rds")
+```
+
+## Results
+
+#### Hours vs. Relationship
+
+```{r,echo=FALSE}
+tidy(relationship)
+```
+In this case, we are comparing the mean hours worked per week of husbands (intercept) to each other relationship category. It appears that husbands work more than any other age group, (as seen by the negative estimates), with significant p-values in each case. 
+
+#### Hours vs. Sex
+```{r,echo=FALSE}
+tidy(sex)
+```
+From this output, we can see that the average hours worked per week for women is 36.1, and men work 6 more hours per week on average. 
+
+
+#### Hours vs. Age
+```{r,echo=FALSE}
+tidy(age)
+```
+Age 
+
+#### Hours vs. Education
+```{r,echo=FALSE}
+tidy(education)
+```
+In this analysis, the default reference group (intercept) is a 10th grade education. It appears that those with an 11th grade education work 3 hours less (significant p-value), whereas all other with no more than a high school education work the same amount (no significant p-values). 
+
+Every other education level higher than highschool worked significantly more hours, as seen by positive estimates of each group and low p-values. 
+
+
+#### All Variables 
+```{r,echo=FALSE}
+head(tidy(all))
+```
+
+
+## Discussion
+Overall we believe a there is a more informative way to analyze our research question than the default lm() parameters. 
+
+Our data is quite biased in that there are much more men (21790) than women (10771) in data set. This is especially apparent at older ages, for instance there are 742 women over 60 and 1590 men over 60. 
+
+## Conclusion
+
+More appropriate linear regression analysis need to be done
