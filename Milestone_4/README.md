@@ -15,7 +15,7 @@ Changes made from Milestone 3 based on feedback:
 * Warnings of scripts were suppressed (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/36))
 * Scripts have proper documentation based on [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) style (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35))
 * unit tests were added to scripts (_To Do if we have time_) (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/37))
-* in EDA_images_script.R, create a function for each plot that is then called on by main() (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35)) _To Do if we have time_
+* in EDA_images_script.R, create a function for each plot that is then called on by main() (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35)) (_To Do if we have time_)
 * Changes to analyses were done for more informative results (not based on feedback)
 
 
