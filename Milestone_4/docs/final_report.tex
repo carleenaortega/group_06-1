@@ -1,0 +1,588 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Final Report},
+            pdfauthor={Carleena Ortega and Saelin Bjornson},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Final Report}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Carleena Ortega and Saelin Bjornson}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{15/03/2020}
+
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{4}
+\tableofcontents
+}
+\hypertarget{adult-income}{%
+\subsection{Adult Income}\label{adult-income}}
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+\hypertarget{the-dataset}{%
+\subsubsection{The Dataset}\label{the-dataset}}
+
+Who: The data set was extracted by Barry Becker from the 1994 Census
+database and is donated by Silicon Graphics\\
+What: This is a multivariate dataset with categorical and integer
+variables. It contains the predicted income of individuals from the
+census with attributes including age, marital status, work class,
+education, sex, and race.\\
+When: The data is from a 1994 census.\\
+Why: The data set is found in the University of California Irvine
+Machine Learning Repository, and was used for ML prediction of whether a
+person makes over or under 50K a year based on their attributes.\\
+How: The census data was collected by survey.
+
+<<<<<<< HEAD
+\hypertarget{the-research-questions}{%
+\paragraph{The Research Questions}\label{the-research-questions}}
+
+Are the number of hours someone works per week correlated with their
+age, relationship, education level or sex?
+=======
+\hypertarget{the-variables}{%
+\subsubsection{The Variables}\label{the-variables}}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.35\columnwidth}\raggedright
+Variable\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Type\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+age\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Age of individual\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+workclass\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+e.g.~private, self-emplowed, federal government, never worked,
+etc.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+fnlwgt\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Final weights: weighted sums of the socio-economic characteristics of
+the individual. People with similar demographics have similar
+weights.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+education\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Highest education recieved\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+educationnum\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+factor\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Numerical code for highest education recieved\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+marital\_status\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+e.g.~married, never married, divorced, etc.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+occupation\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Occupation of individual\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+relationship\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Relation of individual in family. e.g.~wife, child, husband,
+unmarried\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+race\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Asian-Pacific Islander, Native American, White, Black, other\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+sex\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Male or Female\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+capital\_gain\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Profit from capital assets such as investments, real estate, etc.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+capital\_loss\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+int\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Loss from capital assets\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+hours\_per\_week\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+The number of hours that the individual works per week\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+country\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Country of origin\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.35\columnwidth}\raggedright
+income\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+chr\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Whether individual is predicted to make over or under 50K\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+The single group used in the following analysis includes divorced,
+widowed, and never married individuals while the married group includes
+individials currently married (whether separated, together, or etc.)
+
+\hypertarget{the-research-question-and-method}{%
+\subsubsection{The Research Question and
+Method}\label{the-research-question-and-method}}
+
+\textbf{Are the number of hours someone works per week correlated with
+their age, relationship, education level or sex?}
+
+Plots showing the relationship between hours worked and each variable
+separately. For example, we will use the linear regression model to
+explore how hours at work is related to variables such as age,
+relationship, education level, and sex.
+>>>>>>> 9df8fdebda49dea1761e010b70f69d8b6de3d798
+
+\hypertarget{exploratory-data-analysis}{%
+\subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}}
+
+In this section, we will get to know our dataset better by exploring the
+relationship between certain factors.
+
+\hypertarget{age-and-sex}{%
+\subsubsection{Age and Sex}\label{age-and-sex}}
+
+The plot below shows that there are more male employees than female
+employees and that the majority of working males are older than working
+females since the male (blue curve) have a peak shifted to the right
+with respect to female (red peak).
+
+\includegraphics{../images/Plot_1_Distribution_of_Age_by_Sex.png}
+
+\hypertarget{educational-level-and-income}{%
+\subsubsection{Educational Level and
+Income}\label{educational-level-and-income}}
+
+We observe from the following graphs that a majority of individuals
+earning greater than \$50,000 a year only accomplished high school
+irrespective of sex or ethnical background.
+
+\includegraphics{../images/Plot_2_Education_Level_of_50K_or_more_Earners.png}
+
+\hypertarget{number-of-work-hours-and-age}{%
+\subsubsection{Number of Work Hours and
+Age}\label{number-of-work-hours-and-age}}
+
+We can deduce from the graph below that individuals work the most hours
+between their 40's and 60's (probably full time at 40 hours or more a
+week) and that employees under 20 and over 80 years of age work the same
+number of hours (probably part time at 25 hours)
+
+\includegraphics{../images/Plot_3_Hours_worked_per_week_by_age.png}
+
+\hypertarget{marital-status-and-number-of-hours-worked}{%
+\subsubsection{Marital Status and Number of Hours
+Worked}\label{marital-status-and-number-of-hours-worked}}
+
+The plot below shows that the working hours between married individuals
+and single employees are similar.
+
+\includegraphics{../images/Plot_4_Marital_Status_and_Work_Hours.png}
+
+<<<<<<< HEAD
+\hypertarget{analysis}{%
+\subsection{Analysis}\label{analysis}}
+=======
+\hypertarget{linear-regression}{%
+\subsection{Linear Regression}\label{linear-regression}}
+>>>>>>> 9df8fdebda49dea1761e010b70f69d8b6de3d798
+
+We have performed linear regression of hours per week vs.~each variable
+separately, as well as linear regression using all these variables
+together.
+
+This was done using the lm function of the purr package. For example:
+<<<<<<< HEAD
+lm(hours\_per\_week\textasciitilde{}education,data)
+
+For categorical variables sex, education and relationship, the intercept
+is the defaul reference group, where the ``estimate'' is the mean of
+that group, and the ``estimates'' of all other variables are the
+differences in means between that group and the reference. The statistic
+is the t-statistic comparing these means, with a given p-value reporting
+the significance of this difference.
+
+\hypertarget{results}{%
+\subsection{Results}\label{results}}
+
+\hypertarget{hours-vs.relationship}{%
+\paragraph{Hours vs.~Relationship}\label{hours-vs.relationship}}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##   term                       estimate std.error statistic   p.value
+##   <chr>                         <dbl>     <dbl>     <dbl>     <dbl>
+## 1 (Intercept)                   44.1      0.102     432.  0.       
+## 2 relationshipNot-in-family     -3.52     0.164     -21.4 3.32e-101
+## 3 relationshipOther-relative    -7.11     0.389     -18.3 1.60e- 74
+## 4 relationshipOwn-child        -10.9      0.194     -55.9 0.       
+## 5 relationshipUnmarried         -5.02     0.225     -22.3 1.04e-109
+## 6 relationshipWife              -7.26     0.314     -23.1 1.42e-117
+\end{verbatim}
+
+In this case, we are comparing the mean hours worked per week of
+husbands (intercept) to each other relationship category. It appears
+that husbands work more than any other age group, (as seen by the
+negative estimates), with significant p-values in each case.
+
+\hypertarget{hours-vs.sex}{%
+\paragraph{Hours vs.~Sex}\label{hours-vs.sex}}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic p.value
+##   <chr>          <dbl>     <dbl>     <dbl>   <dbl>
+## 1 (Intercept)    36.4      0.116     314.        0
+## 2 sexMale         6.02     0.142      42.5       0
+\end{verbatim}
+
+From this output, we can see that the average hours worked per week for
+women is 36.1, and men work 6 more hours per week on average.
+
+\hypertarget{hours-vs.age}{%
+\paragraph{Hours vs.~Age}\label{hours-vs.age}}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)  38.0      0.205       186.  0.      
+## 2 age           0.0622   0.00500      12.4 2.01e-35
+\end{verbatim}
+
+Age
+
+\hypertarget{hours-vs.education}{%
+\paragraph{Hours vs.~Education}\label{hours-vs.education}}
+
+\begin{verbatim}
+## # A tibble: 16 x 5
+##    term                  estimate std.error statistic  p.value
+##    <chr>                    <dbl>     <dbl>     <dbl>    <dbl>
+##  1 (Intercept)             37.1       0.397    93.4   0.      
+##  2 education11th           -3.13      0.531    -5.89  4.01e- 9
+##  3 education12th           -1.27      0.704    -1.81  7.10e- 2
+##  4 education1st-4th         1.20      1.02      1.19  2.36e- 1
+##  5 education5th-6th         1.85      0.773     2.39  1.70e- 2
+##  6 education7th-8th         2.31      0.620     3.73  1.90e- 4
+##  7 education9th             0.992     0.665     1.49  1.36e- 1
+##  8 educationAssoc-acdm      3.45      0.543     6.36  2.09e-10
+##  9 educationAssoc-voc       4.56      0.513     8.88  7.05e-19
+## 10 educationBachelors       5.56      0.430    12.9   3.33e-38
+## 11 educationDoctorate       9.92      0.716    13.9   1.57e-43
+## 12 educationHS-grad         3.52      0.414     8.51  1.78e-17
+## 13 educationMasters         6.78      0.492    13.8   4.70e-43
+## 14 educationPreschool      -0.405     1.74     -0.233 8.16e- 1
+## 15 educationProf-school    10.4       0.642    16.2   1.69e-58
+## 16 educationSome-college    1.80      0.421     4.27  1.94e- 5
+\end{verbatim}
+
+In this analysis, the default reference group (intercept) is a 10th
+grade education. It appears that those with an 11th grade education work
+3 hours less (significant p-value), whereas all other with no more than
+a high school education work the same amount (no significant p-values).
+
+Every other education level higher than highschool worked significantly
+more hours, as seen by positive estimates of each group and low
+p-values.
+
+\hypertarget{all-variables}{%
+\paragraph{All Variables}\label{all-variables}}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##   term             estimate std.error statistic   p.value
+##   <chr>               <dbl>     <dbl>     <dbl>     <dbl>
+## 1 (Intercept)        40.6       0.496    81.9   0.       
+## 2 sexMale             4.04      0.179    22.6   1.23e-112
+## 3 education11th      -2.26      0.504    -4.49  7.31e-  6
+## 4 education12th      -0.536     0.668    -0.801 4.23e-  1
+## 5 education1st-4th    0.305     0.964     0.317 7.51e-  1
+## 6 education5th-6th    0.575     0.734     0.783 4.34e-  1
+\end{verbatim}
+
+\hypertarget{discussion}{%
+\subsection{Discussion}\label{discussion}}
+
+Overall we believe a there is a more informative way to analyze our
+research question than the default lm() parameters.
+
+=======
+lm(hours\_per\_week\textasciitilde education,data)
+
+For categorical variables sex, education and relationship, the intercept
+is the defaul reference group, where the ``estimate'' is the mean of
+that group, and the ``estimates'' of all other variables are the
+differences in means between that group and the reference. The statistic
+is the t-statistic comparing these means, with a given p-value reporting
+the significance of this difference.
+
+\hypertarget{hypothesis-and-results}{%
+\subsection{Hypothesis and Results}\label{hypothesis-and-results}}
+
+\hypertarget{hours-vs.-relationship}{%
+\paragraph{Hours vs.~Relationship}\label{hours-vs.-relationship}}
+
+\textbf{Hypotheses:} Husbands work more than wives since wives are the
+primary care takers of the household. Unmarried and individuals not in a
+family work more than husbands or wives since they have more flexible
+schedules and more time.
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##   term                       estimate std.error statistic   p.value
+##   <chr>                         <dbl>     <dbl>     <dbl>     <dbl>
+## 1 (Intercept)                   44.1      0.102     432.  0.       
+## 2 relationshipNot-in-family     -3.52     0.164     -21.4 3.32e-101
+## 3 relationshipOther-relative    -7.11     0.389     -18.3 1.60e- 74
+## 4 relationshipOwn-child        -10.9      0.194     -55.9 0.       
+## 5 relationshipUnmarried         -5.02     0.225     -22.3 1.04e-109
+## 6 relationshipWife              -7.26     0.314     -23.1 1.42e-117
+\end{verbatim}
+
+\textbf{Result:} In this case, we are comparing the mean hours worked
+per week of husbands (intercept) to each other relationship category. It
+appears that husbands work more than any other age group, (as seen by
+the negative estimates), with significant p-values in each case.
+
+\hypertarget{hours-vs.-sex}{%
+\paragraph{Hours vs.~Sex}\label{hours-vs.-sex}}
+
+\textbf{Hypothesis:} Males work more hours than women given that women
+tend to be the care takers of the household.
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic p.value
+##   <chr>          <dbl>     <dbl>     <dbl>   <dbl>
+## 1 (Intercept)    36.4      0.116     314.        0
+## 2 sexMale         6.02     0.142      42.5       0
+\end{verbatim}
+
+\textbf{Result:} From this output, we can see that the average hours
+worked per week for women is 36, and men work 6 more hours per week on
+average.
+
+\hypertarget{hours-vs.-age}{%
+\paragraph{Hours vs.~Age}\label{hours-vs.-age}}
+
+\textbf{Hypothesis:} Individuals start to increase work hours in their
+20s as they begin a career and keep increasing or plateauing depending
+on their marital status until it declines at retirement (around 60 years
+old).
+
+\textbf{Result:}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)  38.0      0.205       186.  0.      
+## 2 age           0.0622   0.00500      12.4 2.01e-35
+\end{verbatim}
+
+\hypertarget{hours-vs.-education}{%
+\paragraph{Hours vs.~Education}\label{hours-vs.-education}}
+
+\textbf{Hypothesis:} Higher educational attainment provides job security
+and stability leading to more work hours for higher educated
+individuals.
+
+\begin{verbatim}
+## # A tibble: 16 x 5
+##    term                  estimate std.error statistic  p.value
+##    <chr>                    <dbl>     <dbl>     <dbl>    <dbl>
+##  1 (Intercept)             37.1       0.397    93.4   0.      
+##  2 education11th           -3.13      0.531    -5.89  4.01e- 9
+##  3 education12th           -1.27      0.704    -1.81  7.10e- 2
+##  4 education1st-4th         1.20      1.02      1.19  2.36e- 1
+##  5 education5th-6th         1.85      0.773     2.39  1.70e- 2
+##  6 education7th-8th         2.31      0.620     3.73  1.90e- 4
+##  7 education9th             0.992     0.665     1.49  1.36e- 1
+##  8 educationAssoc-acdm      3.45      0.543     6.36  2.09e-10
+##  9 educationAssoc-voc       4.56      0.513     8.88  7.05e-19
+## 10 educationBachelors       5.56      0.430    12.9   3.33e-38
+## 11 educationDoctorate       9.92      0.716    13.9   1.57e-43
+## 12 educationHS-grad         3.52      0.414     8.51  1.78e-17
+## 13 educationMasters         6.78      0.492    13.8   4.70e-43
+## 14 educationPreschool      -0.405     1.74     -0.233 8.16e- 1
+## 15 educationProf-school    10.4       0.642    16.2   1.69e-58
+## 16 educationSome-college    1.80      0.421     4.27  1.94e- 5
+\end{verbatim}
+
+\textbf{Results:} In this analysis, the default reference group
+(intercept) is a 10th grade education. It appears that those with an
+11th grade education work 3 hours less (significant p-value), whereas
+all other with no more than a high school education work the same amount
+(no significant p-values).
+
+Every other education level higher than highschool worked significantly
+more hours, as seen by positive estimates of each group and low
+p-values.
+
+\hypertarget{all-variables}{%
+\paragraph{All Variables}\label{all-variables}}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##   term             estimate std.error statistic   p.value
+##   <chr>               <dbl>     <dbl>     <dbl>     <dbl>
+## 1 (Intercept)        40.6       0.496    81.9   0.       
+## 2 sexMale             4.04      0.179    22.6   1.23e-112
+## 3 education11th      -2.26      0.504    -4.49  7.31e-  6
+## 4 education12th      -0.536     0.668    -0.801 4.23e-  1
+## 5 education1st-4th    0.305     0.964     0.317 7.51e-  1
+## 6 education5th-6th    0.575     0.734     0.783 4.34e-  1
+\end{verbatim}
+
+\hypertarget{discussion}{%
+\subsection{Discussion}\label{discussion}}
+
+Overall we believe a there is a more informative way to analyze our
+research question than the default lm() parameters.
+
+>>>>>>> 9df8fdebda49dea1761e010b70f69d8b6de3d798
+Our data is quite biased in that there are much more men (21790) than
+women (10771) in data set. This is especially apparent at older ages,
+for instance there are 742 women over 60 and 1590 men over 60.
+
+<<<<<<< HEAD
+\hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+More appropriate linear regression analysis need to be done
+=======
+>>>>>>> 9df8fdebda49dea1761e010b70f69d8b6de3d798
+
+\end{document}
