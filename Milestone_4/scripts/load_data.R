@@ -20,7 +20,7 @@ opt <- docopt(doc)
 
 main <- function(URL, filepath) {
   #Read the file
-  data <- read_csv(url(URL), col_names=FALSE)
+  data <- suppressMessages(read_csv(url(URL), col_names=FALSE))
   #Save the raw data as a .csv file
   write_csv(data, 'data/adult_data.csv')  
   
