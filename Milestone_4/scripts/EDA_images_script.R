@@ -11,6 +11,13 @@ suppressPackageStartupMessages(library(purrr))
 
 opt <- docopt(doc)
 
+#' Makes descriptive ggplot2 graphs on data from data/adult_data_clean.csv and saves in image_path
+#'
+#' @param image_path  A path to save .png images
+#' @return .png files of ggplot images 
+#' @examples 
+#' function("images/")
+
 main <- function(image_path) {
   #read the file
   data <- read.csv("data/adult_data_clean.csv", row.names=1)

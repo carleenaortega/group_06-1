@@ -7,6 +7,13 @@ suppressPackageStartupMessages(library(glue))
 
 opt <- docopt(doc)
 
+#' knits final_report.Rmd to pdf and html outputs
+#'
+#' @param final_report The path to the final report Rmd to knit
+#' @return final_report.pdf and final_report.html outputs
+#' @examples 
+#' function("docs/final_report.Rmd")
+
 main <- function(final_report) {
   
   rmarkdown::render(final_report, "all")

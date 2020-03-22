@@ -11,6 +11,13 @@ suppressPackageStartupMessages(library(purrr))
 
 opt <- docopt(doc)
 
+#' Conducts linear regression and anova on data from data/adult_data_clean.csv and saves in RDS_path
+#'
+#' @param RDS_path  A path to save RDS files
+#' @return .rds files of linear regression models and anova tests
+#' @examples 
+#' function("data/")
+
 main <- function(RDS_path) {
   #read the file
   data <- read.csv("data/adult_data_clean.csv", row.names=1)
