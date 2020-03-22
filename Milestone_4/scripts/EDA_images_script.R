@@ -18,6 +18,8 @@ opt <- docopt(doc)
 #' @examples 
 #' function("images/")
 
+options(warn=-1)
+
 main <- function(image_path) {
   #read the file
   data <- read.csv("data/adult_data_clean.csv", row.names=1)
@@ -34,7 +36,7 @@ main <- function(image_path) {
     theme_bw() +
     theme(legend.title=element_blank())
   
-  ggsave("Plot_1_Distribution_of_Age_by_Sex.png", Plot1, path=image_path)  #save as Plot 1 in path (images folder)
+   suppressMessages(ggsave("Plot_1_Distribution_of_Age_by_Sex.png", Plot1, path=image_path))  #save as Plot 1 in path (images folder)
   
   
   #Plot 2

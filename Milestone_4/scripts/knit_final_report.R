@@ -5,6 +5,8 @@ Usage: scripts/knit_final_report.R --final_report=<final_report>" -> doc
 suppressPackageStartupMessages(library(docopt))
 suppressPackageStartupMessages(library(glue))
 
+options(warn=-1)
+
 opt <- docopt(doc)
 
 #' knits final_report.Rmd to pdf and html outputs

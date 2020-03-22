@@ -9,6 +9,8 @@ suppressPackageStartupMessages(library(docopt))
 suppressPackageStartupMessages(library(glue))
 suppressPackageStartupMessages(library(purrr))
 
+options(warn=-1)
+
 opt <- docopt(doc)
 
 #' Conducts linear regression and anova on data from data/adult_data_clean.csv and saves in RDS_path
