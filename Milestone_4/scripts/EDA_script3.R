@@ -1,7 +1,7 @@
 "This is a script to do exploratory data analysis on /data/adult_data_clean.csv and to save images to /images
 
 Usage: EDA_script.R --image_path=<path_to_save> --RDS_path=<RDS_path_to_save>" -> doc
-##Exact usage from Milestone_3: Rscript scripts/EDA_script3.R --image_path="images/" --RDS_path="data/"
+##Exact usage from Milestone_4: Rscript scripts/EDA_script3.R --image_path="images/" --RDS_path="data/"
 
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(ggplot2))
@@ -118,7 +118,7 @@ main <- function(image_path, RDS_path) {
   #testing age
   
   hours_age <-lm(hours_per_week~sex + education + relationship + race, data) 
-  saveRDS(hours_Age, file = glue(RDS_path,"hours_full_NoAge_test.rds"))
+  saveRDS(hours_age, file = glue(RDS_path,"hours_full_NoAge_test.rds"))
   
   test_age <- anova(hours_full, hours_age)
   saveRDS(test_age,file=glue(RDS_path,"sex_age.rds"))
@@ -126,7 +126,7 @@ main <- function(image_path, RDS_path) {
   #testing race
   
   hours_race <-lm(hours_per_week~sex + education + relationship + age, data) 
-  saveRDS(hours_Age, file = glue(RDS_path,"hours_full_NoAge_test.rds"))
+  saveRDS(hours_race, file = glue(RDS_path,"hours_full_NoRace_test.rds"))
   
   test_race <- anova(hours_full,hours_race)
   saveRDS(test_race,file=glue(RDS_path,"sex_race.rds"))
