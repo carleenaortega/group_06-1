@@ -1,7 +1,7 @@
 # author: Carleena Ortega and Saelin Bjornson
 # date: 2020-03-15
 
-"This script is the main file that creates a Dash app.
+"This script creates a Dash app.
 
 Usage: app.R
 "
@@ -16,14 +16,13 @@ library(tidyverse)
 
 app <- Dash$new()
 
-# Load the data
-
 
 app$layout(
   htmlDiv(
     list(
       
-      htmlH1('Welcome')
+      htmlH1('STAT547 Group 6 Dashboard'),
+      htmlH3('Carleena Ortega & Saelin Bjornson')
 
       
     )
