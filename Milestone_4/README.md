@@ -1,11 +1,10 @@
 #### STILL TO DO:
 In the issue where the feedback was posted, you should :
-
-Thank the student and/or TA for the feedback
-Acknowledge the feedback that you will have time to address
-Indicate which feedback you will relegate to “Future Work”
-Create a new issue (link back to the old one) for each item you will not have time to fix and label it with “future work”
-Close the issue once items are appropriately addressed \
+* Thank the student and/or TA for the feedback 
+* Acknowledge the feedback that you will have time to address 
+* Indicate which feedback you will relegate to “Future Work” 
+* Create a new issue (link back to the old one) for each item you will not have time to fix and label it with “future work” 
+* Close the issue once items are appropriately addressed \
 **_Delete this when finished_**
 
 STAT547 Milestone 4 Repo
