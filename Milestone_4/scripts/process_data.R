@@ -1,4 +1,4 @@
-"This is a script to process the raw adult_data.csv and save in /Data directory
+"This is a script to process the raw adult_data.csv and save cleaned csv in /data directory
 
 Usage: process_data.R --raw_data=<path_to_raw> --processed=<file_name>" -> doc
 
@@ -7,6 +7,14 @@ suppressPackageStartupMessages(library(glue))
 suppressPackageStartupMessages(library(docopt)) 
 
 opt <- docopt(doc)
+
+#' cleans raw .csv loaded by load_data.R. In doing so, fixes titles and changes "?" to NAs
+#'
+#' @param raw_data The path to the raw .csv data
+#' @param processed The filename (not including path) to save cleaned .csv as
+#' @return cleaned .csv file
+#' @examples 
+#' function("data/adult_data.csv","adult_data_clean.csv")
 
 main <- function(raw_data, processed) {
   
