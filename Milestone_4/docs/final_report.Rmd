@@ -3,13 +3,12 @@ title: "Final Report"
 author: "Carleena Ortega and Saelin Bjornson"
 date: "15/03/2020"
 output:
-  html_document:
-    theme: cerulean
-    toc: yes
   pdf_document: 
     toc: true
     toc_depth: 4
-  always_allow_html: yes
+  html_document:
+    theme: cerulean
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
