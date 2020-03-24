@@ -3,8 +3,7 @@ In the issue where the feedback was posted, you should :
 * Close the issue once items are appropriately addressed
 **_Delete this when finished_**
 
-**STAT547 Milestone 4 Repo**
-Changes made from Milestone 3 based on feedback:
+**STAT547 Milestone 4 Repo Changes made from Milestone 3 based on feedback:**
 * EDA_script.R was split into EDA_images_script.R and EDA_LM_script.R for images and linear regression (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/52))
 * make all creates final_report outputs in docs folder (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/52))
 * Warnings of scripts were suppressed (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/36))
