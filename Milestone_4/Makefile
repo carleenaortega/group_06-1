@@ -38,6 +38,6 @@ clean :
 	rm -f images/*.png
 	rm -f docs/*.pdf
 	rm -f docs/*.html
-	rm -f docs/*.txt
+	rm -f docs/*.tex
 
 #test data
