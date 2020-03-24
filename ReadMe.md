@@ -1,7 +1,7 @@
 # Introduction
 
 
-Hello!! We are STAT 547M Students and this is our group project repository.
+Hello!! We are STAT 547M Students (Saelin and Carleena) and this is our group project repository.
 
 You will find our milestone activitities in this repo as follows:
 
@@ -13,18 +13,13 @@ You will find our milestone activitities in this repo as follows:
 |4||[Milestone 4 Repo](https://github.com/STAT547-UBC-2019-20/group_06/tree/master/Milestone_4) [Milestone 4 html](https://stat547-ubc-2019-20.github.io/group_06//Milestone_4/docs/final_report.html)|| 
 
 # Dashboard Proposal
-The next part of your project requires you to create a dashboard for your dataset. You need to make a proposal for a dashboard and it should have two components:
-
-Dashboard description and usage scenarios (~ 300 words)
-Dashboard sketch
-If necessary, you should consider revising your research question(s) based on the feedback of your peers, and so it is appropriate for a dashboard. Then, consider how the dashboard can be used to answer your research question(s) by a fictional person - these are usage scenarios. Building from your research questions, give a high-level description of the interface for the app you will build. Remember to be realistic about your expectations and plans since you will actually be implementing this app next week and the week after. All of this content should be approximately 300 words and live in the main project README.md file of your GitHub.com repository.
 
 ## Description
-In this description you are not required to use terminology specific to Dash apps (i.e. widgets, components, etc…) or make reference to specific libraries. Your sketch can be hand-drawn or mocked up using a graphics editor. If you can show the app visual design & interaction design in a single image that is ideal, but if you need more space to show other planned features of your app you can include up to a total of THREE images for this proposal. The sketch should be posted in the README.md file of your GitHub.com repository underneath the high level description.
+This dashboard will allow the user to graphically explore the effects of several factors (e.g. age, relationship or role in the family, education level, and race) on the number of work hours each week by selecting the appropriate option in the dropdown menu. 
 
-### Example description
+Selecting a categorical variable (race, relationship or education level) will display two plots, a box plot and a density plot, with groups of that variable on the x-axis and hours worked per week on the y-axis. A "Separate by sex" checkbox will determine if the user wants to display the information separated by sex, side-by-side on the plot. The sexes will be colour coded (blue for males and red for females). A slider is included to filter the data displayed to the audience's preferred age range. 
 
-This app will have a landing page that shows the distribution (depending on data type, bar chart, density chart etc) of dataset factors (hypertension, physical disabilities etc.) colour coded according to whether or not patients showed up for an appointment. From a dropdown list, users will be able to filter out variables from the distribution display, by patient demographics (i.e. only show female patients), by appointment data (i.e. if SMS was sent), and finally by the date range of appointments. A different dropdown menu will allow users to re-order variables according to the probability of patients being a no-show or in alphabetical order to comorbidities. Users can compare the distribution of co-morbidities by scrolling down through the app interface.
+In contrast to the categorical variables, selecting age from the dropdown menu will instead produce a line graph, with age on the x-axis and hours worked per week on they-axis. Selecting "Separate by sex" will produce two trend lines, one for women (red) and one for men (blue). The age slider will also be included to filter the data to the user's preferred age range, which will dynamically change the x-axis to that range. 
 
 ## Usage Scenario
 Usage scenarios are typically written in a narrative style and include the specific context of usage, tasks associated with that usage context, and a hypothetical walkthrough of how the user would accomplish those tasks with your app. If you are using a Kaggle dataset, you may use their “Overview (inspiration)” to create your usage scenario, or you may come up with your own inspiration.
