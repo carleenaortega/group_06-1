@@ -125,6 +125,20 @@
   \postdate{\par}
     \date{15/03/2020}
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 \begin{document}
 \maketitle
@@ -349,7 +363,7 @@ We have performed linear regression of hours per week vs.~each variable
 separately, as well as linear regression using all these variables
 together.
 
-This was done using the lm function of the purr package. For example:
+This was done using the lm function of the purrr package. For example:
 lm(hours\_per\_week\textasciitilde education,data)
 
 For categorical variables sex, education and relationship, the intercept
@@ -372,22 +386,58 @@ schedules and more time.
 
 \textbf{Results:}
 
-\begin{verbatim}
-## # A tibble: 22 x 5
-##    term                estimate std.error statistic  p.value
-##    <chr>                  <dbl>     <dbl>     <dbl>    <dbl>
-##  1 (Intercept)           32.9       0.791    41.6   0.      
-##  2 sexMale                5.69      0.141    40.4   0.      
-##  3 education11th         -2.73      0.518    -5.26  1.45e- 7
-##  4 education12th         -1.04      0.687    -1.52  1.28e- 1
-##  5 education1st-4th       0.756     0.991     0.763 4.46e- 1
-##  6 education5th-6th       1.36      0.755     1.80  7.11e- 2
-##  7 education7th-8th       1.66      0.607     2.73  6.30e- 3
-##  8 education9th           0.734     0.649     1.13  2.58e- 1
-##  9 educationAssoc-acdm    3.89      0.529     7.35  1.97e-13
-## 10 educationAssoc-voc     4.77      0.500     9.54  1.53e-21
-## # ... with 12 more rows
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 32.8759172 & 0.7907375 & 41.5762726 & 0.0000000\\
+\hline
+sexMale & 5.6914173 & 0.1409826 & 40.3696318 & 0.0000000\\
+\hline
+education11th & -2.7257409 & 0.5182506 & -5.2595035 & 0.0000001\\
+\hline
+education12th & -1.0448088 & 0.6870782 & -1.5206548 & 0.1283562\\
+\hline
+education1st-4th & 0.7558463 & 0.9908270 & 0.7628439 & 0.4455620\\
+\hline
+education5th-6th & 1.3619671 & 0.7546659 & 1.8047286 & 0.0711264\\
+\hline
+education7th-8th & 1.6580749 & 0.6068782 & 2.7321377 & 0.0062959\\
+\hline
+education9th & 0.7338944 & 0.6487072 & 1.1313184 & 0.2579294\\
+\hline
+educationAssoc-acdm & 3.8926669 & 0.5293446 & 7.3537487 & 0.0000000\\
+\hline
+educationAssoc-voc & 4.7743509 & 0.5004699 & 9.5397370 & 0.0000000\\
+\hline
+educationBachelors & 5.4530816 & 0.4195405 & 12.9977493 & 0.0000000\\
+\hline
+educationDoctorate & 9.0819689 & 0.7002813 & 12.9690303 & 0.0000000\\
+\hline
+educationHS-grad & 3.5205013 & 0.4033969 & 8.7271411 & 0.0000000\\
+\hline
+educationMasters & 6.6058589 & 0.4816350 & 13.7154871 & 0.0000000\\
+\hline
+educationPreschool & -0.4435165 & 1.6982491 & -0.2611610 & 0.7939700\\
+\hline
+educationProf-school & 9.3256894 & 0.6276622 & 14.8578147 & 0.0000000\\
+\hline
+educationSome-college & 2.2215778 & 0.4107771 & 5.4082322 & 0.0000001\\
+\hline
+age & 0.0213773 & 0.0049447 & 4.3232474 & 0.0000154\\
+\hline
+raceAsian-Pac-Islander & -1.5191519 & 0.7649342 & -1.9859904 & 0.0470428\\
+\hline
+raceBlack & -1.0175832 & 0.7022498 & -1.4490330 & 0.1473380\\
+\hline
+raceOther & -0.2743632 & 0.9823649 & -0.2792885 & 0.7800252\\
+\hline
+raceWhite & -0.4243259 & 0.6736736 & -0.6298686 & 0.5287850\\
+\hline
+\end{tabular}
+\end{table}
 
 In this case, we are comparing the mean hours worked per week of
 husbands (intercept) to each other relationship category. It appears
@@ -416,25 +466,70 @@ tend to be the care takers of the household.
 
 \textbf{Results:}
 
-\begin{verbatim}
-## # A tibble: 26 x 5
-##    term                estimate std.error statistic  p.value
-##    <chr>                  <dbl>     <dbl>     <dbl>    <dbl>
-##  1 (Intercept)           45.7       0.793    57.6   0.      
-##  2 education11th         -2.40      0.508    -4.72  2.37e- 6
-##  3 education12th         -0.449     0.674    -0.667 5.05e- 1
-##  4 education1st-4th       0.362     0.972     0.372 7.10e- 1
-##  5 education5th-6th       0.691     0.741     0.933 3.51e- 1
-##  6 education7th-8th       1.33      0.595     2.24  2.49e- 2
-##  7 education9th           0.561     0.636     0.883 3.77e- 1
-##  8 educationAssoc-acdm    2.50      0.520     4.81  1.50e- 6
-##  9 educationAssoc-voc     3.24      0.491     6.60  4.27e-11
-## 10 educationBachelors     4.08      0.413     9.88  5.62e-23
-## # ... with 16 more rows
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 45.6847692 & 0.7930243 & 57.6082831 & 0.0000000\\
+\hline
+education11th & -2.3984193 & 0.5081966 & -4.7194713 & 0.0000024\\
+\hline
+education12th & -0.4493082 & 0.6736749 & -0.6669511 & 0.5048081\\
+\hline
+education1st-4th & 0.3616861 & 0.9716930 & 0.3722226 & 0.7097295\\
+\hline
+education5th-6th & 0.6912154 & 0.7407410 & 0.9331405 & 0.3507544\\
+\hline
+education7th-8th & 1.3344826 & 0.5950201 & 2.2427521 & 0.0249195\\
+\hline
+education9th & 0.5613643 & 0.6360024 & 0.8826449 & 0.3774347\\
+\hline
+educationAssoc-acdm & 2.5004900 & 0.5196590 & 4.8117899 & 0.0000015\\
+\hline
+educationAssoc-voc & 3.2416635 & 0.4914013 & 6.5967743 & 0.0000000\\
+\hline
+educationBachelors & 4.0753888 & 0.4125985 & 9.8773712 & 0.0000000\\
+\hline
+educationDoctorate & 7.8066512 & 0.6872874 & 11.3586416 & 0.0000000\\
+\hline
+educationHS-grad & 2.6605696 & 0.3958275 & 6.7215385 & 0.0000000\\
+\hline
+educationMasters & 5.0364866 & 0.4733910 & 10.6391693 & 0.0000000\\
+\hline
+educationPreschool & -0.3712434 & 1.6652630 & -0.2229338 & 0.8235884\\
+\hline
+educationProf-school & 7.9281041 & 0.6165185 & 12.8594741 & 0.0000000\\
+\hline
+educationSome-college & 1.5559376 & 0.4026910 & 3.8638500 & 0.0001118\\
+\hline
+relationshipNot-in-family & -3.8350001 & 0.1653245 & -23.1968057 & 0.0000000\\
+\hline
+relationshipOther-relative & -7.0112068 & 0.3910806 & -17.9277783 & 0.0000000\\
+\hline
+relationshipOwn-child & -11.4675017 & 0.2197320 & -52.1885755 & 0.0000000\\
+\hline
+relationshipUnmarried & -4.6884233 & 0.2265413 & -20.6956670 & 0.0000000\\
+\hline
+relationshipWife & -7.5408837 & 0.3102768 & -24.3037324 & 0.0000000\\
+\hline
+age & -0.0898299 & 0.0054207 & -16.5715434 & 0.0000000\\
+\hline
+raceAsian-Pac-Islander & -1.1430075 & 0.7503539 & -1.5232913 & 0.1276956\\
+\hline
+raceBlack & -1.0699053 & 0.6884585 & -1.5540594 & 0.1201800\\
+\hline
+raceOther & -0.8383543 & 0.9632921 & -0.8703013 & 0.3841422\\
+\hline
+raceWhite & -0.4155536 & 0.6607437 & -0.6289180 & 0.5294071\\
+\hline
+\end{tabular}
+\end{table}
 
 From this output, we can see that the average hours worked per week for
-women is 46, and men work -2 more hours per week on average.
+women is 45.7, and men work -2 hours per week on average compared to
+women.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -448,7 +543,7 @@ women is 46, and men work -2 more hours per week on average.
 
 Comparing the full model to the model with no sex info, we can see that
 sex does have a significant effect on hours worked per week, with a p
-value of 9.07e-112
+value of \ensuremath{9.0790857\times 10^{-112}}
 
 \hypertarget{hours-vs.-age}{%
 \paragraph{Hours vs.~Age}\label{hours-vs.-age}}
@@ -460,22 +555,66 @@ old).
 
 \textbf{Results:}
 
-\begin{verbatim}
-## # A tibble: 26 x 5
-##    term                estimate std.error statistic   p.value
-##    <chr>                  <dbl>     <dbl>     <dbl>     <dbl>
-##  1 (Intercept)           37.3       0.779    47.9   0.       
-##  2 sexMale                4.22      0.179    23.6   7.57e-122
-##  3 education11th         -2.01      0.506    -3.97  7.14e-  5
-##  4 education12th         -0.254     0.671    -0.378 7.05e-  1
-##  5 education1st-4th      -0.218     0.967    -0.225 8.22e-  1
-##  6 education5th-6th       0.337     0.737     0.456 6.48e-  1
-##  7 education7th-8th       0.672     0.591     1.14  2.55e-  1
-##  8 education9th           0.263     0.633     0.416 6.78e-  1
-##  9 educationAssoc-acdm    2.94      0.517     5.68  1.35e-  8
-## 10 educationAssoc-voc     3.66      0.489     7.47  8.00e- 14
-## # ... with 16 more rows
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 37.3192009 & 0.7785095 & 47.9367341 & 0.0000000\\
+\hline
+sexMale & 4.2170727 & 0.1788891 & 23.5736657 & 0.0000000\\
+\hline
+education11th & -2.0089308 & 0.5057768 & -3.9719714 & 0.0000714\\
+\hline
+education12th & -0.2536480 & 0.6705897 & -0.3782461 & 0.7052502\\
+\hline
+education1st-4th & -0.2175083 & 0.9669353 & -0.2249461 & 0.8220226\\
+\hline
+education5th-6th & 0.3365756 & 0.7374331 & 0.4564152 & 0.6480945\\
+\hline
+education7th-8th & 0.6722287 & 0.5908766 & 1.1376803 & 0.2552624\\
+\hline
+education9th & 0.2632590 & 0.6331903 & 0.4157660 & 0.6775840\\
+\hline
+educationAssoc-acdm & 2.9399743 & 0.5174695 & 5.6814448 & 0.0000000\\
+\hline
+educationAssoc-voc & 3.6576562 & 0.4894155 & 7.4735197 & 0.0000000\\
+\hline
+educationBachelors & 4.3550053 & 0.4108797 & 10.5992232 & 0.0000000\\
+\hline
+educationDoctorate & 7.4759528 & 0.6837033 & 10.9344992 & 0.0000000\\
+\hline
+educationHS-grad & 2.7976545 & 0.3941757 & 7.0974815 & 0.0000000\\
+\hline
+educationMasters & 5.0747684 & 0.4712905 & 10.7678134 & 0.0000000\\
+\hline
+educationPreschool & -0.8808143 & 1.6579873 & -0.5312551 & 0.5952456\\
+\hline
+educationProf-school & 7.7337464 & 0.6137148 & 12.6015316 & 0.0000000\\
+\hline
+educationSome-college & 2.0141630 & 0.4010475 & 5.0222553 & 0.0000005\\
+\hline
+relationshipNot-in-family & -1.4155647 & 0.1821146 & -7.7729350 & 0.0000000\\
+\hline
+relationshipOther-relative & -4.2085729 & 0.3933235 & -10.7000291 & 0.0000000\\
+\hline
+relationshipOwn-child & -7.9905463 & 0.2110469 & -37.8614647 & 0.0000000\\
+\hline
+relationshipUnmarried & -1.1775836 & 0.2630903 & -4.4759670 & 0.0000076\\
+\hline
+relationshipWife & -3.0150898 & 0.3559552 & -8.4704199 & 0.0000000\\
+\hline
+raceAsian-Pac-Islander & -1.0890407 & 0.7471663 & -1.4575614 & 0.1449711\\
+\hline
+raceBlack & -0.9109186 & 0.6855929 & -1.3286582 & 0.1839701\\
+\hline
+raceOther & -0.2734727 & 0.9589600 & -0.2851764 & 0.7755108\\
+\hline
+raceWhite & -0.4001590 & 0.6579254 & -0.6082134 & 0.5430502\\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -489,7 +628,7 @@ old).
 
 Comparing the full model to the model with no age info, we can see that
 age does have a significant effect on hours worked per week, with a p
-value of 2.507e-51
+value of \ensuremath{2.507908\times 10^{-51}}
 
 \hypertarget{hours-vs.-education}{%
 \paragraph{Hours vs.~Education}\label{hours-vs.-education}}
@@ -500,30 +639,46 @@ individuals.
 
 \textbf{Results:}
 
-\begin{verbatim}
-## # A tibble: 12 x 5
-##    term                       estimate std.error statistic   p.value
-##    <chr>                         <dbl>     <dbl>     <dbl>     <dbl>
-##  1 (Intercept)                 43.3      0.732     59.2    0.       
-##  2 sexMale                      3.96     0.180     22.0    2.74e-106
-##  3 relationshipNot-in-family   -2.04     0.186    -10.9    9.97e- 28
-##  4 relationshipOther-relative  -6.04     0.399    -15.1    1.27e- 51
-##  5 relationshipOwn-child      -10.4      0.234    -44.6    0.       
-##  6 relationshipUnmarried       -2.08     0.266     -7.82   5.38e- 15
-##  7 relationshipWife            -3.55     0.360     -9.86   6.68e- 23
-##  8 age                         -0.0733   0.00537  -13.6    2.76e- 42
-##  9 raceAsian-Pac-Islander      -0.0222   0.751     -0.0295 9.76e-  1
-## 10 raceBlack                   -0.738    0.691     -1.07   2.85e-  1
-## 11 raceOther                   -0.682    0.965     -0.706  4.80e-  1
-## 12 raceWhite                    0.0972   0.663      0.147  8.83e-  1
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 43.3263038 & 0.7316320 & 59.2187075 & 0.0000000\\
+\hline
+sexMale & 3.9614292 & 0.1802404 & 21.9785823 & 0.0000000\\
+\hline
+relationshipNot-in-family & -2.0367467 & 0.1864589 & -10.9233023 & 0.0000000\\
+\hline
+relationshipOther-relative & -6.0376017 & 0.3987168 & -15.1425807 & 0.0000000\\
+\hline
+relationshipOwn-child & -10.4381682 & 0.2340288 & -44.6020621 & 0.0000000\\
+\hline
+relationshipUnmarried & -2.0769597 & 0.2655478 & -7.8214151 & 0.0000000\\
+\hline
+relationshipWife & -3.5494329 & 0.3599806 & -9.8600676 & 0.0000000\\
+\hline
+age & -0.0733219 & 0.0053728 & -13.6467450 & 0.0000000\\
+\hline
+raceAsian-Pac-Islander & -0.0221594 & 0.7510028 & -0.0295064 & 0.9764609\\
+\hline
+raceBlack & -0.7379608 & 0.6907118 & -1.0684062 & 0.2853452\\
+\hline
+raceOther & -0.6818600 & 0.9654061 & -0.7062935 & 0.4800107\\
+\hline
+raceWhite & 0.0971549 & 0.6625748 & 0.1466323 & 0.8834231\\
+\hline
+\end{tabular}
+\end{table}
 
 In this analysis, the default reference group (intercept) is a 10th
 grade education. It appears that those with an 11th grade education work
-4 hours less (significant p-value), whereas all other with no more than
-a high school education work the same amount (no significant p-values).
+3.96 hours less (significant p-value), whereas all other with no more
+than a high school education work the same amount (no significant
+p-values).
 
-Every other education level higher than highschool worked significantly
+Every other education level higher than high school worked significantly
 more hours, as seen by positive estimates of each group and low
 p-values.
 
@@ -539,31 +694,71 @@ p-values.
 
 Comparing the full model to the model with no education info, we can see
 that education does have a significant effect on hours worked per week,
-with a p value of 1.039e-148
+with a p value of \ensuremath{1.0394462\times 10^{-148}}
 
 \hypertarget{hours-vs.-race}{%
 \paragraph{Hours vs.~Race}\label{hours-vs.-race}}
 
-\textbf{Hypothesis:} \emph{Insert Hypothesis}
+\textbf{Hypothesis:} Race does not have a correlation with hours worked
+since legal work hours required are not based on race but more on the
+other factors previously explored.
 
 \textbf{Results:}
 
-\begin{verbatim}
-## # A tibble: 23 x 5
-##    term                estimate std.error statistic   p.value
-##    <chr>                  <dbl>     <dbl>     <dbl>     <dbl>
-##  1 (Intercept)           40.6       0.496    81.9   0.       
-##  2 sexMale                4.04      0.179    22.6   1.23e-112
-##  3 education11th         -2.26      0.504    -4.49  7.31e-  6
-##  4 education12th         -0.536     0.668    -0.801 4.23e-  1
-##  5 education1st-4th       0.305     0.964     0.317 7.51e-  1
-##  6 education5th-6th       0.575     0.734     0.783 4.34e-  1
-##  7 education7th-8th       1.34      0.590     2.27  2.30e-  2
-##  8 education9th           0.430     0.631     0.681 4.96e-  1
-##  9 educationAssoc-acdm    2.78      0.516     5.39  7.20e-  8
-## 10 educationAssoc-voc     3.55      0.488     7.28  3.34e- 13
-## # ... with 13 more rows
-\end{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 40.6273698 & 0.4958668 & 81.9320153 & 0.0000000\\
+\hline
+sexMale & 4.0438025 & 0.1785923 & 22.6426434 & 0.0000000\\
+\hline
+education11th & -2.2620467 & 0.5043212 & -4.4853295 & 0.0000073\\
+\hline
+education12th & -0.5355350 & 0.6683341 & -0.8012982 & 0.4229649\\
+\hline
+education1st-4th & 0.3053957 & 0.9636848 & 0.3169041 & 0.7513184\\
+\hline
+education5th-6th & 0.5750503 & 0.7344659 & 0.7829503 & 0.4336620\\
+\hline
+education7th-8th & 1.3423145 & 0.5902245 & 2.2742439 & 0.0229578\\
+\hline
+education9th & 0.4297094 & 0.6310903 & 0.6809000 & 0.4959396\\
+\hline
+educationAssoc-acdm & 2.7780743 & 0.5156767 & 5.3872400 & 0.0000001\\
+\hline
+educationAssoc-voc & 3.5512186 & 0.4876001 & 7.2830553 & 0.0000000\\
+\hline
+educationBachelors & 4.2592346 & 0.4088867 & 10.4166632 & 0.0000000\\
+\hline
+educationDoctorate & 7.9350595 & 0.6814153 & 11.6449681 & 0.0000000\\
+\hline
+educationHS-grad & 2.7842538 & 0.3927560 & 7.0890158 & 0.0000000\\
+\hline
+educationMasters & 5.2975034 & 0.4692626 & 11.2889963 & 0.0000000\\
+\hline
+educationPreschool & -0.5669836 & 1.6519409 & -0.3432227 & 0.7314331\\
+\hline
+educationProf-school & 7.9516931 & 0.6110522 & 13.0131153 & 0.0000000\\
+\hline
+educationSome-college & 1.8576814 & 0.3996749 & 4.6479814 & 0.0000034\\
+\hline
+relationshipNot-in-family & -1.9376733 & 0.1844416 & -10.5056209 & 0.0000000\\
+\hline
+relationshipOther-relative & -5.2350263 & 0.3954076 & -13.2395685 & 0.0000000\\
+\hline
+relationshipOwn-child & -9.5673730 & 0.2339261 & -40.8991236 & 0.0000000\\
+\hline
+relationshipUnmarried & -1.6529304 & 0.2615099 & -6.3207191 & 0.0000000\\
+\hline
+relationshipWife & -3.5196793 & 0.3561062 & -9.8837909 & 0.0000000\\
+\hline
+age & -0.0813743 & 0.0053874 & -15.1044823 & 0.0000000\\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -577,7 +772,7 @@ with a p value of 1.039e-148
 
 Comparing the full model to the model with no race info, race does
 \emph{not} have a significant effect on hours worked per week, with a p
-value of 0.065
+value of 0.0658072
 
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
