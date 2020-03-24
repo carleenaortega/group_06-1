@@ -17,6 +17,9 @@ suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(tibble))
+suppressPackageStartupMessages(library(knitr)) #for tables
+suppressPackageStartupMessages(library(kableExtra)) # for nicer table visuals
+knitr::opts_chunk$set(fig.align = "center")  #to determine location of tables in html file
 ```
 
 ## Adult Income
@@ -89,7 +92,7 @@ The plot below shows that the working hours between married individuals and sing
 
 We have performed linear regression of hours per week vs. each variable separately, as well as linear regression using all these variables together. 
 
-This was done using the lm function of the purr package. For example: lm(hours_per_week~education,data) 
+This was done using the lm function of the purrr package. For example: lm(hours_per_week~education,data) 
 
 For categorical variables sex, education and relationship, the intercept is the defaul reference group, where the "estimate" is the mean of that group, and the "estimates" of all other variables are the differences in means between that group and the reference. The statistic is the t-statistic comparing these means, with a given p-value reporting the significance of this difference. 
 
@@ -119,13 +122,16 @@ test_age <- readRDS("../data/test_age.rds")
 
 
 **Results:** 
-```{r,echo=FALSE}
-tidy(relationship)
+```{r tidy_rel,echo=FALSE}
+tidy(relationship) %>% 
+  knitr::kable() %>% 
+  kable_styling("striped",latex_options="basic",
+    full_width=FALSE,position="center")
 ```
 
 In this case, we are comparing the mean hours worked per week of husbands (intercept) to each other relationship category. It appears that husbands work more than any other age group, (as seen by the negative estimates), with significant p-values in each case. 
 
-```{r, warning=F}
+```{r test_rel, warning=F}
 tidy(test_relationship)$p.value
 ```
 Comparing the full model to the model with no relationship info, we can see that relationship does have a significant effect on hours worked per week, with a p value of near 0
@@ -137,17 +143,22 @@ Comparing the full model to the model with no relationship info, we can see that
 
 **Results:** 
 ```{r,echo=FALSE}
-tidy(sex)
+tidy(sex)%>% 
+  knitr::kable() %>% 
+  kable_styling("striped",latex_options="basic",
+    full_width=FALSE,position="center")
+
 w_hours<-tidy(sex)[["estimate"]][1]
 m_hours<-tidy(sex)[["estimate"]][2]
 ```
 
-From this output, we can see that the average hours worked per week for women is `r round(w_hours,0)`, and men work `r round(m_hours,0)` more hours per week on average. 
+From this output, we can see that the average hours worked per week for women is `r round(w_hours,1)`, and men work `r round(m_hours,0)`  hours per week on average compared to women. 
 
 ```{r, warning=F}
 tidy(test_sex)$p.value
+
 ```
-Comparing the full model to the model with no sex info, we can see that sex does have a significant effect on hours worked per week, with a p value of 9.07e-112
+Comparing the full model to the model with no sex info, we can see that sex does have a significant effect on hours worked per week, with a p value of `r tidy(test_sex)[["p.value"]][2]`
 
 #### Hours vs. Age
 
@@ -155,13 +166,16 @@ Comparing the full model to the model with no sex info, we can see that sex does
 
 **Results:** 
 ```{r,echo=FALSE}
-tidy(age)
+tidy(age)%>% 
+  knitr::kable() %>% 
+  kable_styling("striped",latex_options="basic",
+    full_width=FALSE,position="center")
 ```
 
 ```{r, warning=F}
 tidy(test_age)$p.value
 ```
-Comparing the full model to the model with no age info, we can see that age does have a significant effect on hours worked per week, with a p value of 2.507e-51
+Comparing the full model to the model with no age info, we can see that age does have a significant effect on hours worked per week, with a p value of `r tidy(test_age)[["p.value"]][2]`
 
 
 #### Hours vs. Education
@@ -170,33 +184,40 @@ Comparing the full model to the model with no age info, we can see that age does
 
 **Results:**
 ```{r,echo=FALSE}
-tidy(education)
+tidy(education)%>% 
+  knitr::kable() %>% 
+  kable_styling("striped",latex_options="basic",
+    full_width=FALSE,position="center")
+
 hours_11<-abs(tidy(education)[["estimate"]][2])
 ```
 
-In this analysis, the default reference group (intercept) is a 10th grade education. It appears that those with an 11th grade education work `r round(hours_11,0)` hours less (significant p-value), whereas all other with no more than a high school education work the same amount (no significant p-values). 
+In this analysis, the default reference group (intercept) is a 10th grade education. It appears that those with an 11th grade education work `r round(hours_11,2)` hours less (significant p-value), whereas all other with no more than a high school education work the same amount (no significant p-values). 
 
-Every other education level higher than highschool worked significantly more hours, as seen by positive estimates of each group and low p-values. 
+Every other education level higher than high school worked significantly more hours, as seen by positive estimates of each group and low p-values. 
 
 ```{r,warning=F}
 tidy(test_education)$p.value
 ```
-Comparing the full model to the model with no education info, we can see that education does have a significant effect on hours worked per week, with a p value of 1.039e-148
+Comparing the full model to the model with no education info, we can see that education does have a significant effect on hours worked per week, with a p value of `r tidy(test_education)[["p.value"]][2]`
 
 #### Hours vs. Race
 
-**Hypothesis:**  _Insert Hypothesis_
+**Hypothesis:** Race does not have a correlation with hours worked since legal work hours required are not based on race but more on the other factors previously explored.
 
 **Results:**
 ```{r,echo=FALSE}
-tidy(race)
+tidy(race)%>% 
+  knitr::kable() %>% 
+  kable_styling("striped",latex_options="basic",
+    full_width=FALSE,position="center")
 ```
 
 
 ```{r, warning=F}
 tidy(test_race)$p.value
 ```
-Comparing the full model to the model with no race info, race does *not* have a significant effect on hours worked per week, with a p value of 0.065
+Comparing the full model to the model with no race info, race does *not* have a significant effect on hours worked per week, with a p value of `r tidy(test_race)[["p.value"]][2]`
 
 
 ## Discussion
