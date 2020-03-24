@@ -67,3 +67,13 @@ b. `make all` runs through all the scripts from loading the raw data to knitting
 `Rscript app.R`
 
 2. Copy the numbers after "fire started at" and paste into address bar
+
+
+**Dashboard Usage**
+==================
+**Description:**
+
+
+**Usage:**
+
+
