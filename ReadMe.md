@@ -22,7 +22,8 @@ Selecting a categorical variable (race, relationship or education level) will di
 In contrast to the categorical variables, selecting age from the dropdown menu will instead produce a line graph, with age on the x-axis and hours worked per week on they-axis. Selecting "Separate by sex" will produce two trend lines, one for women (red) and one for men (blue). The age slider will also be included to filter the data to the user's preferred age range, which will dynamically change the x-axis to that range. 
 
 ## Usage Scenario
-Usage scenarios are typically written in a narrative style and include the specific context of usage, tasks associated with that usage context, and a hypothetical walkthrough of how the user would accomplish those tasks with your app. If you are using a Kaggle dataset, you may use their “Overview (inspiration)” to create your usage scenario, or you may come up with your own inspiration.
+
+Mary is in the human resources department of her company. She and her team were asked to [understand] the factors that influence employee productivity to hopefully [maximize] the productivity of their company. She wants to [explore] the dataset to accomplish this goal. She 
 
 An example usage scenario with tasks (tasks are indicated in brackets, i.e. [task])
 
