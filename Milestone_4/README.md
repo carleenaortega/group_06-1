@@ -4,8 +4,8 @@
 * Warnings of scripts were suppressed (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/36))
 * Scripts have proper documentation based on [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) style (Feedback 5 [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35))
 * Added the tag release of each milestone to the main repo README (Feedback 1 [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35#issue-580158154))
-* unit tests were added to scripts (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/37)) (_To Do_) 
-* in EDA_images_script.R, create a function for each plot that is then called on by main() (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35)) (_To Do_)
+* Unit tests were added to scripts (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/37)) (_To Do_) 
+* In EDA_images_script.R, create a function for each plot that is then called on by main() (Feedback [here](https://github.com/STAT547-UBC-2019-20/group_06/issues/35)) (_To Do_)
 * Changes to analyses were done for more informative results (not based on feedback)
 
 
