@@ -6,7 +6,7 @@
 	
 
 #make all
-all : docs/final_report.html docs/final_report.pdf
+all : docs/final_report.html docs/final_report.pdf 
 
 #load data
 data/adult_data.csv : scripts/load_data.R
