@@ -12,14 +12,15 @@ You will find our milestone activitities in this repo as follows:
 |3|Completed|[Milestone 3 Repo](https://github.com/STAT547-UBC-2019-20/group_06/tree/master/Milestone_3) |[MS3Completed](https://github.com/STAT547-UBC-2019-20/group_06/releases/tag/MS3v1.0)|
 |4||[Milestone 4 Repo](https://github.com/STAT547-UBC-2019-20/group_06/tree/master/Milestone_4) [Milestone 4 html](https://stat547-ubc-2019-20.github.io/group_06//Milestone_4/docs/final_report.html)|| 
 
+
 # Dashboard Proposal
 
 ## Description
-This dashboard will allow the user to graphically explore the effects of several factors (e.g. age, marital status, education level, and race) on the number of work hours each week by selecting the appropriate option in the dropdown menu. 
+This dashboard will allow the user to graphically explore the effects of several factors (e.g. age, marital status, education level, and race) on the number of hours worked per week by selecting the appropriate option in the dropdown menu. 
 
-Selecting a categorical variable (race, marital status, or education level) will display two plots, a box plot and a density plot, with groups of that variable on the x-axis and hours worked per week on the y-axis. A "Separate by sex" checkbox will determine if the user wants to display the information separated by sex, side-by-side on the plot. The sexes will be colour coded (blue for males and red for females). A slider is included to filter the data displayed to the audience's preferred age range. 
+Selecting a categorical variable (race, marital status, or education level) will display two plots, a box plot and a density plot, with groups of that variable on the x-axis and hours worked per week on the y-axis (panel 1 in sketch below). A "Separate by sex" checkbox will determine if the user wants to display the information separated by sex, side-by-side on the plot (panel 2 in sketch). The sexes will be colour coded as blue for men and red for women. A slider is included to filter the data displayed to the audience's preferred age range. 
 
-In contrast to the categorical variables, selecting age from the dropdown menu will instead produce a line graph, with age on the x-axis and hours worked per week on they-axis. Selecting "Separate by sex" will produce two trend lines, one for women (red) and one for men (blue). The age slider will also be included to filter the data to the user's preferred age range, which will dynamically change the x-axis to that range. 
+In contrast to the categorical variables, selecting age from the dropdown menu will instead produce a line graph, with age on the x-axis and hours worked per week on they-axis (panel 3 in sketch). Selecting "Separate by sex" will produce two trend lines, one for women (red) and one for men (blue). The age slider will also be included to filter the data to the user's preferred age range, which will dynamically change the x-axis to that range. 
 
 ## Usage Scenario
 
