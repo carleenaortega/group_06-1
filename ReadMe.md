@@ -33,6 +33,9 @@ Note that in the above example, “physical disability” being an important var
 
 ## Example sketch
 
+
+![Dashboard Design](https://github.com/STAT547-UBC-2019-20/group_06/blob/master/Milestone_4/Dashboard.jpg?raw=true)
+
 The example sketch shows the visual design of the app and one interactive feature (a tooltip).
 
 A further note on the app sketches:
