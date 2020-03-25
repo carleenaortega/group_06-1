@@ -63,10 +63,9 @@ b. `make all` runs through all the scripts from loading the raw data to knitting
 2. Copy the numbers after "fire started at" and paste into address bar
 
 
+
 **Dashboard Proposal**
-
-# Dashboard Proposal
-
+==================
 ## Description
 This dashboard will allow the user to graphically explore the effects of several factors (e.g. age, marital status, education level, and race) on the number of work hours each week by selecting the appropriate option in the dropdown menu. 
 
