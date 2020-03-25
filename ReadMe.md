@@ -27,11 +27,7 @@ Mary is in the research team of Employment and Social Development Canada. She an
 
 ## Example sketch
 
-The example sketch shows the visual design of the app and one interactive feature (a tooltip).
-
-A further note on the app sketches:
-
-This sketch is drawn up Powerpoint and using icons from the [noun project](https://thenounproject.com/). You can use others graphics tools (i.e. Photoshop, Illustrator, GIMP, or Inkscape, etc.) or you can even draw you app by hand and upload the scanned version of your drawing. Whatever you choose to do, make sure that the final image in your report is legible. Please note, this is a very basic illustrative guide to help you in this milestone, it is by no means the limit of what you should submit.
+![Dashboard Design](https://github.com/STAT547-UBC-2019-20/group_06/blob/master/Milestone_4/Dashboard.jpg?raw=true)
 
 # Acknowledgement
 
