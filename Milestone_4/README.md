@@ -70,23 +70,19 @@ b. `make all` runs through all the scripts from loading the raw data to knitting
 
 
 **Dashboard Proposal**
-==================
-## Description
-This dashboard will allow the user to graphically explore the effects of several factors (e.g. age, relationship or role in the family, education level, and race) on the number of work hours each week by selecting the appropriate option in the dropdown menu. 
 
-Selecting a categorical variable (race, relationship or education level) will display two plots, a box plot and a density plot, with groups of that variable on the x-axis and hours worked per week on the y-axis. A "Separate by sex" checkbox will determine if the user wants to display the information separated by sex, side-by-side on the plot. The sexes will be colour coded (blue for males and red for females). A slider is included to filter the data displayed to the audience's preferred age range. 
+# Dashboard Proposal
+
+## Description
+This dashboard will allow the user to graphically explore the effects of several factors (e.g. age, marital status, education level, and race) on the number of work hours each week by selecting the appropriate option in the dropdown menu. 
+
+Selecting a categorical variable (race, marital status, or education level) will display two plots, a box plot and a density plot, with groups of that variable on the x-axis and hours worked per week on the y-axis. A "Separate by sex" checkbox will determine if the user wants to display the information separated by sex, side-by-side on the plot. The sexes will be colour coded (blue for males and red for females). A slider is included to filter the data displayed to the audience's preferred age range. 
 
 In contrast to the categorical variables, selecting age from the dropdown menu will instead produce a line graph, with age on the x-axis and hours worked per week on they-axis. Selecting "Separate by sex" will produce two trend lines, one for women (red) and one for men (blue). The age slider will also be included to filter the data to the user's preferred age range, which will dynamically change the x-axis to that range. 
 
 ## Usage Scenario
 
-Mary is in the human resources department of her company. She and her team were asked to [understand] the factors that influence employee productivity to hopefully [maximize] the productivity of their company. She wants to [explore] the dataset to accomplish this goal. She 
-
-An example usage scenario with tasks (tasks are indicated in brackets, i.e. [task])
-
-Mary is a policy maker with the Canadian Ministry of Health and she wants to understand what factors lead to missed appointments in order to devise an intervention that improves attendance numbers. She wants to be able to [explore] a dataset in order to [compare] the effect of different variables on absenteeism and [identify] the most relevant variables around which to frame her intervention policy. When Mary logs on to the “Missed Appointments app”, she will see an overview of all the available variables in her dataset, according to the number of people that did or did not show up to their medical appointment. She can filter out variables for head-to-head comparisons, and/or rank order patients according to their predicted probability of missing an appointment. When she does so, Mary may notice that “physical disability” appears to be a strong predictor missing appointments, and in fact patients with a physical disability also have the largest number of missed appointments. She hypothesizes that patients with a physical disability could be having a hard time finding transportation to their appointments, and decides she needs to conduct a follow-on study since transportation information is not captured in her current dataset.
-
-Note that in the above example, “physical disability” being an important variable is fictional - you don’t need to conduct an analysis of your data to figure out what is important or not, you just need to imagine what someone could find, and how they may use this information.
+Mary is in the research team of Employment and Social Development Canada. She and her team were asked to [understand] the factors that influence work force productivity to [identify] areas that require improvement and hopefully [maximize] productivity of the country. She wants to [explore] the dataset to accomplish this goal. When Mary explores the dashboard, she will see an overview of marital status' effect on work hours for individuals of all ages, which she can change to educational level, or race using the dropdown menu). She can then use the slider to filter the dataset to a certain age group she wishes to explore. If she wants to further separate the groups by sex, she may do so by ticking the "separate by sex" box. With this, she may observe that married people tend to work more hours especially during their 40's to 60's. This may mean that workers with a family tend to spend more time at work to provide for their families at the cost of spending time with their families. This could help Mary and her team to provide policies or incentives for companies or employees within this group to have a better work-life balance.
 
 ## Example sketch
 
