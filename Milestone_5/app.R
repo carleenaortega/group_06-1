@@ -10,9 +10,9 @@ Usage: app.R
 library(dash)
 library(dashCoreComponents)
 library(dashHtmlComponents)
-library(ggplot2)
-library(plotly)
-library(tidyverse)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(tidyverse))
 
 ##Read Data-----------------------------------------------------
 adult_data <- read.csv("data/adult_data_clean.csv")
