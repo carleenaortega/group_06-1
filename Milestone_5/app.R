@@ -34,7 +34,7 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot<- function(variable, age, sex)  {
+make_boxplot<- function(variable ='workclass', age=90, sex='no')  {
   
   #Get labels
   variable <- variableKey$label[variableKey$value==variable]
@@ -71,7 +71,7 @@ make_boxplot<- function(variable, age, sex)  {
 }
 
 ##Make Density plot
-make_violin <- function(variable, age, sex)  {
+make_violin <- function(variable ='workclass', age=90, sex='no')  {
   
   #Get labels
   variable <- variableKey$label[variableKey$value==variable]
@@ -111,7 +111,7 @@ make_violin <- function(variable, age, sex)  {
 
 
 #Make line plot for Age
-make_line <- function(variable, age, sex)  {
+make_line <- function(variable ='workclass', age=90, sex='no')  {
   
   #Get labels
   variable <- variableKey$label[variableKey$value==variable]
@@ -153,7 +153,7 @@ slider <- dccSlider(
   id = "Age Slider",
   min = 0,
   max = 9,
-  value= ,
+  value= 9,
   marks=map(
     1:nrow(AgeKey), function(i) { 
       list(label=AgeKey$label[i], value=AgeKey$value[i])  
@@ -169,7 +169,7 @@ dropdown <-dccDropdown(
     1:nrow(variableKey), function(i) { 
       list(label=variableKey$label[i], value=variableKey$value[i])  
     }),
-  value='education' #default value 
+  value='workclass' #default value 
 )
 
 #Button
@@ -217,7 +217,13 @@ app$layout(
   htmlDiv(
     list(
       heading,
-      subtitle
+      subtitle,
+      slider,
+      dropdown,
+      button,
+      boxplot_graph,
+      violin_graph,
+      Line_graph
       
     )
   )
