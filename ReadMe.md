@@ -11,6 +11,7 @@ You will find our milestone activitities in this repo as follows:
 |2|Completed|[Milestone 2 Repo](https://github.com/STAT547-UBC-2019-20/group_06/tree/master/Milestone_2) | [Milestone 2 completed](https://github.com/STAT547-UBC-2019-20/group_06/releases/tag/MS2Complete) |
 |3|Completed|[Milestone 3 Repo](https://github.com/STAT547-UBC-2019-20/group_06/tree/master/Milestone_3) |[MS3Completed](https://github.com/STAT547-UBC-2019-20/group_06/releases/tag/MS3v1.0)|
 |4||[Milestone 4 Repo](https://github.com/STAT547-UBC-2019-20/group_06/tree/master/Milestone_4) [Milestone 4 html](https://stat547-ubc-2019-20.github.io/group_06//Milestone_4/docs/final_report.html)|| 
+|5|||
 
 # Dashboard Proposal
 
