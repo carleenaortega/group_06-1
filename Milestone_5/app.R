@@ -120,8 +120,9 @@ make_line <- function(variable, age, sex)  {
   #if sex = no, make single line graph. Else, two lines for male and female.
   ##THIS plot isn't what I was thinking of but don't know how to make other one
   if (!!sym(sex) == "no") {
-    line <-  adult_data %>% filter(age < 50) %>% 
-      ggplot(aes(age, hours_per_week)) +
+    
+    line <-  adult_data %>% filter(age < !!sym(age)) %>% 
+      ggplot(aes(!!sym(age), hours_per_week)) +
       geom_point(alpha=0.05, color='lightskyblue') + 
       geom_smooth(method='lm',color='red') +
       theme_bw()
