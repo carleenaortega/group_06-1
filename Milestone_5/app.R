@@ -15,8 +15,8 @@ adult_data <- read.csv("data/adult_data_clean.csv")
 
 
 ##make Key tibbles with labels and values----------------------
-variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","Occupation","Relationship","Income","Race","Country of Origin"),
-                      value=c("age","workclass", "education","marital_status","occupation","relationship","income", "race","country"))  #values are actual column names 
+variableKey <- tibble(label=c("Marital Status","Race","Education"),
+                      value=c("marital_status", "race","education"))  #values are actual column names 
 
 AgeKey <- tibble(label=c("20","30", "40", "50","60","70","80","90","100"), #These will be cumuluative ages markes on slider
                  value=c("0","1","2","3","4","5","6","7","8"))  #will filter data set based on age < value
@@ -29,7 +29,7 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot <- function(var='workclass', age_value='8', sex_value='no'){
+make_boxplot <- function(var='education', age_value='8', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
