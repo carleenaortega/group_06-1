@@ -57,11 +57,40 @@ make_boxplot <- function(var ='workclass', age_value='90', sex_value='no')  {
       labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   }
-    
-    ggplotly(boxplot)
-    
+  
+
 }
 
+
+##Make violin
+make_violin <- function(var ='workclass', age_value='90', sex_value='no')  {
+  
+  #Get labels
+  variable <- variableKey$label[variableKey$value==var]
+  age_var <- AgeKey$label[AgeKey$value==age_value]
+  sex_var = SexKey$label[SexKey$value==sex_value]
+  
+  #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
+  if (sex_var=="No") {
+    
+    violin <- adult_data %>% filter(age < 80) %>%  ##THIS part isn't working for age but it should?
+      ggplot(aes(!!sym(var), hours_per_week)) +
+      geom_violin(outlier.size=0.05) +
+      theme_bw() +
+      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+    
+  } else {
+    
+    violin <- adult_data %>% filter(age < 80) %>%  ##THIS part isn't working for age but it should?
+      ggplot(aes(sex, hours_per_week)) +
+      geom_violin() +
+      facet_wrap(formula(paste( "~", var))) +
+      theme_bw() +
+      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+    
+  }
+
+}
 
 
 
@@ -99,11 +128,17 @@ button <-  dccRadioItems(
   value='no')
 
 
-#Graphs
+###Graphs
 boxplot_graph <-dccGraph(
   id = 'Boxplot',
   figure=make_boxplot()  
 ) 
+
+violin_graph <-dccGraph(
+  id = 'Violin',
+  figure=make_violin()  
+) 
+
 
 
 
@@ -126,7 +161,8 @@ app$layout(
       dropdown,
       button,
       slider,
-      boxplot_graph
+      boxplot_graph,
+      violin_graph
     )
   )
 )
@@ -143,6 +179,17 @@ app$callback(
   input(id='Sex Button', property='value')),
   function(var, age_value, sex_value) {
     make_boxplot(var, age_value, sex_value)
+  }
+)
+
+#Violin
+app$callback( 
+  output=list(id='Violin', property='figure'), 
+  params=list(input(id='Variable Dropdown', property='value'),
+              input(id='Age Slider', property='value'),
+              input(id='Sex Button', property='value')),
+  function(var, age_value, sex_value) {
+    make_violin(var, age_value, sex_value)
   }
 )
 
