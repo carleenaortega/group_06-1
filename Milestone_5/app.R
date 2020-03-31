@@ -167,25 +167,23 @@ app <- Dash$new()
 ##Dash layout----------------------------------
 
 app$layout(
+  #Title bar
   htmlDiv(
     list(
       heading,
       authors,
       context,
-      space,
-      varddown,
-      dropdown,
-      space,
-      sexopt,
-      button,
-      space,
-      ageslider,
-      slider,
-      space,
-      space,
-      boxplot_graph,
-      space,
-      violin_graph
+      space
+    )
+  ),
+    #make the tabs
+  htmlDiv(
+    list(
+      dccTabs(id='tabs', value='tab-1', children=list(
+        dccTab(label='Categorical Variables', value='tab-1'),
+        dccTab(label='Age', value='tab-2')
+      )),
+      htmlDiv(id='tabs-content')
     )
   )
 )
@@ -194,6 +192,62 @@ app$layout(
 
 ##Callbacks------------------------------
 
+  #tabs callback
+  app$callback(
+    
+    output = list(id = 'tabs-content', property = 'children'),
+    
+    params = list(input(id='tabs', 'value')),
+    
+    render_content <- function(tab) {
+      if (tab == 'tab-1') {
+        htmlDiv(
+          list(
+            # DROPDOWNS
+            htmlDiv(
+              list(
+                htmlDiv(
+                  list(
+                        varddown,
+                        dropdown,
+                        space,
+                        sexopt,
+                        button,
+                        space,
+                        space,
+                        space,
+                        boxplot_graph
+                      )
+                    )
+              )
+            )
+          )
+        )
+      }
+      
+      else if (tab == 'tab-2') {
+        htmlDiv(
+          list(
+            
+            # DROPDOWNS
+            htmlDiv(
+              list(
+                htmlDiv(
+                  list(
+                    ageslider,
+                    slider,
+                    space,
+                    violin_graph
+                  )
+                )
+              )
+            )
+          )
+        )
+      }
+    }
+)
+  
 #Boxplot
 app$callback( 
   output=list(id='Boxplot', property='figure'), 
@@ -206,6 +260,7 @@ app$callback(
 )
 
 # #Violin
+  
 app$callback(
   output=list(id='Violin', property='figure'),
   params=list(input(id='Variable Dropdown', property='value'),
