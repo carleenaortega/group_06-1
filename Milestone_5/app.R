@@ -56,13 +56,13 @@ make_boxplot <- function(var='education', sex_value='no'){
 
   }
   
-  ggplotly(boxplot) #if time permits, arrange the 
+  ggplotly(boxplot) #if time permits, arrange the education, merge the status to single, married, divorce, widowed, color code male and female
   
 }
 
  
 ##Make violin
-make_age <- function(var='workclass', age_value='8', sex_value='no'){
+make_violin <- function(var='workclass', age_value='8', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
