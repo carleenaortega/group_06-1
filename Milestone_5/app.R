@@ -61,11 +61,10 @@ make_boxplot <- function(var='education', sex_value='no'){
 }
 
  
-##Make violin
-make_age <- function(var='workclass', age_value='8', sex_value='no'){
+##Make age plot
+make_age <- function(age_value='8', sex_value='no'){
   
   #Get labels
-  variable <- variableKey$label[variableKey$value==var]
   age_var <- as.numeric(AgeKey$label[AgeKey$value==age_value])
   sex_var = SexKey$label[SexKey$value==sex_value]
   
@@ -73,24 +72,27 @@ make_age <- function(var='workclass', age_value='8', sex_value='no'){
   
   if (sex_var=="No") {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
-      ggplot(aes(!!sym(var), hours_per_week)) +
-      geom_violin(outlier.size=0.05) +
+    ageplot <- adult_data %>% 
+      filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+      ggplot(aes(x=age, y=hours_per_week, group=1)) +
+      geom_jitter()+
       theme_bw() +
-    labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours per week")
-    
+    labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var, " years old)"), x="Age (Years)", y="Hours Worked per Week")
+  
   } else {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
-      ggplot(aes(sex, hours_per_week)) +
-      geom_violin(outlier.size=0.05) +
-      facet_wrap(formula(paste("~", var))) +
+    ageplot <- adult_data %>% 
+      filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+      group_by(sex) %>% 
+      ggplot(aes(age_var, hours_per_week)) +
+      geom_line(outlier.size=0.05) +
+      facet_wrap(formula(paste("~", sex))) +
       theme_bw() +
-    labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
+    labs(title=paste0("Age vs. Hours Worked per Week (from 20 to", ")", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
     
   }
   
-  ggplotly(boxplot)
+  ggplotly(ageplot)
   
 }
 
@@ -265,11 +267,10 @@ app$callback(
   
 app$callback(
   output=list(id='Age Plot', property='figure'),
-  params=list(input(id='Variable Dropdown', property='value'),
-              input(id='Age Slider', property='value'),
+  params=list(input(id='Age Slider', property='value'),
               input(id='Sex Button', property='value')),
-  function(var, age_value, sex_value) {
-    make_age(var, age_value, sex_value)
+  function(age_value, sex_value) {
+    make_age(age_value, sex_value)
   }
 )
 
