@@ -62,7 +62,7 @@ make_boxplot <- function(var='education', sex_value='no'){
 
  
 ##Make violin
-make_violin <- function(var='workclass', age_value='8', sex_value='no'){
+make_age <- function(var='workclass', age_value='8', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
@@ -136,9 +136,9 @@ boxplot_graph <-dccGraph(
   figure=make_boxplot()  
 ) 
 
-violin_graph <-dccGraph(
-  id = 'Violin',
-  figure=make_violin()  
+age_graph <-dccGraph(
+  id = 'Age Plot',
+  figure=make_age()  
 ) 
 
 
@@ -232,10 +232,15 @@ app$layout(
               list(
                 htmlDiv(
                   list(
+                    varddown,
+                    dropdown,
+                    space,
+                    sexopt,
+                    button,
                     ageslider,
                     slider,
                     space,
-                    violin_graph
+                    age_graph
                   )
                 )
               )
@@ -256,15 +261,15 @@ app$callback(
   }
   )
 
-# #Violin
+# Age Plot
   
 app$callback(
-  output=list(id='Violin', property='figure'),
+  output=list(id='Age Plot', property='figure'),
   params=list(input(id='Variable Dropdown', property='value'),
               input(id='Age Slider', property='value'),
               input(id='Sex Button', property='value')),
   function(var, age_value, sex_value) {
-    make_violin(var, age_value, sex_value)
+    make_age(var, age_value, sex_value)
   }
 )
 
