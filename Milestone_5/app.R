@@ -1,4 +1,4 @@
-"This script creates a Dash app.
+"This script creates a Dash app for Milestone 5.
 Usage: app.R
 "
 
@@ -15,7 +15,7 @@ adult_data <- read.csv("data/adult_data_clean.csv")
 
 
 ##make Key tibbles with labels and values----------------------
-variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","Occupation","Relationship","Income","Race","Country"),
+variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","Occupation","Relationship","Income","Race","Country of Origin"),
                       value=c("age","workclass", "education","marital_status","occupation","relationship","income", "race","country"))  #values are actual column names 
 
 AgeKey <- tibble(label=c("20","30", "40", "50","60","70","80","90","100"), #These will be cumuluative ages markes on slider
@@ -143,11 +143,21 @@ violin_graph <-dccGraph(
 ) 
 
 
-
-
-#Headings etc
+#Headings and label
 heading <- htmlH1("STAT547 Dashboard")
-subtitle <- htmlH3("Carleena Ortega and Saelin Bjornson")
+
+authors <- htmlH2("by Carleena Ortega and Saelin Bjornson")
+
+context <- htmlH3("This dashboard explores the Adult Income data set to observe the relationship of several factors such as age, sex, and work class with an individuals number of weekly work hours")
+
+varddown<- htmlLabel("Please select a variable to explore:")
+
+sexopt<- htmlLabel("Would you like to factor in the sex of individuals?")
+
+ageslider <- htmlLabel("What ages do you wish to explore? (minimum of 20 years old)")
+
+space<-htmlIframe(height=50, width=1, style=list(borderWidth = 0))
+
 
 
 #create dash instance
@@ -160,11 +170,21 @@ app$layout(
   htmlDiv(
     list(
       heading,
-      subtitle,
+      authors,
+      context,
+      space,
+      varddown,
       dropdown,
+      space,
+      sexopt,
       button,
+      space,
+      ageslider,
       slider,
+      space,
+      space,
       boxplot_graph,
+      space,
       violin_graph
     )
   )
