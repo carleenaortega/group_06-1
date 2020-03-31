@@ -29,7 +29,7 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot <- function(var='education', age_value='8', sex_value='no'){
+make_boxplot <- function(var='education', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
@@ -40,19 +40,19 @@ make_boxplot <- function(var='education', age_value='8', sex_value='no'){
   
   if (sex_var=="No") {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    boxplot <- adult_data %>% 
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
-      theme_bw() 
+      theme_bw() +
       labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   } else {
 
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    boxplot <- adult_data %>% 
       ggplot(aes(sex, hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
       facet_wrap(formula(paste("~", var))) +
-      theme_bw() 
+      theme_bw() +
       labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
 
   }
@@ -118,7 +118,7 @@ dropdown <-dccDropdown(
     1:nrow(variableKey), function(i) { 
       list(label=variableKey$label[i], value=variableKey$value[i])  
     }),
-  value='workclass' #default value 
+  value='education' #default value 
 )
 
 #Button
@@ -253,10 +253,9 @@ app$layout(
 app$callback( 
   output=list(id='Boxplot', property='figure'), 
   params=list(input(id='Variable Dropdown', property='value'),
-              input(id='Age Slider', property='value'),
               input(id='Sex Button', property='value')),
-  function(var, age_value, sex_value) {
-    make_boxplot(var, age_value, sex_value)
+  function(var, sex_value) {
+    make_boxplot(var, sex_value)
   }
   )
 
