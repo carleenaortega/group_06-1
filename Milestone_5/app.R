@@ -1,8 +1,4 @@
-# author: Carleena Ortega and Saelin Bjornson
-# date: 2020-03-15
-
 "This script creates a Dash app.
-
 Usage: app.R
 "
 
@@ -22,8 +18,8 @@ adult_data <- read.csv("data/adult_data_clean.csv")
 variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","Occupation","Relationship","Income","Race","Country"),
                       value=c("age","workclass", "education","marital_status","occupation","relationship","income", "race","country"))  #values are actual column names 
 
-AgeKey <- tibble(label=c("<20","30", "40", "50","60","70","80","90","100"), #These will be cumuluative ages markes on slider
-                 value=c("20","30", "40", "50","60","70","80","90","100"))  #will filter data set based on age < value
+AgeKey <- tibble(label=c("20","30", "40", "50","60","70","80","90","100"), #These will be cumuluative ages markes on slider
+                 value=c("0","1","2","3","4","5","6","7","8"))  #will filter data set based on age < value
 
 SexKey <- tibble(label=c("Yes", "No"),
                  value=c("yes","no"))
@@ -33,116 +29,71 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot<- function(variable ='workclass', age="90", sex='no')  {
+make_boxplot <- function(var='workclass', age_value='8', sex_value='no'){
   
   #Get labels
-  variable <- variableKey$label[variableKey$value==variable]
-  age_var <- AgeKey$label[AgeKey$value==age]
+  variable <- variableKey$label[variableKey$value==var]
+  age_var <- as.numeric(AgeKey$label[AgeKey$value==age_value])
+  sex_var = SexKey$label[SexKey$value==sex_value]
   
-  #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplot
-  if (!!sym(sex) == "no") {
+  #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
+  
+  if (sex_var=="No") {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%
-      ggplot(aes(!!sym(variable), hours_per_week)) +
-      geom_boxplot() +
-      theme_bw() +
-      labs(title=paste0(variable, "vs. hours worked per week", x=variable, y="Hours per week"))
+    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+      ggplot(aes(!!sym(var), hours_per_week)) +
+      geom_boxplot(outlier.size=0.05) +
+      theme_bw() 
+      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   } else {
-    
-    boxplot <- adult_data %>% filter(age < age_var) %>%
+
+    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
       ggplot(aes(sex, hours_per_week)) +
-      geom_boxplot() +
-      facet_wrap(~!!sym(variable)) +
-      theme_bw() +
-      labs(title=paste0(variable, "vs. hours worked per week", x=variable, y="Hours per week"))
-    
+      geom_boxplot(outlier.size=0.05) +
+      facet_wrap(formula(paste("~", var))) +
+      theme_bw() 
+      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+
   }
   
-  #if variable = age, don't show plot (line plot will show instead)
-  if (variable == "Age") {    
-    return(NULL)  
-  } else {
-    ggplotly(boxplot)
-  }
-  
+  ggplotly(boxplot)
   
 }
 
-##Make Density plot
-make_violin <- function(variable ='workclass', age="90", sex='no')  {
+ 
+##Make violin
+make_violin <- function(var='workclass', age_value='8', sex_value='no'){
   
   #Get labels
-  variable <- variableKey$label[variableKey$value==variable]
-  age_var <- AgeKey$label[AgeKey$value==age]
+  variable <- variableKey$label[variableKey$value==var]
+  age_var <- as.numeric(AgeKey$label[AgeKey$value==age_value])
+  sex_var = SexKey$label[SexKey$value==sex_value]
   
-  ##TODO: Make if else statment for graphs:
-  #if sex = no, make normal violin plot. Else, make side-by-side male and female violin plots.
-  if (!!sym(sex) == "no") {
+  #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
+  
+  if (sex_var=="No") {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%
-      ggplot(aes(!!sym(variable), hours_per_week)) +
-      geom_violin() +
-      theme_bw() +
-      labs(title=paste0(variable, "vs. hours worked per week", x=variable, y="Hours per week"))
+    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+      ggplot(aes(!!sym(var), hours_per_week)) +
+      geom_violin(outlier.size=0.05) +
+      theme_bw() 
+    labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   } else {
     
-    boxplot <- adult_data %>% filter(age < !!sym(age_var)) %>%
+    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
       ggplot(aes(sex, hours_per_week)) +
-      geom_violin() +
-      facet_wrap(~!!sym(variable)) +
-      theme_bw() +
-      labs(title=paste0(variable, "vs. hours worked per week", x=variable, y="Hours per week"))
+      geom_violin(outlier.size=0.05) +
+      facet_wrap(formula(paste("~", var))) +
+      theme_bw() 
+    labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   }
   
-  
-  #if variable = age, don't show plot (line plot will show instead)
-  if (variable == "Age") {
-    return(NULL)  
-  } else {
-    ggplotly(violin)
-  }
-  
+  ggplotly(boxplot)
   
 }
-
-
-#Make line plot for Age
-make_line <- function(variable ='workclass', age=90, sex='no')  {
-  
-  #Get labels
-  variable <- variableKey$label[variableKey$value==variable]
-  age <- AgeKey$label[AgeKey$value==age]
-  
-  #if sex = no, make single line graph. Else, two lines for male and female.
-  ##THIS plot isn't what I was thinking of but don't know how to make other one
-  if (!!sym(sex) == "no") {
-    
-    line <-  adult_data %>% filter(age < !!sym(age)) %>% 
-      ggplot(aes(!!sym(age), hours_per_week)) +
-      geom_point(alpha=0.05, color='lightskyblue') + 
-      geom_smooth(method='lm',color='red') +
-      theme_bw()
-    
-  } else {
-    #Make plot with two lines
-    
-    
-  }
-  
-  
-  #if variable = age, DO show plot:  (other two won't be shown)
-  if (variable == "Age") {
-    ggplotly(line)
-  } 
-  
-  
-}
-
-
-
 
 
 ##Assign components of dashboard to variables---------------------
@@ -151,13 +102,12 @@ make_line <- function(variable ='workclass', age=90, sex='no')  {
 slider <- dccSlider(
   id = "Age Slider",
   min = 0,
-  max = 9,
-  value= 9,
+  max = 8,
+  value="8",
   marks=map(
     1:nrow(AgeKey), function(i) { 
       list(label=AgeKey$label[i], value=AgeKey$value[i])  
     })
-  
 )
 
 
@@ -181,12 +131,11 @@ button <-  dccRadioItems(
   value='no')
 
 
-#Graphs
+###Graphs
 boxplot_graph <-dccGraph(
   id = 'Boxplot',
   figure=make_boxplot()  
 ) 
-
 
 violin_graph <-dccGraph(
   id = 'Violin',
@@ -194,16 +143,11 @@ violin_graph <-dccGraph(
 ) 
 
 
-Line_graph <- dccGraph(
-  id='Line',
-  figure=make_line()
-)
 
 
 #Headings etc
 heading <- htmlH1("STAT547 Dashboard")
 subtitle <- htmlH3("Carleena Ortega and Saelin Bjornson")
-
 
 
 #create dash instance
@@ -217,13 +161,11 @@ app$layout(
     list(
       heading,
       subtitle,
-      slider,
       dropdown,
       button,
+      slider,
       boxplot_graph,
-      violin_graph,
-      Line_graph
-      
+      violin_graph
     )
   )
 )
@@ -234,46 +176,28 @@ app$layout(
 
 #Boxplot
 app$callback( 
-  output=list(id='Boxplot', property='figure'),  #id and property of id to update (dccGraph)
-  #based on:
+  output=list(id='Boxplot', property='figure'), 
   params=list(input(id='Variable Dropdown', property='value'),
-              input(id = 'Age Slider', property='value'),
-              input(id='Sex Button', property='value')), 
-  #translate params into function arguments
-  function(variable, age, sex) {
-    make_boxplot(variable, age, sex)
+              input(id='Age Slider', property='value'),
+              input(id='Sex Button', property='value')),
+  function(var, age_value, sex_value) {
+    make_boxplot(var, age_value, sex_value)
   }
 )
 
-#Violin plot
-app$callback( 
-  output=list(id= 'Violin', property='figure'),
+# #Violin
+app$callback(
+  output=list(id='Violin', property='figure'),
   params=list(input(id='Variable Dropdown', property='value'),
-              input(id = 'Age Slider', property='value'),
-              input(id='Sex Button', property='value')), 
-  function(variable, age, sex) {
-    make_violin(variable, age, sex)
+              input(id='Age Slider', property='value'),
+              input(id='Sex Button', property='value')),
+  function(var, age_value, sex_value) {
+    make_violin(var, age_value, sex_value)
   }
-  
 )
-
-#Line Plot for Age
-app$callback( 
-  output=list(id= 'Line', property='figure'),
-  params=list(input(id='Variable Dropdown', property='value'),
-              input(id = 'Age Slider', property='value'),
-              input(id='Sex Button', property='value')), 
-  function(variable, age, sex) {
-    make_line(variable, age, sex)
-  }
-  
-)
-
-
 
 
 
 ##Run the app-------------------------
-app$run_server(debug=TRUE)
 
 app$run_server()
