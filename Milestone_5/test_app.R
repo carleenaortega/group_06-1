@@ -1,5 +1,4 @@
 "This script creates a Dash app.
-
 Usage: app.R
 "
 
@@ -30,7 +29,7 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot <- function(var ='workclass', age_value='90', sex_value='no')  {
+make_boxplot <- function(var='workclass', age_value='90', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
@@ -51,19 +50,19 @@ make_boxplot <- function(var ='workclass', age_value='90', sex_value='no')  {
     
     boxplot <- adult_data %>% filter(age < 80) %>%  ##THIS part isn't working for age but it should?
       ggplot(aes(sex, hours_per_week)) +
-     geom_boxplot(outlier.size=0.05) +
-     facet_wrap(formula(paste( "~", var))) +
+      geom_boxplot(outlier.size=0.05) +
+      facet_wrap(formula(paste( "~", var))) +
       theme_bw() +
       labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   }
   
-
+  
 }
 
 
 ##Make violin
-make_violin <- function(var ='workclass', age_value='90', sex_value='no')  {
+make_violin <- function(var='workclass', age_value='90', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
@@ -89,7 +88,7 @@ make_violin <- function(var ='workclass', age_value='90', sex_value='no')  {
       labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   }
-
+  
 }
 
 
@@ -175,8 +174,8 @@ app$layout(
 app$callback( 
   output=list(id='Boxplot', property='figure'), 
   params=list(input(id='Variable Dropdown', property='value'),
-  input(id='Age Slider', property='value'),
-  input(id='Sex Button', property='value')),
+              input(id='Age Slider', property='value'),
+              input(id='Sex Button', property='value')),
   function(var, age_value, sex_value) {
     make_boxplot(var, age_value, sex_value)
   }
