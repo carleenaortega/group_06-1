@@ -74,28 +74,27 @@ make_age <- function(age_value='8', sex_value='no'){
     
     ageplot <- adult_data %>% 
       filter(age < age_var) %>% 
-      ggplot(aes(x=age, y=hours_per_week, group=1)) +
-      geom_col()+
+      ggplot() +
+      geom_boxplot(aes(age, hours_per_week, group=age)) +
       theme_bw() +
     labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var, " years old)"), x="Age (Years)", y="Hours Worked per Week")
+  
   
   } else {
     
     ageplot <- adult_data %>% 
-      filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
-      group_by(sex) %>% 
-      ggplot(aes(age_var, hours_per_week)) +
-      geom_line(outlier.size=0.05) +
-      facet_wrap(formula(paste("~", sex))) +
+      filter(age < age_var) %>%
+      ggplot() +
+      geom_boxplot(aes(sex, hours_per_week, group=sex))+
+      facet_wrap(formula(paste("~",age))) +
       theme_bw() +
     labs(title=paste0("Age vs. Hours Worked per Week (from 20 to", ")", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
-    
+  
   }
   
   ggplotly(ageplot)
   
 }
-
 
 ##Assign components of dashboard to variables---------------------
 
@@ -104,7 +103,7 @@ slider <- dccSlider(
   id = "Age Slider",
   min = 0,
   max = 8,
-  value="8",
+  value="4",
   marks=map(
     1:nrow(AgeKey), function(i) { 
       list(label=AgeKey$label[i], value=AgeKey$value[i])  
