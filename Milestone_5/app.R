@@ -219,9 +219,10 @@ app$layout(
                         boxplot_graph
                       )
                     )
+                    
+                  )
+                )
               )
-            )
-          )
         )
       }
       
@@ -257,7 +258,7 @@ app$callback(
   function(var, age_value, sex_value) {
     make_boxplot(var, age_value, sex_value)
   }
-)
+  )
 
 # #Violin
   
