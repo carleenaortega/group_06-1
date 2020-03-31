@@ -1,4 +1,5 @@
 "This script creates a Dash app.
+
 Usage: app.R
 "
 
@@ -6,9 +7,9 @@ Usage: app.R
 library(dash)
 library(dashCoreComponents)
 library(dashHtmlComponents)
-suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(plotly))
-suppressPackageStartupMessages(library(tidyverse))
+library(ggplot2)
+library(plotly)
+library(tidyverse)
 
 ##Read Data-----------------------------------------------------
 adult_data <- read.csv("data/adult_data_clean.csv")
@@ -19,7 +20,7 @@ variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","O
                       value=c("age","workclass", "education","marital_status","occupation","relationship","income", "race","country"))  #values are actual column names 
 
 AgeKey <- tibble(label=c("20","30", "40", "50","60","70","80","90","100"), #These will be cumuluative ages markes on slider
-                 value=c("0","1","2","3","4","5","6","7","8"))  #will filter data set based on age < value
+                 value=c("20","30", "40", "50","60","70","80","90","100"))  #will filter data set based on age < value
 
 SexKey <- tibble(label=c("Yes", "No"),
                  value=c("yes","no"))
@@ -29,71 +30,68 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot <- function(var='workclass', age_value='8', sex_value='no'){
+make_boxplot <- function(var ='workclass', age_value='90', sex_value='no')  {
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
-  age_var <- as.numeric(AgeKey$label[AgeKey$value==age_value])
+  age_var <- AgeKey$label[AgeKey$value==age_value]
   sex_var = SexKey$label[SexKey$value==sex_value]
   
   #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
   
   if (sex_var=="No") {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    boxplot <- adult_data %>% filter(age < 80) %>%  ##THIS part isn't working for age but it should?
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
-      theme_bw() 
+      theme_bw() +
       labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   } else {
-
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    
+    boxplot <- adult_data %>% filter(age < 80) %>%  ##THIS part isn't working for age but it should?
       ggplot(aes(sex, hours_per_week)) +
-      geom_boxplot(outlier.size=0.05) +
-      facet_wrap(formula(paste("~", var))) +
-      theme_bw() 
+     geom_boxplot(outlier.size=0.05) +
+     facet_wrap(formula(paste( "~", var))) +
+      theme_bw() +
       labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
-
+    
   }
   
-  ggplotly(boxplot)
-  
+
 }
 
- 
+
 ##Make violin
-make_violin <- function(var='workclass', age_value='8', sex_value='no'){
+make_violin <- function(var ='workclass', age_value='90', sex_value='no')  {
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
-  age_var <- as.numeric(AgeKey$label[AgeKey$value==age_value])
+  age_var <- AgeKey$label[AgeKey$value==age_value]
   sex_var = SexKey$label[SexKey$value==sex_value]
   
   #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
-  
   if (sex_var=="No") {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    violin <- adult_data %>% filter(age < 80) %>%  ##THIS part isn't working for age but it should?
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_violin(outlier.size=0.05) +
-      theme_bw() 
-    labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+      theme_bw() +
+      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   } else {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    violin <- adult_data %>% filter(age < 80) %>%  ##THIS part isn't working for age but it should?
       ggplot(aes(sex, hours_per_week)) +
-      geom_violin(outlier.size=0.05) +
-      facet_wrap(formula(paste("~", var))) +
-      theme_bw() 
-    labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+      geom_violin() +
+      facet_wrap(formula(paste( "~", var))) +
+      theme_bw() +
+      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
     
   }
-  
-  ggplotly(boxplot)
-  
+
 }
+
 
 
 ##Assign components of dashboard to variables---------------------
@@ -102,8 +100,7 @@ make_violin <- function(var='workclass', age_value='8', sex_value='no'){
 slider <- dccSlider(
   id = "Age Slider",
   min = 0,
-  max = 8,
-  value="8",
+  max = 9,
   marks=map(
     1:nrow(AgeKey), function(i) { 
       list(label=AgeKey$label[i], value=AgeKey$value[i])  
@@ -160,7 +157,7 @@ app$layout(
   htmlDiv(
     list(
       heading,
-      subtitle,
+      subtitle, 
       dropdown,
       button,
       slider,
@@ -178,16 +175,16 @@ app$layout(
 app$callback( 
   output=list(id='Boxplot', property='figure'), 
   params=list(input(id='Variable Dropdown', property='value'),
-              input(id='Age Slider', property='value'),
-              input(id='Sex Button', property='value')),
+  input(id='Age Slider', property='value'),
+  input(id='Sex Button', property='value')),
   function(var, age_value, sex_value) {
     make_boxplot(var, age_value, sex_value)
   }
 )
 
-# #Violin
-app$callback(
-  output=list(id='Violin', property='figure'),
+#Violin
+app$callback( 
+  output=list(id='Violin', property='figure'), 
   params=list(input(id='Variable Dropdown', property='value'),
               input(id='Age Slider', property='value'),
               input(id='Sex Button', property='value')),
