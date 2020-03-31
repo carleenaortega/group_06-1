@@ -73,9 +73,9 @@ make_age <- function(age_value='8', sex_value='no'){
   if (sex_var=="No") {
     
     ageplot <- adult_data %>% 
-      filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+      filter(age < age_var) %>% 
       ggplot(aes(x=age, y=hours_per_week, group=1)) +
-      geom_jitter()+
+      geom_col()+
       theme_bw() +
     labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var, " years old)"), x="Age (Years)", y="Hours Worked per Week")
   
@@ -234,11 +234,9 @@ app$layout(
               list(
                 htmlDiv(
                   list(
-                    varddown,
-                    dropdown,
-                    space,
                     sexopt,
                     button,
+                    space,
                     ageslider,
                     slider,
                     space,
