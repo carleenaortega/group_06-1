@@ -29,41 +29,40 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot <- function(var='education', age_value='8', sex_value='no'){
+make_boxplot <- function(var='education', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
-  age_var <- as.numeric(AgeKey$label[AgeKey$value==age_value])
   sex_var = SexKey$label[SexKey$value==sex_value]
   
   #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
   
   if (sex_var=="No") {
     
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    boxplot <- adult_data %>%
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
-      theme_bw() 
-      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+      theme_bw() + 
+      labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
     
   } else {
 
-    boxplot <- adult_data %>% filter(age < age_var) %>%  ##THIS part isn't working for age but it should?
+    boxplot <- adult_data %>%
       ggplot(aes(sex, hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
       facet_wrap(formula(paste("~", var))) +
-      theme_bw() 
-      labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+      theme_bw() + 
+      labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
 
   }
   
-  ggplotly(boxplot)
+  ggplotly(boxplot) #if time permits, arrange the 
   
 }
 
  
 ##Make violin
-make_violin <- function(var='workclass', age_value='8', sex_value='no'){
+make_age <- function(var='workclass', age_value='8', sex_value='no'){
   
   #Get labels
   variable <- variableKey$label[variableKey$value==var]
@@ -78,7 +77,7 @@ make_violin <- function(var='workclass', age_value='8', sex_value='no'){
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_violin(outlier.size=0.05) +
       theme_bw() +
-    labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+    labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours per week")
     
   } else {
     
@@ -87,7 +86,7 @@ make_violin <- function(var='workclass', age_value='8', sex_value='no'){
       geom_violin(outlier.size=0.05) +
       facet_wrap(formula(paste("~", var))) +
       theme_bw() +
-    labs(title=paste0(variable, " vs. hours worked per week "), x=variable, y="Hours per week")
+    labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
     
   }
   
@@ -118,7 +117,7 @@ dropdown <-dccDropdown(
     1:nrow(variableKey), function(i) { 
       list(label=variableKey$label[i], value=variableKey$value[i])  
     }),
-  value='race' #default value 
+  value='education' #default value 
 )
 
 #Button
@@ -229,8 +228,6 @@ app$layout(
       else if (tab == 'tab-2') {
         htmlDiv(
           list(
-            
-            # DROPDOWNS
             htmlDiv(
               list(
                 htmlDiv(
@@ -253,10 +250,9 @@ app$layout(
 app$callback( 
   output=list(id='Boxplot', property='figure'), 
   params=list(input(id='Variable Dropdown', property='value'),
-              input(id='Age Slider', property='value'),
               input(id='Sex Button', property='value')),
-  function(var, age_value, sex_value) {
-    make_boxplot(var, age_value, sex_value)
+  function(var, sex_value) {
+    make_boxplot(var, sex_value)
   }
   )
 
