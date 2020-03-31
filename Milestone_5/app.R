@@ -85,11 +85,11 @@ make_age <- function(age_value='8', sex_value='no'){
     ageplot <- adult_data %>% 
       filter(age < age_var) %>%
       ggplot() +
-      geom_boxplot(aes(sex, hours_per_week, group=sex))+
-      facet_wrap(formula(paste("~",age))) +
+      geom_boxplot(aes(age, hours_per_week, group=age))+
+      facet_wrap(vars(sex)) +
       theme_bw() +
-    labs(title=paste0("Age vs. Hours Worked per Week (from 20 to", ")", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
-  
+    labs(title=paste0("Age vs. Hours Worked per Week (from 20 to", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
+
   }
   
   ggplotly(ageplot)
