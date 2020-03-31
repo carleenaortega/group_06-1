@@ -18,7 +18,6 @@ library(tidyverse)
 adult_data <- read.csv("data/adult_data_clean.csv")
 
 
-
 ##make Key tibbles with labels and values----------------------
 variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","Occupation","Relationship","Income","Race","Country"),
                       value=c("age","workclass", "education","marital_status","occupation","relationship","income", "race","country"))  #values are actual column names 
@@ -34,7 +33,7 @@ SexKey <- tibble(label=c("Yes", "No"),
 ##Functions--------------------------------------------------
 
 ##Make boxplot
-make_boxplot<- function(variable ='workclass', age=90, sex='no')  {
+make_boxplot<- function(variable ='workclass', age="90", sex='no')  {
   
   #Get labels
   variable <- variableKey$label[variableKey$value==variable]
@@ -43,7 +42,7 @@ make_boxplot<- function(variable ='workclass', age=90, sex='no')  {
   #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplot
   if (!!sym(sex) == "no") {
     
-    boxplot <- adult_data %>% filter(age < !!sym(age_var)) %>%
+    boxplot <- adult_data %>% filter(age < age_var) %>%
       ggplot(aes(!!sym(variable), hours_per_week)) +
       geom_boxplot() +
       theme_bw() +
@@ -51,7 +50,7 @@ make_boxplot<- function(variable ='workclass', age=90, sex='no')  {
     
   } else {
     
-    boxplot <- adult_data %>% filter(age < !!sym(age_var)) %>%
+    boxplot <- adult_data %>% filter(age < age_var) %>%
       ggplot(aes(sex, hours_per_week)) +
       geom_boxplot() +
       facet_wrap(~!!sym(variable)) +
@@ -71,17 +70,17 @@ make_boxplot<- function(variable ='workclass', age=90, sex='no')  {
 }
 
 ##Make Density plot
-make_violin <- function(variable ='workclass', age=90, sex='no')  {
+make_violin <- function(variable ='workclass', age="90", sex='no')  {
   
   #Get labels
   variable <- variableKey$label[variableKey$value==variable]
-  age <- AgeKey$label[AgeKey$value==age]
+  age_var <- AgeKey$label[AgeKey$value==age]
   
   ##TODO: Make if else statment for graphs:
   #if sex = no, make normal violin plot. Else, make side-by-side male and female violin plots.
   if (!!sym(sex) == "no") {
     
-    boxplot <- adult_data %>% filter(age < !!sym(age_var)) %>%
+    boxplot <- adult_data %>% filter(age < age_var) %>%
       ggplot(aes(!!sym(variable), hours_per_week)) +
       geom_violin() +
       theme_bw() +
