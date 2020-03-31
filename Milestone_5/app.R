@@ -1,4 +1,4 @@
-"This script creates a Dash app.
+"This script creates a Dash app for Milestone 5.
 Usage: app.R
 "
 
@@ -6,16 +6,16 @@ Usage: app.R
 library(dash)
 library(dashCoreComponents)
 library(dashHtmlComponents)
-library(ggplot2)
-library(plotly)
-library(tidyverse)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(tidyverse))
 
 ##Read Data-----------------------------------------------------
 adult_data <- read.csv("data/adult_data_clean.csv")
 
 
 ##make Key tibbles with labels and values----------------------
-variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","Occupation","Relationship","Income","Race","Country"),
+variableKey <- tibble(label=c("Age","Work Class", "Eduction","Marital Status","Occupation","Relationship","Income","Race","Country of Origin"),
                       value=c("age","workclass", "education","marital_status","occupation","relationship","income", "race","country"))  #values are actual column names 
 
 AgeKey <- tibble(label=c("20","30", "40", "50","60","70","80","90","100"), #These will be cumuluative ages markes on slider
@@ -143,11 +143,21 @@ violin_graph <-dccGraph(
 ) 
 
 
-
-
-#Headings etc
+#Headings and label
 heading <- htmlH1("STAT547 Dashboard")
-subtitle <- htmlH3("Carleena Ortega and Saelin Bjornson")
+
+authors <- htmlH2("by Carleena Ortega and Saelin Bjornson")
+
+context <- htmlH3("This dashboard explores the Adult Income data set to observe the relationship of several factors such as age, sex, and work class with an individuals number of weekly work hours")
+
+varddown<- htmlLabel("Please select a variable to explore:")
+
+sexopt<- htmlLabel("Would you like to factor in the sex of individuals?")
+
+ageslider <- htmlLabel("What ages do you wish to explore? (minimum of 20 years old)")
+
+space<-htmlIframe(height=50, width=1, style=list(borderWidth = 0))
+
 
 
 #create dash instance
@@ -157,15 +167,23 @@ app <- Dash$new()
 ##Dash layout----------------------------------
 
 app$layout(
+  #Title bar
   htmlDiv(
     list(
       heading,
-      subtitle,
-      dropdown,
-      button,
-      slider,
-      boxplot_graph,
-      violin_graph
+      authors,
+      context,
+      space
+    )
+  ),
+    #make the tabs
+  htmlDiv(
+    list(
+      dccTabs(id='tabs', value='tab-1', children=list(
+        dccTab(label='Categorical Variables', value='tab-1'),
+        dccTab(label='Age', value='tab-2')
+      )),
+      htmlDiv(id='tabs-content')
     )
   )
 )
@@ -174,6 +192,63 @@ app$layout(
 
 ##Callbacks------------------------------
 
+  #tabs callback
+  app$callback(
+    
+    output = list(id = 'tabs-content', property = 'children'),
+    
+    params = list(input(id='tabs', 'value')),
+    
+    render_content <- function(tab) {
+      if (tab == 'tab-1') {
+        htmlDiv(
+          list(
+            # DROPDOWNS
+            htmlDiv(
+              list(
+                htmlDiv(
+                  list(
+                        varddown,
+                        dropdown,
+                        space,
+                        sexopt,
+                        button,
+                        space,
+                        space,
+                        space,
+                        boxplot_graph
+                      )
+                    )
+                    
+                  )
+                )
+              )
+        )
+      }
+      
+      else if (tab == 'tab-2') {
+        htmlDiv(
+          list(
+            
+            # DROPDOWNS
+            htmlDiv(
+              list(
+                htmlDiv(
+                  list(
+                    ageslider,
+                    slider,
+                    space,
+                    violin_graph
+                  )
+                )
+              )
+            )
+          )
+        )
+      }
+    }
+)
+  
 #Boxplot
 app$callback( 
   output=list(id='Boxplot', property='figure'), 
@@ -183,9 +258,10 @@ app$callback(
   function(var, age_value, sex_value) {
     make_boxplot(var, age_value, sex_value)
   }
-)
+  )
 
 # #Violin
+  
 app$callback(
   output=list(id='Violin', property='figure'),
   params=list(input(id='Variable Dropdown', property='value'),
