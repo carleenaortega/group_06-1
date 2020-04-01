@@ -42,7 +42,7 @@ make_boxplot <- function(var='education', sex_value='no'){
     boxplot <- adult_data %>%
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
-      theme_bw() + 
+      theme_bw(15) + 
       labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
     
   } else {
@@ -51,7 +51,7 @@ make_boxplot <- function(var='education', sex_value='no'){
       ggplot(aes(sex, hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
       facet_wrap(formula(paste("~", var))) +
-      theme_bw() + 
+      theme_bw(15) + 
       labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
     
   }
@@ -76,8 +76,8 @@ make_age <- function(age_value='8', sex_value='no'){
     ageplot <-  age_data  %>%   filter(age < age_var) %>% 
       ggplot(aes(age, mean)) +
       geom_line() +
-      theme_bw() +
-      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
+      theme_bw(15) +
+      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
     
     
   } else {
@@ -86,8 +86,8 @@ make_age <- function(age_value='8', sex_value='no'){
     ageplot <-  age_data  %>%   filter(age < age_var) %>% 
       ggplot(aes(age, mean, color=sex)) +
       geom_line() +
-      theme_bw() +
-      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
+      theme_bw(15) +
+      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
     
   }
   
@@ -158,6 +158,35 @@ ageslider <- htmlLabel("What ages do you wish to explore? (minimum of 20 years o
 space<-htmlIframe(height=50, width=1, style=list(borderWidth = 0))
 
 
+#elements
+div_tabs<-htmlDiv(
+  list(
+    dccTabs(id='tabs', value='tab-1', children=list(
+      dccTab(label='Categorical Variables', value='tab-1'),
+      dccTab(label='Age', value='tab-2')
+    )),
+    htmlDiv(id='tabs-content')
+  ))
+
+div_title<-htmlDiv(
+    list(
+      heading,
+      authors,
+      context,
+      space
+    ),style=list(textAlign='center', backgroundColor='#D3F1CD', margin=2, marginTop=0)
+  )
+
+clarlist<-htmlDiv(
+  list(varddown,
+    dropdown,
+    space,
+    sexopt,
+    button,
+    space,
+    space,
+    space),
+  style=list('width'='25%'))
 
 #create dash instance
 
@@ -166,24 +195,10 @@ app <- Dash$new()
 ##Dash layout----------------------------------
 
 app$layout(
-  #Title bar
   htmlDiv(
-    list(
-      heading,
-      authors,
-      context,
-      space
-    )
-  ),
-  #make the tabs
-  htmlDiv(
-    list(
-      dccTabs(id='tabs', value='tab-1', children=list(
-        dccTab(label='Categorical Variables', value='tab-1'),
-        dccTab(label='Age', value='tab-2')
-      )),
-      htmlDiv(id='tabs-content')
-    )
+    list(div_title,
+      div_tabs),
+    style = list('font-size'='25px', 'width'='100%')
   )
 )
 
@@ -207,16 +222,9 @@ app$callback(
             list(
               htmlDiv(
                 list(
-                  varddown,
-                  dropdown,
-                  space,
-                  sexopt,
-                  button,
-                  space,
-                  space,
-                  space,
+                  clarlist,
                   boxplot_graph
-                )
+                ), style=list('columnCount'=1)
               )
               
             )
