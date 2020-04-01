@@ -6,7 +6,7 @@ You will find the link to this week's activity below:
 
 |Activity|Status|Link|
 | ----------- | ----------- | ----------- |
-|Dash Application|Completed|[App2.R](http://127.0.0.1:8050) *Note: only works after going through usage*|
+|Dash Application|Completed|[App.R](http://127.0.0.1:8050) *Note: only works after going through usage*|
 
 **USAGE**
 
