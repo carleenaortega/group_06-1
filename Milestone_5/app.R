@@ -143,7 +143,7 @@ age_graph <-dccGraph(
 
 
 #Headings and label
-heading <- htmlH1("STAT547 Dashboard")
+heading <- htmlH1("STAT547 Dashboard: Exploration of the Weekly Work Hours of Individuals")
 
 authors <- htmlH2("by Carleena Ortega and Saelin Bjornson")
 
