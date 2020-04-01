@@ -14,7 +14,7 @@ You will find the link to this week's activity below:
 
 2. Open a Terminal window (RStudio or system)
 
-3. Type `Rscript app2.R`. 
+3. Type `Rscript app.R`. 
 
 4. You will see a message similar to: 
 ```
