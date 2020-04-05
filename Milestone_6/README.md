@@ -1,4 +1,4 @@
-# milestone 6
+# Milestone 6
 
 ### Changes to app.R based on TA [feedback](https://github.com/STAT547-UBC-2019-20/group_06/issues/83)
 
