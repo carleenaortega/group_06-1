@@ -2,8 +2,8 @@
 
 Usage: scripts/knit_final_report.R --final_report=<final_report>" -> doc
 
-library(docopt)
-library(glue)
+suppressPackageStartupMessages(library(docopt))
+suppressPackageStartupMessages(library(glue))
 
 opt <- docopt(doc)
 
