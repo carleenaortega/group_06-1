@@ -42,25 +42,25 @@ make_boxplot <- function(var='education', sex_value='no'){
     boxplot <- adult_data %>%
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
-      theme_bw() + 
+      theme_bw(15) + 
       labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
     
   } else {
-
+    
     boxplot <- adult_data %>%
       ggplot(aes(sex, hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
       facet_wrap(formula(paste("~", var))) +
-      theme_bw() + 
+      theme_bw(15) + 
       labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
-
+    
   }
   
   ggplotly(boxplot) #if time permits, arrange the education, merge the status to single, married, divorce, widowed, color code male and female
   
 }
 
- 
+
 ##Make age plot
 make_age <- function(age_value='8', sex_value='no'){
   
@@ -69,27 +69,26 @@ make_age <- function(age_value='8', sex_value='no'){
   sex_var = SexKey$label[SexKey$value==sex_value]
   
   #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
-  
+
   if (sex_var=="No") {
     
-    ageplot <- adult_data %>% 
-      filter(age < age_var) %>% 
-      ggplot() +
-      geom_boxplot(aes(age, hours_per_week, group=age)) +
-      theme_bw() +
-    labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var, " years old)"), x="Age (Years)", y="Hours Worked per Week")
-  
-  
+    age_data <- adult_data %>% group_by(age) %>% summarize(mean=mean(hours_per_week))
+    ageplot <-  age_data  %>%   filter(age < age_var) %>% 
+      ggplot(aes(age, mean)) +
+      geom_line() +
+      theme_bw(15) +
+      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
+    
+    
   } else {
     
-    ageplot <- adult_data %>% 
-      filter(age < age_var) %>%
-      ggplot() +
-      geom_boxplot(aes(age, hours_per_week, group=age))+
-      facet_wrap(vars(sex)) +
-      theme_bw() +
-    labs(title=paste0("Age vs. Hours Worked per Week (from 20 to", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
-
+    age_data <- adult_data %>% group_by(age, sex) %>% summarize(mean=mean(hours_per_week))
+    ageplot <-  age_data  %>%   filter(age < age_var) %>% 
+      ggplot(aes(age, mean, color=sex)) +
+      geom_line() +
+      theme_bw(15) +
+      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
+    
   }
   
   ggplotly(ageplot)
@@ -144,7 +143,7 @@ age_graph <-dccGraph(
 
 
 #Headings and label
-heading <- htmlH1("STAT547 Dashboard")
+heading <- htmlH1("STAT547 Dashboard: Exploration of the Weekly Work Hours of Individuals")
 
 authors <- htmlH2("by Carleena Ortega and Saelin Bjornson")
 
@@ -159,6 +158,35 @@ ageslider <- htmlLabel("What ages do you wish to explore? (minimum of 20 years o
 space<-htmlIframe(height=50, width=1, style=list(borderWidth = 0))
 
 
+#elements
+div_tabs<-htmlDiv(
+  list(
+    dccTabs(id='tabs', value='tab-1', children=list(
+      dccTab(label='Categorical Variables', value='tab-1'),
+      dccTab(label='Age', value='tab-2')
+    )),
+    htmlDiv(id='tabs-content')
+  ))
+
+div_title<-htmlDiv(
+    list(
+      heading,
+      authors,
+      context,
+      space
+    ),style=list(textAlign='center', backgroundColor='#D3F1CD', margin=2, marginTop=0)
+  )
+
+clarlist<-htmlDiv(
+  list(varddown,
+    dropdown,
+    space,
+    sexopt,
+    button,
+    space,
+    space,
+    space),
+  style=list('width'='25%'))
 
 #create dash instance
 
@@ -167,24 +195,10 @@ app <- Dash$new()
 ##Dash layout----------------------------------
 
 app$layout(
-  #Title bar
   htmlDiv(
-    list(
-      heading,
-      authors,
-      context,
-      space
-    )
-  ),
-    #make the tabs
-  htmlDiv(
-    list(
-      dccTabs(id='tabs', value='tab-1', children=list(
-        dccTab(label='Categorical Variables', value='tab-1'),
-        dccTab(label='Age', value='tab-2')
-      )),
-      htmlDiv(id='tabs-content')
-    )
+    list(div_title,
+      div_tabs),
+    style = list('font-size'='25px', 'width'='100%')
   )
 )
 
@@ -192,64 +206,57 @@ app$layout(
 
 ##Callbacks------------------------------
 
-  #tabs callback
-  app$callback(
-    
-    output = list(id = 'tabs-content', property = 'children'),
-    
-    params = list(input(id='tabs', 'value')),
-    
-    render_content <- function(tab) {
-      if (tab == 'tab-1') {
-        htmlDiv(
-          list(
-            # DROPDOWNS
-            htmlDiv(
-              list(
-                htmlDiv(
-                  list(
-                        varddown,
-                        dropdown,
-                        space,
-                        sexopt,
-                        button,
-                        space,
-                        space,
-                        space,
-                        boxplot_graph
-                      )
-                    )
-                    
-                  )
-                )
+#tabs callback
+app$callback(
+  
+  output = list(id = 'tabs-content', property = 'children'),
+  
+  params = list(input(id='tabs', 'value')),
+  
+  render_content <- function(tab) {
+    if (tab == 'tab-1') {
+      htmlDiv(
+        list(
+          # DROPDOWNS
+          htmlDiv(
+            list(
+              htmlDiv(
+                list(
+                  clarlist,
+                  boxplot_graph
+                ), style=list('columnCount'=1)
               )
+              
+            )
+          )
         )
-      }
-      
-      else if (tab == 'tab-2') {
-        htmlDiv(
-          list(
-            htmlDiv(
-              list(
-                htmlDiv(
-                  list(
-                    sexopt,
-                    button,
-                    space,
-                    ageslider,
-                    slider,
-                    space,
-                    age_graph
-                  )
+      )
+    }
+    
+    else if (tab == 'tab-2') {
+      htmlDiv(
+        list(
+          htmlDiv(
+            list(
+              htmlDiv(
+                list(
+                  sexopt,
+                  button,
+                  space,
+                  ageslider,
+                  slider,
+                  space,
+                  age_graph
                 )
               )
             )
           )
         )
-      }
+      )
     }
+  }
 )
-  
+
 #Boxplot
 app$callback( 
   output=list(id='Boxplot', property='figure'), 
@@ -258,10 +265,10 @@ app$callback(
   function(var, sex_value) {
     make_boxplot(var, sex_value)
   }
-  )
+)
 
 # Age Plot
-  
+
 app$callback(
   output=list(id='Age Plot', property='figure'),
   params=list(input(id='Age Slider', property='value'),
