@@ -13,6 +13,27 @@ suppressPackageStartupMessages(library(tidyverse))
 ##Read Data-----------------------------------------------------
 adult_data <- read.csv("data/adult_data_clean.csv")
 
+#relevel and recode factors
+adult_data$race <- fct_infreq(adult_data$race)  #sort by most frequent
+adult_data$race <-fct_recode(adult_data$race, "Asian/Pacific Islander" = "Asian-Pac-Islander", 
+                             "Native America/Inuit" = "Amer-Indian-Eskimo")
+
+adult_data$marital_status <- fct_relevel(adult_data$marital_status,  "Never-married", 
+                                         "Married-civ-spouse", "Married-AF-spouse", 
+                                         "Married-spouse-absent", "Divorced" , "Separated", "Widowed")
+adult_data$marital_status <-fct_recode(adult_data$marital_status, "Married: Armed Forces Spouse" = "Married-AF-spouse",
+                                       "Married: Spouse Absent" = "Married-spouse-absent", "Never Married" = "Never-married", 
+                                       "Married: Civilian Spouse" = "Married-civ-spouse")
+
+adult_data$education <- fct_relevel(adult_data$education, "Preschool", "1st-4th",  
+                                    "5th-6th" , "7th-8th", "9th", "10th", "11th", 
+                                    "12th", "HS-grad","Prof-school","Assoc-acdm",
+                                    "Assoc-voc","Some-college","Bachelors","Masters","Doctorate")
+adult_data$education <- fct_recode(adult_data$education,"High School Grad" = "HS-grad",
+                                   "Associate ACDM" = "Assoc-acdm", "Associate VOC"="Assoc-voc","Some College"="Some-college")
+
+
+
 
 ##make Key tibbles with labels and values----------------------
 variableKey <- tibble(label=c("Marital Status","Race","Education"),
@@ -43,7 +64,8 @@ make_boxplot <- function(var='education', sex_value='no'){
       ggplot(aes(!!sym(var), hours_per_week)) +
       geom_boxplot(outlier.size=0.05) +
       theme_bw(15) + 
-      labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
+      labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week") +
+      theme(axis.text.x = element_text(angle=45, hjust =1))
     
   } else {
     
@@ -52,7 +74,8 @@ make_boxplot <- function(var='education', sex_value='no'){
       geom_boxplot(outlier.size=0.05) +
       facet_wrap(formula(paste("~", var))) +
       theme_bw(15) + 
-      labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week")
+      labs(title=paste0(variable, " vs. Hours Worked per Week "), x=variable, y="Hours Worked per Week") +
+      theme(axis.text.x = element_text(angle=45, hjust =1))
     
   }
   
@@ -62,10 +85,11 @@ make_boxplot <- function(var='education', sex_value='no'){
 
 
 ##Make age plot
-make_age <- function(age_value='8', sex_value='no'){
+make_age <- function(age_value=list("2","7"), sex_value='no'){
   
   #Get labels
-  age_var <- as.numeric(AgeKey$label[AgeKey$value==age_value])
+  age_var_1 <- as.numeric(AgeKey$label[AgeKey$value==age_value[1]])
+  age_var_2 <- as.numeric(AgeKey$label[AgeKey$value==age_value[2]])
   sex_var = SexKey$label[SexKey$value==sex_value]
   
   #if sex = no, make normal boxplot. Else, make side-by-side male and female boxplotage
@@ -73,21 +97,21 @@ make_age <- function(age_value='8', sex_value='no'){
   if (sex_var=="No") {
     
     age_data <- adult_data %>% group_by(age) %>% summarize(mean=mean(hours_per_week))
-    ageplot <-  age_data  %>%   filter(age < age_var) %>% 
+    ageplot <-  age_data  %>%   filter(age > age_var_1 & age < age_var_2 ) %>% 
       ggplot(aes(age, mean)) +
       geom_line() +
       theme_bw(15) +
-      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
+      labs(title=paste0("Age vs. Hours Worked per Week (from ", age_var_1, " to ", age_var_2," years old)"), x="Age (Years)", y="Hours Worked per Week")
     
     
   } else {
     
     age_data <- adult_data %>% group_by(age, sex) %>% summarize(mean=mean(hours_per_week))
-    ageplot <-  age_data  %>%   filter(age < age_var) %>% 
+    ageplot <-  age_data  %>%   filter(age > age_var_1 & age < age_var_2 ) %>% 
       ggplot(aes(age, mean, color=sex)) +
       geom_line() +
       theme_bw(15) +
-      labs(title=paste0("Age vs. Hours Worked per Week (from 20 to ", age_var," years old)"), x="Age (Years)", y="Hours Worked per Week")
+      labs(title=paste0("Age vs. Hours Worked per Week (from ", age_var_1, " to ", age_var_2," years old)"), x="Age (Years)", y="Hours Worked per Week")
     
   }
   
@@ -98,11 +122,11 @@ make_age <- function(age_value='8', sex_value='no'){
 ##Assign components of dashboard to variables---------------------
 
 #slider
-slider <- dccSlider(
+slider <- dccRangeSlider(
   id = "Age Slider",
   min = 0,
   max = 8,
-  value="4",
+  value=list("2","7"),  #These become value[1] and and value[2]
   marks=map(
     1:nrow(AgeKey), function(i) { 
       list(label=AgeKey$label[i], value=AgeKey$value[i])  
@@ -153,7 +177,7 @@ varddown<- htmlLabel("Please select a variable to explore:")
 
 sexopt<- htmlLabel("Would you like to factor in the sex of individuals?")
 
-ageslider <- htmlLabel("What ages do you wish to explore? (minimum of 20 years old)")
+ageslider <- htmlLabel("What ages do you wish to explore?")
 
 space<-htmlIframe(height=50, width=1, style=list(borderWidth = 0))
 
@@ -162,7 +186,7 @@ space<-htmlIframe(height=50, width=1, style=list(borderWidth = 0))
 div_tabs<-htmlDiv(
   list(
     dccTabs(id='tabs', value='tab-1', children=list(
-      dccTab(label='Categorical Variables', value='tab-1'),
+      dccTab(label='Race, Education and Marital Status', value='tab-1'),
       dccTab(label='Age', value='tab-2')
     )),
     htmlDiv(id='tabs-content')
@@ -281,5 +305,4 @@ app$callback(
 
 
 ##Run the app-------------------------
-
-app$run_server()
+app$run_server() #Need for deployment
