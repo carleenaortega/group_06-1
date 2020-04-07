@@ -305,4 +305,4 @@ app$callback(
 
 
 ##Run the app-------------------------
-app$run_server() #Need for deployment
+app$run_server(host = "0.0.0.0", ports = Sys.getenv('PORT', 8050)) #Need for deployment
