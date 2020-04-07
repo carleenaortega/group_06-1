@@ -10,7 +10,7 @@
 1. Removed .Rproj from repo and added to .gitignore 
 2. Made READMEs more descriptive in milestone folders _(TODO)_
 3. Created a v1.0 tagged release  _(TODO)_
-4. Old issues were closed  _(TODO)_
+4. Old issues were closed
 
 ### App Deployment 
 
