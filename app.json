@@ -1,9 +1,0 @@
-{
-  "name": "App deployment for STAT547 Milestone 6 by Saelin and Carleena",
-  "description": "This is the app that runs our final project on heroku.",
-  "keywords": [
-    "heroku",
-    "R deployment",
-    "Dash R"
-]
-}
