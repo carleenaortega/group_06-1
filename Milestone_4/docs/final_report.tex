@@ -1,6 +1,3 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
-\PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -9,32 +6,29 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \usepackage{unicode-math}
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
+\usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
+\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
-\hypersetup{
+\hypersetup{unicode=true,
             pdftitle={Final Report},
             pdfauthor={Carleena Ortega and Saelin Bjornson},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage[margin=1in]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -76,8 +70,6 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -87,6 +79,12 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -101,10 +99,31 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Final Report}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Carleena Ortega and Saelin Bjornson}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{15/03/2020}
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -120,10 +139,6 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-
-\title{Final Report}
-\author{Carleena Ortega and Saelin Bjornson}
-\date{15/03/2020}
 
 \begin{document}
 \maketitle
@@ -349,7 +364,7 @@ separately, as well as linear regression using all these variables
 together.
 
 This was done using the lm function of the purrr package. For example:
-lm(hours\_per\_week\textasciitilde{}education,data)
+lm(hours\_per\_week\textasciitilde education,data)
 
 For categorical variables sex, education and relationship, the intercept
 is the defaul reference group, where the ``estimate'' is the mean of
@@ -361,8 +376,8 @@ the significance of this difference.
 \hypertarget{hypothesis-and-results}{%
 \subsection{Hypothesis and Results}\label{hypothesis-and-results}}
 
-\hypertarget{hours-vs.relationship}{%
-\paragraph{Hours vs.~Relationship}\label{hours-vs.relationship}}
+\hypertarget{hours-vs.-relationship}{%
+\paragraph{Hours vs.~Relationship}\label{hours-vs.-relationship}}
 
 \textbf{Hypotheses:} Husbands work more than wives since wives are the
 primary care takers of the household. Unmarried and individuals not in a
@@ -431,7 +446,7 @@ negative estimates), with significant p-values in each case.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{tidy}\NormalTok{(test_relationship)}\OperatorTok{$}\NormalTok{p.value}
+\KeywordTok{tidy}\NormalTok{(test\_relationship)}\OperatorTok{$}\NormalTok{p.value}
 \end{Highlighting}
 \end{Shaded}
 
@@ -443,8 +458,8 @@ Comparing the full model to the model with no relationship info, we can
 see that relationship does have a significant effect on hours worked per
 week, with a p value of near 0
 
-\hypertarget{hours-vs.sex}{%
-\paragraph{Hours vs.~Sex}\label{hours-vs.sex}}
+\hypertarget{hours-vs.-sex}{%
+\paragraph{Hours vs.~Sex}\label{hours-vs.-sex}}
 
 \textbf{Hypothesis:} Males work more hours than women given that women
 tend to be the care takers of the household.
@@ -518,7 +533,7 @@ women.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{tidy}\NormalTok{(test_sex)}\OperatorTok{$}\NormalTok{p.value}
+\KeywordTok{tidy}\NormalTok{(test\_sex)}\OperatorTok{$}\NormalTok{p.value}
 \end{Highlighting}
 \end{Shaded}
 
@@ -530,8 +545,8 @@ Comparing the full model to the model with no sex info, we can see that
 sex does have a significant effect on hours worked per week, with a p
 value of \ensuremath{9.0790857\times 10^{-112}}
 
-\hypertarget{hours-vs.age}{%
-\paragraph{Hours vs.~Age}\label{hours-vs.age}}
+\hypertarget{hours-vs.-age}{%
+\paragraph{Hours vs.~Age}\label{hours-vs.-age}}
 
 \textbf{Hypothesis:} Individuals start to increase work hours in their
 20s as they begin a career and keep increasing or plateauing depending
@@ -603,7 +618,7 @@ raceWhite & -0.4001590 & 0.6579254 & -0.6082134 & 0.5430502\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{tidy}\NormalTok{(test_age)}\OperatorTok{$}\NormalTok{p.value}
+\KeywordTok{tidy}\NormalTok{(test\_age)}\OperatorTok{$}\NormalTok{p.value}
 \end{Highlighting}
 \end{Shaded}
 
@@ -615,8 +630,8 @@ Comparing the full model to the model with no age info, we can see that
 age does have a significant effect on hours worked per week, with a p
 value of \ensuremath{2.507908\times 10^{-51}}
 
-\hypertarget{hours-vs.education}{%
-\paragraph{Hours vs.~Education}\label{hours-vs.education}}
+\hypertarget{hours-vs.-education}{%
+\paragraph{Hours vs.~Education}\label{hours-vs.-education}}
 
 \textbf{Hypothesis:} Higher educational attainment provides job security
 and stability leading to more work hours for higher educated
@@ -669,7 +684,7 @@ p-values.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{tidy}\NormalTok{(test_education)}\OperatorTok{$}\NormalTok{p.value}
+\KeywordTok{tidy}\NormalTok{(test\_education)}\OperatorTok{$}\NormalTok{p.value}
 \end{Highlighting}
 \end{Shaded}
 
@@ -681,8 +696,8 @@ Comparing the full model to the model with no education info, we can see
 that education does have a significant effect on hours worked per week,
 with a p value of \ensuremath{1.0394462\times 10^{-148}}
 
-\hypertarget{hours-vs.race}{%
-\paragraph{Hours vs.~Race}\label{hours-vs.race}}
+\hypertarget{hours-vs.-race}{%
+\paragraph{Hours vs.~Race}\label{hours-vs.-race}}
 
 \textbf{Hypothesis:} Race does not have a correlation with hours worked
 since legal work hours required are not based on race but more on the
@@ -747,7 +762,7 @@ age & -0.0813743 & 0.0053874 & -15.1044823 & 0.0000000\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{tidy}\NormalTok{(test_race)}\OperatorTok{$}\NormalTok{p.value}
+\KeywordTok{tidy}\NormalTok{(test\_race)}\OperatorTok{$}\NormalTok{p.value}
 \end{Highlighting}
 \end{Shaded}
 
@@ -771,5 +786,6 @@ for instance there are 742 women over 60 and 1590 men over 60.
 
 Education, age, sex and relationship all have a very significant effect
 on the number of hours worked per week, while race does not.
+
 
 \end{document}
