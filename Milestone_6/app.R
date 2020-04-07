@@ -171,7 +171,7 @@ heading <- htmlH1("STAT547 Dashboard: Exploration of the Weekly Work Hours of In
 
 authors <- htmlH2("by Carleena Ortega and Saelin Bjornson")
 
-context <- htmlH3("This dashboard explores the Adult Income data set to observe the relationship of several factors such as age, sex, educational level with an individuals number of weekly work hours")
+context <- dccMarkdown("This dashboard explores the [Adult Income data set](http://archive.ics.uci.edu/ml/datasets/Adult) to observe the relationship of several factors such as age, sex, educational level with an individuals number of weekly work hours")
 
 varddown<- htmlLabel("Please select a variable to explore:")
 
